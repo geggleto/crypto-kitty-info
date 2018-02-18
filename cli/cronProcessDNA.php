@@ -10,6 +10,8 @@ $container = $app->getContainer();
 
 $pdo = $container->get(PDO::class);
 
+$statement = $pdo->prepare('update kitties set `gene_hex` = ?, `gene_bin` = ?, gene_kai = ? where id = ?');
+
 $date = date('Ymd', strtotime('yesterday'));
 $file = "/tmp/{$date}.csv";
 print $file;
@@ -23,7 +25,10 @@ while ($line = fgetcsv($fh))
     $genes_bin = $line[7];
     $genes_kai = $line[8];
 
-    var_dump("updating {$id} {$genes_kai}");
-
-    die();
+    $statement->execute([
+        $genes_hex,
+        $genes_bin,
+        $genes_kai,
+        $id
+    ]);
 }
