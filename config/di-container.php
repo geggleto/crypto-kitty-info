@@ -1,9 +1,11 @@
 <?php
 
-
 use GuzzleHttp\Client;
 use Interop\Container\ContainerInterface;
 use Monolog\Logger;
+
+$dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+$dotenv->load();
 
 return [
     Client::class => function (ContainerInterface $container) {
