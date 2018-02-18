@@ -1,0 +1,16 @@
+{
+    "require": {
+        "slim/slim": "^3.9",
+        "php-di/slim-bridge": "^1.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "chrisboulton/php-resque": "^1.2",
+        "vlucas/phpdotenv": "^2.4",
+        "monolog/monolog": "^1.23",
+        "bunny/bunny": "^0.2.4"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Kitty\\" : "src"
+        }
+    }
+}
