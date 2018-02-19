@@ -160,4 +160,13 @@ class KittyService
 
         return $result['max'];
     }
+
+    public function findBody($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where genes_kai = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
