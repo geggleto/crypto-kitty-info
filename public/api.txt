@@ -15,7 +15,9 @@ Lists all Kittens in the Database with the code
 
 Lists the Kai Codes for a kitten
 /dna/kitty/{kittyId}
+/dna/kitty/{kittyId}/pretty
 
 Sample:
 198.211.101.215/dna/body/cccc
 198.211.101.215/dna/kitty/45000
+198.211.101.215/dna/kitty/45000/pretty

@@ -22,6 +22,8 @@ $app->get('/dna/wild/{code}', [DnaController::class, 'searchWild']);
 $app->get('/dna/mouth/{code}', [DnaController::class, 'searchMouth']);
 
 $app->get('/dna/kitty/{kittenId}', [DnaController::class, 'searchForKitten']);
+$app->get('/dna/kitty/{kittenId}/pretty', [DnaController::class, 'searchForKittenPretty']);
+
 
 
 $app->run();
