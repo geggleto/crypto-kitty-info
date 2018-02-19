@@ -70,7 +70,7 @@ class KittyService
 
         if (!empty($row['enhanced_cattributes'])) {
 
-            $cat_attr = json_decode($row['enhanced_cattributes'], true);
+            $cat_attr = $row['enhanced_cattributes'];
 
             foreach ($cat_attr as $cat) {
 
