@@ -145,7 +145,7 @@ class KittyService
 
             $json = json_decode($response->getBody()->__toString(), true);
 
-            return Buffer::hex($json['result'])->getInt();
+            return hexdec(substr($json['result'], strlen($json['result'])-10))
         } catch (\Exception $exception) {
             return false;
         }

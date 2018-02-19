@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Client;
 use Kitty\KittyApp;
 use Kitty\Services\KittyService;
 
