@@ -23,6 +23,4 @@ for ($x=$dbAt+1; $x<=$contractMax; $x++) {
     print "Loading Kitty: $x\n";
 
     $kittyService->insertKitty($x);
-
-    die();
 }
