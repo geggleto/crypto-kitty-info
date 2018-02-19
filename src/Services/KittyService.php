@@ -143,7 +143,7 @@ class KittyService
         try {
             $response = $this->client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params=' . urlencode('[{"to":"0x06012c8cf97BEaD5deAe237070F9587f8E7A266d", "data":"0x18160ddd"},"latest"]'));
 
-            $json = json_decode($response->getBody()->__toString());
+            $json = json_decode($response->getBody()->__toString(), true);
 
             return (new Buffer($json['result']))->getInt();
         } catch (\Exception $exception) {
