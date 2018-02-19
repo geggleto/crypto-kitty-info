@@ -1,0 +1,14 @@
+End-Points
+
+/dna/body/{code}
+/dna/body/color/{code}
+/dna/pattern/{code}
+/dna/pattern/color/{code}
+/dna/eye/color/{code}
+/dna/eye/type/{code}
+/dna/secondary/color/{code}
+/dna/wild/{code}
+/dna/mouth/{code}
+
+Sample:
+198.211.101.215/dna/body/cccc
