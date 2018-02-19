@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use PDO;
 use function urlencode;
 use BitWasp\Buffertools\Buffer;
+use function var_dump;
 
 class KittyService
 {
@@ -145,7 +146,7 @@ class KittyService
 
             $json = json_decode($response->getBody()->__toString(), true);
 
-            return (new Buffer($json['result']))->getInt();
+            return (new Buffer(substr($json['result'],2)))->getInt();
         } catch (\Exception $exception) {
             return false;
         }
