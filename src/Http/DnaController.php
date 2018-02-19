@@ -94,6 +94,6 @@ class DnaController
     }
 
     public function searchForKitten($kittenId, Request $request, Response $response) {
-        return $response->withJson($this->kittyService->findMouth($kittenId));
+        return $response->withJson($this->kittyService->findKitten($kittenId));
     }
 }
