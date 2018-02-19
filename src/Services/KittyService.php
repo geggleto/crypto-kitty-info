@@ -150,4 +150,12 @@ class KittyService
             return false;
         }
     }
+
+    public function getMaxInDb()
+    {
+        $statement = $this->PDO->query('select max(id) as `max` from kitties;');
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['max'];
+    }
 }

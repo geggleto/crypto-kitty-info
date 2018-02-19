@@ -13,4 +13,9 @@ $container = $app->getContainer();
 /** @var $kittyService KittyService */
 $kittyService = $container->get(KittyService::class);
 
-print $kittyService->getMaximumKittyFromContract();
+$contractMax = $kittyService->getMaximumKittyFromContract();
+
+$dbAt = $kittyService->getMaxInDb();
+
+print "Contract At {$contractMax} and Database At : {$dbAt}\n";
+
