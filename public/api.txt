@@ -1,5 +1,7 @@
 End-Points
 
+{code} must be 4 Kai Codes
+
 /dna/body/{code}
 /dna/body/color/{code}
 /dna/pattern/{code}
