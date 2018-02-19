@@ -178,4 +178,70 @@ class KittyService
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function findEyeColor($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 37,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findEyeType($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 33,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findBodyColor($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 29,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findPatternColour($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 25,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findSecondaryColour($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 21,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findWild($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 17,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function findMouth($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 13,4) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }
