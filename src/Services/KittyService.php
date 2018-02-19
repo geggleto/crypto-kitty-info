@@ -3,9 +3,10 @@
 
 namespace Kitty\Services;
 
-
 use GuzzleHttp\Client;
 use PDO;
+use function urlencode;
+use BitWasp\Buffertools\Buffer;
 
 class KittyService
 {
@@ -131,6 +132,20 @@ class KittyService
             $response = $this->client->get('https://api.cryptokitties.co/kitties/' . (int)$kittyId);
 
             return $response->getBody()->__toString();
+        } catch (\Exception $exception) {
+            return false;
+        }
+    }
+
+    public function getMaximumKittyFromContract()
+    {
+
+        try {
+            $response = $this->client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params=' . urlencode('[{"to":"0x06012c8cf97BEaD5deAe237070F9587f8E7A266d", "data":"0x18160ddd"},"latest"]'));
+
+            $json = json_decode($response->getBody()->__toString());
+
+            return (new Buffer($json['result']))->getInt();
         } catch (\Exception $exception) {
             return false;
         }
