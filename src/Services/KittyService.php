@@ -46,8 +46,11 @@ class KittyService
             return false;
         }
 
-        $stmt = $this->PDO->prepare('insert into kitties (kitty, id) VALUES(?, ?);');
-        $stmt->execute([$kittyBody, $kittyId]);
+        $row = json_decode($kittyBody, true);
+
+
+        $stmt = $this->PDO->prepare('insert into kitties (kitty, id, gen) VALUES(?, ?, ?);');
+        $stmt->execute([$kittyBody, $kittyId, $row['generation']]);
 
         //Stats
         $updateStatement = $this->PDO->prepare('
@@ -60,7 +63,6 @@ class KittyService
     mewtations = ? 
     where `id` = ? LIMIT 1;');
 
-        $row = json_decode($kittyBody, true);
 
         $diamond = 0;
         $gold = 0;
