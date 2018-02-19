@@ -13,4 +13,4 @@ $container = $app->getContainer();
 /** @var $kittyService KittyService */
 $kittyService = $container->get(KittyService::class);
 
-var_dump($kittyService->findBody('cccc'));
+var_dump($kittyService->findPattern('cccc'));

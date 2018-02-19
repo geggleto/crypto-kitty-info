@@ -163,7 +163,16 @@ class KittyService
 
     public function findBody($kai = '')
     {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where genes_kai = ?');
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 45) = ?');
+
+        $statement->execute([$kai]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findPattern($kai = '')
+    {
+        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 41,4) = ?');
 
         $statement->execute([$kai]);
 
