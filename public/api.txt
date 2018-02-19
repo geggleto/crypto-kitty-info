@@ -2,6 +2,7 @@ End-Points
 
 {code} must be 4 Kai Codes
 
+Lists all Kittens in the Database with the code
 /dna/body/{code}
 /dna/body/color/{code}
 /dna/pattern/{code}
@@ -12,5 +13,9 @@ End-Points
 /dna/wild/{code}
 /dna/mouth/{code}
 
+Lists the Kai Codes for a kitten
+/dna/kitty/{kittyId}
+
 Sample:
 198.211.101.215/dna/body/cccc
+198.211.101.215/dna/kitty/45000

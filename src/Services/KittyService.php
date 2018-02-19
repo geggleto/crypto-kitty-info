@@ -5,6 +5,7 @@ namespace Kitty\Services;
 
 use GuzzleHttp\Client;
 use PDO;
+use function substr;
 use function urlencode;
 use BitWasp\Buffertools\Buffer;
 
@@ -243,5 +244,27 @@ class KittyService
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function findKitten($kitten)
+    {
+        $statement = $this->PDO->prepare('select `genes_kai` as `dna` from kitties where `id` = ?');
+
+        $statement->execute([$kitten]);
+
+        $kitten = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return [
+            'dna' => $kitten['dna'],
+            'body' => substr($kitten['dna'], 44, 4),
+            'pattern' => substr($kitten['dna'], 40, 4),
+            'eyecolor' => substr($kitten['dna'], 36, 4),
+            'eyetype' => substr($kitten['dna'], 32, 4),
+            'bodycolor' => substr($kitten['dna'], 28, 4),
+            'patterncolor' => substr($kitten['dna'], 24, 4),
+            'secondarycolor' => substr($kitten['dna'], 20, 4),
+            'wild' => substr($kitten['dna'], 16, 4),
+            'mouth' => substr($kitten['dna'], 12, 4)
+        ];
+
+    }
 
 }
