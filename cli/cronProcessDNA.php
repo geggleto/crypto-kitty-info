@@ -20,11 +20,7 @@ $updateStatement = $pdo->prepare('update kitties set genes_hex = ?, genes_bin = 
 while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
     $id = $row['id'];
 
-    print "Process $id\n";
-
     $dna = KittyService::getDnaFromContract($id);
 
     $updateStatement->execute([ $dna['hex'], $dna['bin'], $dna['kai'], $id]);
-
-    die();
 }
