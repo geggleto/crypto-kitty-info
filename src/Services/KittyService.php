@@ -644,7 +644,7 @@ class KittyService
 
     public static function getDnaFromContract($kittenId)
     {
-        $hexId = dechex(45000);
+        $hexId = dechex($kittenId);
 
         while (strlen($hexId) < 8) {
             $hexId = '0'.$hexId;
