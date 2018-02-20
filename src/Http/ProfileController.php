@@ -25,7 +25,7 @@ class ProfileController
     public function __invoke($profile, Request $request, Response $response)
     {
         set_time_limit(0);
-        $ids = KittyService::getAllKittiesOnProfile($profile);
+        $ids = KittyService::getAllKittiesOnProfile(strtolower($profile));
 
         $result = [];
 
