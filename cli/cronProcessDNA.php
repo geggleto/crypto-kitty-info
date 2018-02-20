@@ -20,7 +20,11 @@ $updateStatement = $pdo->prepare('update kitties set genes_hex = ?, genes_bin = 
 while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
     $id = $row['id'];
 
-    $dna = KittyService::getDnaFromContract($id);
+    try {
+        $dna = KittyService::getDnaFromContract($id);
 
-    $updateStatement->execute([ $dna['hex'], $dna['bin'], $dna['kai'], $id]);
+        $updateStatement->execute([$dna['hex'], $dna['bin'], $dna['kai'], $id]);
+    } catch (\Exception $exception) {
+        print "Failed to load DNA\n";
+    }
 }
