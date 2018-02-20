@@ -1,6 +1,7 @@
 <?php
 
 use Kitty\KittyApp;
+use Kitty\Services\KittyService;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
@@ -10,35 +11,18 @@ $container = $app->getContainer();
 
 $pdo = $container->get(PDO::class);
 
-$statement = $pdo->prepare('update kitties set `genes_hex` = ?, `genes_bin` = ?, genes_kai = ? where id = ?');
+$statement = $pdo->query('select id from kitties where genes_kai IS null');
 
-$date = date('Ymd', strtotime('yesterday'));
-$file = "/tmp/{$date}.csv";
-print $file;
+$updateStatement = $pdo->prepare('update kitties set genes_hex = ?, genes_bin = ?, genes_kai =? where id = ?');
 
-$fh = fopen($file, 'r');
+while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+    $id = $row['id'];
 
-$row = 0;
-while ($line = fgetcsv($fh))
-{
-    if ($row == 0) {
-        $row++;
-        continue;
-    }
+    print "Process $id\n";
 
-    $id = $line[0];
-    $genes_hex = $line[6];
-    $genes_bin = $line[7];
-    $genes_kai = $line[8];
+    $dna = KittyService::getDnaFromContract($id);
 
-    if (!$statement->execute([
-        $genes_hex,
-        $genes_bin,
-        $genes_kai,
-        $id
-    ])) {
-        print "Error\n\n";
-        print $statement->errorInfo();
-        print_r($statement->errorInfo());
-    }
+    $updateStatement->execute([ $dna['hex'], $dna['bin'], $dna['kai'], $id]);
+
+    die();
 }
