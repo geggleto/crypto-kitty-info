@@ -1,6 +1,7 @@
 <?php
 
 use Kitty\Http\DnaController;
+use Kitty\Http\ProfileController;
 use Kitty\KittyApp;
 
 include_once __DIR__ . '/../vendor/autoload.php';
@@ -24,6 +25,6 @@ $app->get('/dna/mouth/{code}', [DnaController::class, 'searchMouth']);
 $app->get('/dna/kitty/{kittenId}', [DnaController::class, 'searchForKitten']);
 $app->get('/dna/kitty/{kittenId}/pretty', [DnaController::class, 'searchForKittenPretty']);
 
-
+$app->get('/dna/profile/{profile}', ProfileController::class);
 
 $app->run();
