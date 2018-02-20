@@ -17,10 +17,10 @@ $contractMax = $kittyService->getMaximumKittyFromContract();
 
 $dbAt = $kittyService->getMaxInDb();
 
-print "Contract At {$contractMax} and Database At : {$dbAt}\n";
+//print "Contract At {$contractMax} and Database At : {$dbAt}\n";
 
 for ($x=$dbAt+1; $x<=$contractMax; $x++) {
-    print "Loading Kitty: $x\n";
+    //print "Loading Kitty: $x\n";
 
     $kittyService->insertKitty($x);
 }
