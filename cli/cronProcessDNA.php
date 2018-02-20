@@ -3,6 +3,8 @@
 use Kitty\KittyApp;
 use Kitty\Services\KittyService;
 
+set_time_limit(0);
+
 include_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new KittyApp();
