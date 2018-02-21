@@ -20,8 +20,12 @@ class BunnyProducer
      */
     private $channel;
 
+    private $queue;
+
     public function __construct(Client $client, $queue)
     {
+        $this->queue = $queue;
+
         $this->client = $client;
         $this->client->connect();
         $this->channel = $this->client->channel();
@@ -43,6 +47,6 @@ class BunnyProducer
     }
 
     public function publish($x) {
-        $this->channel->publish(\json_encode(['args' => ['kittyId' => $x]]),[],'','api');
+        $this->channel->publish(\json_encode(['args' => ['kittyId' => $x]]),[],'', $this->queue);
     }
 }
