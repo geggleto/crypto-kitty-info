@@ -4,6 +4,7 @@
 namespace Kitty\Http;
 
 
+use function array_map;
 use function implode;
 use const JSON_PRETTY_PRINT;
 use Kitty\Services\KittyService;
@@ -51,7 +52,13 @@ class ProfileController
         foreach ($ids as $id) {
             $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
 
-            $response = $response->write(implode(',', $result[$id])."\n");
+            $response->write($id.',');
+
+            $dna = array_map(function ($dna) {
+                return implode(',', $dna);
+            }, $result[$id]);
+
+            $response = $response->write(implode(',', $dna)."\n");
         }
 
         return $response
