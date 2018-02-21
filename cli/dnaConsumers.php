@@ -7,7 +7,12 @@ use Kitty\KittyApp;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
+set_time_limit(0);
+
+include_once __DIR__ . '/../vendor/autoload.php';
+
 $app = new KittyApp();
+
 $container = $app->getContainer();
 
 $bunny = new Client(
