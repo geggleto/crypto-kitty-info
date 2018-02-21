@@ -63,6 +63,6 @@ class ProfileController
 
         return $response
                 ->withHeader('Content-Disposition', 'attachment')
-                ->withHeader('filename', substr($profile, -2) . '.csv');
+                ->withHeader('filename', 'profile.csv');
     }
 }
