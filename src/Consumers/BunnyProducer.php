@@ -47,6 +47,7 @@ class BunnyProducer
     }
 
     public function publish($x) {
+        print $x . '\n';
         $this->channel->publish(\json_encode(['args' => ['kittyId' => $x]]),[],'', $this->queue);
     }
 }
