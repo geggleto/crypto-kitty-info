@@ -27,4 +27,6 @@ $app->get('/dna/kitty/{kittenId}/pretty', [DnaController::class, 'searchForKitte
 
 $app->get('/dna/profile/{profile}', ProfileController::class);
 
+$app->get('/dna/profile/{profile}/csv', [ProfileController::class, 'exportToCsv']);
+
 $app->run();

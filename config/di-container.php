@@ -8,6 +8,7 @@ $dotenv = new Dotenv\Dotenv(__DIR__.'/../');
 $dotenv->load();
 
 return [
+    'settings.displayErrorDetails' => true,
     Client::class => function (ContainerInterface $container) {
         return new Client();
     },
