@@ -45,7 +45,7 @@ class BunnyConsumer
 
         $this->channel->qos(
             0, // Prefetch size
-            15  // Prefetch count
+            5  // Prefetch count
         );
     }
 
