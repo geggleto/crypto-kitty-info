@@ -62,7 +62,8 @@ class ProfileController
         }
 
         return $response
-                ->withHeader('Content-Disposition', 'attachment')
-                ->withHeader('filename', 'profile.csv');
+                ->withHeader('Content-Type', 'text/csv')
+                ->withHeader('Content-Disposition', 'attachment; filename="profile.csv"');
+
     }
 }
