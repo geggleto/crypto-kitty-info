@@ -52,7 +52,7 @@ class ProfileController
         foreach ($ids as $id) {
             $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
 
-            $response->write($id.',');
+            $response->write($id);
 
             $dna = array_map(function ($dna) {
                 return implode(',', $dna);
