@@ -70,6 +70,8 @@ class ProfileController
             }
         }
 
-        return $response;
+        return $response
+                ->withHeader('Content-Disposition', 'attachment')
+                ->withHeader('filename', $profile . '.csv');
     }
 }
