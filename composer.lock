@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8fe4d337ee862a5e66b17c56ec1295ca",
-    "content-hash": "4cdcc0786910bed7d0ee129ecc625a8b",
+    "hash": "da0b0e57205a2dec1f3dea1586f779f0",
+    "content-hash": "298c0799dab6184b9bcdecf12cee296b",
     "packages": [
         {
             "name": "bitwasp/buffertools",
@@ -54,39 +54,32 @@
         },
         {
             "name": "bunny/bunny",
-            "version": "v0.2.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakubkulhan/bunny.git",
-                "reference": "f81da29e8a279af2b9af80fa041b84497a26ddf8"
+                "reference": "d0dec8fbbac4e4edd6cdc892fe14cfa607c386ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakubkulhan/bunny/zipball/f81da29e8a279af2b9af80fa041b84497a26ddf8",
-                "reference": "f81da29e8a279af2b9af80fa041b84497a26ddf8",
+                "url": "https://api.github.com/repos/jakubkulhan/bunny/zipball/d0dec8fbbac4e4edd6cdc892fe14cfa607c386ce",
+                "reference": "d0dec8fbbac4e4edd6cdc892fe14cfa607c386ce",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
+                "php": "~7.0",
                 "psr/log": "~1.0",
                 "react/event-loop": "~0.4",
                 "react/promise": "~2.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.5"
+                "phpunit/phpunit": "~6.5"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Bunny\\": [
-                        "src/Bunny/",
-                        "test/Bunny/"
-                    ]
-                },
-                "classmap": [
-                    "src/Bunny/",
-                    "test/Bunny/"
-                ]
+                    "Bunny\\": "src/Bunny/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -113,7 +106,7 @@
                 "react-php",
                 "reactphp"
             ],
-            "time": "2016-09-13 18:57:54"
+            "time": "2018-01-28 18:58:53"
         },
         {
             "name": "chrisboulton/php-resque",
@@ -1082,7 +1075,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "bunny/bunny": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

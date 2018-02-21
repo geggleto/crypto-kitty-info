@@ -6,7 +6,7 @@
         "chrisboulton/php-resque": "^1.2",
         "vlucas/phpdotenv": "^2.4",
         "monolog/monolog": "^1.23",
-        "bunny/bunny": "^0.2.4",
+        "bunny/bunny": "@dev",
         "bitwasp/buffertools": "^0.5.0"
     },
     "autoload" : {

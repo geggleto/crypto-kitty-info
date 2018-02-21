@@ -45,11 +45,11 @@ class BunnyConsumer
 
         $this->channel->qos(
             0, // Prefetch size
-            5  // Prefetch count
+            15  // Prefetch count
         );
     }
 
-    public function run($queue) {
+    public function run() {
         $this->channel->run(
             function (Message $message, Channel $channel, Client $bunny) {
 
@@ -66,7 +66,7 @@ class BunnyConsumer
 
                 $channel->reject($message, false); // Mark message fail, message will be redelivered
             },
-            $queue
+            $this->consumer->getRoutingKey()
         );
     }
 }
