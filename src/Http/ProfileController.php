@@ -45,29 +45,13 @@ class ProfileController
 
         $result = [];
 
-        foreach ($ids as $id) {
-            $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
-        }
-
-        $categories = [
-            'mouth' => 4,
-            'wild' => 5,
-            'secondarycolor' => 6,
-            'patterncolor' => 7,
-            'bodycolor' => 8,
-            'eyetype' => 9,
-            'eyecolor' => 10,
-            'pattern' => 11,
-            'body' => 12
-        ];
-
         $response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
 
-        foreach ($categories as $categoryName => $categoryId)
-        {
-            foreach ($ids as $id) {
-                $response = $response->write(implode(',', $result['id'])."\n");
-            }
+
+        foreach ($ids as $id) {
+            $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
+
+            $response = $response->write(implode(',', $result[$id])."\n");
         }
 
         return $response
