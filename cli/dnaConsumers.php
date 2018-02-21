@@ -17,7 +17,7 @@ $container = $app->getContainer();
 
 $bunny = new Client(
     [
-        'host'      => getenv('RABBIT_HOST'),
+        'host'      => 'localhost:5673',
         'vhost'     => '/',    // The default vhost is /
         'user'      => getenv('RABBIT_USER'), // The default user is guest
         'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
