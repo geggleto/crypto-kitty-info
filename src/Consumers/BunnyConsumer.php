@@ -28,7 +28,9 @@ class BunnyConsumer
     public function __construct(Client $client, ConsumerInterface $consumer)
     {
         $this->client = $client;
+
         $this->client->connect();
+
         $this->channel = $this->client->channel();
 
         $this->channel->exchangeDeclare('dlx', 'topic', false, 'true');

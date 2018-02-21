@@ -5,8 +5,6 @@ use Kitty\Consumers\BunnyConsumer;
 use Kitty\Consumers\DnaConsumer;
 use Kitty\KittyApp;
 
-include_once __DIR__ . '/../vendor/autoload.php';
-
 set_time_limit(0);
 
 include_once __DIR__ . '/../vendor/autoload.php';
