@@ -927,7 +927,7 @@ class KittyService
         return 'substr(genes_kai, 13,4) LIKE ?';
     }
 
-    public function writeCsv(array $ids, Response $response, $filename = 'profile.php') {
+    public function writeCsv(array $ids, Response $response, $filename = 'profile.csv') {
         $result = [];
 
         //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
