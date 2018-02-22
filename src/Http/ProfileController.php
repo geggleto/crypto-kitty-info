@@ -44,29 +44,7 @@ class ProfileController
 
         $ids = KittyService::getAllKittiesOnProfile(strtolower($profile));
 
-        $result = [];
-
-        //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
-        $response = $response->write('kittyId,Gen,Fur,,,,Pattern,,,,Eye Color,,,,Eye Shape,,,,Base Color,,,,Highlight Color,,,,Accent Color,,,,Wild,,,,Mouth,,,,'."\n");
-
-        foreach ($ids as $id) {
-
-            $kitty = $this->kittyService->getKittyGen($id);
-
-            $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
-
-            $response->write($id.','.$kitty['gen']);
-
-            $dna = array_map(function ($dna) {
-                return implode(',', $dna);
-            }, $result[$id]);
-
-            $response = $response->write(implode(',', $dna)."\n");
-        }
-
-        return $response
-                ->withHeader('Content-Type', 'text/csv')
-                ->withHeader('Content-Disposition', 'attachment; filename="profile.csv"');
+        return $this->kittyService->writeCsv($ids, $response);
 
     }
 }

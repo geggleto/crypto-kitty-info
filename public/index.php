@@ -3,6 +3,7 @@
 use Kitty\Http\DnaController;
 use Kitty\Http\HomePage;
 use Kitty\Http\ProfileController;
+use Kitty\Http\SearchDnaController;
 use Kitty\KittyApp;
 
 include_once __DIR__ . '/../vendor/autoload.php';
@@ -31,5 +32,7 @@ $app->get('/dna/profile/{profile}', ProfileController::class);
 $app->get('/dna/profile/{profile}/csv', [ProfileController::class, 'exportToCsv']);
 
 $app->get('/', HomePage::class);
+
+$app->get('/search', SearchDnaController::class);
 
 $app->run();

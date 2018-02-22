@@ -6,8 +6,10 @@ namespace Kitty\Services;
 use function array_map;
 use GuzzleHttp\Client;
 use PDO;
+use Slim\Http\Response;
 use function substr;
 use function urlencode;
+use function usleep;
 use function var_dump;
 
 class KittyService
@@ -430,14 +432,14 @@ class KittyService
 
         //Stats
         $updateStatement = $this->PDO->prepare('
-  update kitties 
-  set 
-    diamond_jewel_count = ?, 
-    gilded_jewel_count = ?, 
-    amethyst_jewel_count = ?, 
-    lapis_jewel_count = ?, 
-    mewtations = ? 
-    where `id` = ? LIMIT 1;');
+          update kitties 
+          set 
+            diamond_jewel_count = ?, 
+            gilded_jewel_count = ?, 
+            amethyst_jewel_count = ?, 
+            lapis_jewel_count = ?, 
+            mewtations = ? 
+            where `id` = ? LIMIT 1;');
 
 
         $diamond = 0;
@@ -642,24 +644,6 @@ class KittyService
 
     }
 
-    //Get Sale Info
-    public static function getSaleInfo($kittenId)
-    {
-        $hexId = dechex($kittenId);
-
-        while (strlen($hexId) < 8) {
-            $hexId = '0'.$hexId;
-        }
-
-        $client = new Client();
-
-        $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0x78bd793500000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
-
-        $json = json_decode($response->getBody()->__toString(), true);
-
-        return (strlen($json['result']) > 8);
-    }
-
     public static function getDnaFromContract($kittenId)
     {
         $hexId = dechex($kittenId);
@@ -815,5 +799,189 @@ class KittyService
         $statement->execute([$kittyId]);
 
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    //Get Sale Info
+    public static function getSaleInfo($kittenId)
+    {
+        $hexId = dechex($kittenId);
+
+        while (strlen($hexId) < 8) {
+            $hexId = '0'.$hexId;
+        }
+
+        $client = new Client();
+
+        $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0x78bd793500000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
+
+        $json = json_decode($response->getBody()->__toString(), true);
+
+        return (strlen($json['result']) > 8);
+    }
+
+    //Get Sale Info
+    public static function getMultipleSaleInfo(array $kittens)
+    {
+        $out = [];
+        foreach ($kittens as $kitten) {
+            $out[] = self::getSaleInfo($kitten);
+            usleep(200000);
+        }
+
+        return $out;
+    }
+
+    public function findKittiesFromArray(array $params) {
+        //Query Builder
+        $queryString = 'select id from kitties where ';
+
+        $filters = [];
+        $values = [];
+
+        foreach ($params as $param => $value) {
+            if ($param='gen') {
+                $filters[] = $this->getGenFilter();
+            } else if ($param='genU') {
+                $filters[] = $this->getGenUpFilter();
+            } else if ($param='genD') {
+                $filters[] = $this->getGenDownFilter();
+            } else if ($param='body') {
+                $filters[] = $this->getBodyFilter();
+            } else if ($param='bodyColor') {
+                $filters[] = $this->getBodyColorFilter();
+            } else if ($param='pattern') {
+                $filters[] = $this->getPatternFilter();
+            } else if ($param='eyeColor') {
+                $filters[] = $this->getEyeColorFilter();
+            } else if ($param='eyeShape') {
+                $filters[] = $this->getEyeShapeFilter();
+            } else if ($param='highlightColor') {
+                $filters[] = $this->getHighlightColorFilter();
+            } else if ($param='accentColor') {
+                $filters[] = $this->getAccentColorFilter();
+            } else if ($param='wild') {
+                $filters[] = $this->getWildFilter();
+            } else if ($param='mouth') {
+                $filters[] = $this->getMouthFilter();
+            } else {
+                continue;
+            }
+
+            if (strlen($value) === 4) {
+                $values[] = str_replace('*','_', $value);
+            } else {
+                throw new \InvalidArgumentException('Values must be 4 kai codes');
+            }
+        }
+
+        $statement = $this->PDO->prepare($queryString . implode(' AND ', $filters) . ' LIMIT 25');
+        $statement->execute($values);
+
+        return $statement->fetchAll();
+    }
+
+    protected function getGenFilter() {
+        return 'gen = ?';
+    }
+
+    protected function getGenUpFilter() {
+        return 'gen => ?';
+    }
+
+    protected function getGenDownFilter() {
+        return 'gen =< ?';
+    }
+
+    protected function getBodyFilter() {
+        return 'substr(genes_kai, 45) LIKE ?';
+    }
+
+    protected function getPatternFilter() {
+        return 'substr(genes_kai, 41,4) LIKE ?';
+    }
+
+    protected function getEyeColorFilter() {
+        return 'substr(genes_kai, 37,4) LIKE ?';
+    }
+    protected function getEyeShapeFilter() {
+        return 'substr(genes_kai, 33,4) LIKE ?';
+    }
+
+    protected function getBodyColorFilter() {
+        return 'substr(genes_kai, 29,4) LIKE ?';
+    }
+
+    protected function getHighlightColorFilter() {
+        return 'substr(genes_kai, 25,4) LIKE ?';
+    }
+
+    protected function getAccentColorFilter() {
+        return 'substr(genes_kai, 21,4) LIKE ?';
+    }
+
+    protected function getWildFilter() {
+        return 'substr(genes_kai, 17,4) LIKE ?';
+    }
+
+    protected function getMouthFilter() {
+        return 'substr(genes_kai, 13,4) LIKE ?';
+    }
+
+    public function writeCsv(array $ids, Response $response, $filename = 'profile.php') {
+        $result = [];
+
+        //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
+        $response = $response->write('kittyId,Gen,Fur,,,,Pattern,,,,Eye Color,,,,Eye Shape,,,,Base Color,,,,Highlight Color,,,,Accent Color,,,,Wild,,,,Mouth,,,,'."\n");
+
+        foreach ($ids as $id) {
+
+            $kitty = $this->getKittyGen($id);
+
+            $result[$id] = $this->getPrettyDnaKitten($id);
+
+            $response->write($id.','.$kitty['gen']);
+
+            $dna = array_map(function ($dna) {
+                return implode(',', $dna);
+            }, $result[$id]);
+
+            $response = $response->write(implode(',', $dna)."\n");
+        }
+
+        return $response
+            ->withHeader('Content-Type', 'text/csv')
+            ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
+
+    }
+
+    public function writeCsvWithSales(array $ids, Response $response, $filename = 'profile.php') {
+        $result = [];
+
+        //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
+        $response = $response->write('kittyId,Gen,Sale,Fur,,,,Pattern,,,,Eye Color,,,,Eye Shape,,,,Base Color,,,,Highlight Color,,,,Accent Color,,,,Wild,,,,Mouth,,,,'."\n");
+
+        foreach ($ids as $id) {
+
+            $kitty = $this->getKittyGen($id);
+
+            $result[$id] = $this->getPrettyDnaKitten($id);
+
+            $forSale = self::getSaleInfo($id);
+
+            $isItForSale = $forSale ? 'Yes' : 'No';
+
+            $response->write($id.','.$kitty['gen'].','.$isItForSale);
+
+            $dna = array_map(function ($dna) {
+                return implode(',', $dna);
+            }, $result[$id]);
+
+            $response = $response->write(implode(',', $dna)."\n");
+        }
+
+        return $response
+            ->withHeader('Content-Type', 'text/csv')
+            ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
+
     }
 }

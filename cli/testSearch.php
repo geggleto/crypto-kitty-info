@@ -9,4 +9,10 @@ $app = new KittyApp();
 
 $container = $app->getContainer();
 
-var_dump(KittyService::getSaleInfo(524741));
+$service = $container->get(KittyService::class);
+
+var_dump($service->findKittiesFromArray(
+    [
+        'body' => '__cc'
+    ]
+));
