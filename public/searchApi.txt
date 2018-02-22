@@ -1,0 +1,31 @@
+End-Point: http://dna.cryptokittydata.info/search
+
+Query Params:
+gen
+genU
+genD
+body
+bodyColor
+pattern
+eyeColor
+eyeShape
+highlightColor
+accentColor
+wild
+mouth
+
+Values:
+Any valid Kai Code Sequence (must be 4 characters in length)
+You may use _ as a wildcard character
+
+Kai Codes:
+The Kai Code Sequence is backwords (lol CK).
+
+R3 R2 R1 D0
+
+_  _  c   c  //Search for D0R1 with R2R3 wild
+
+c  _  _   _  //Search for R3 rest wild
+
+Sample URLs:
+http://dna.cryptokittydata.info/search?body=__cc&pattern=__cc&genU=1
