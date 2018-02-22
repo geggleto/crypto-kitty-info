@@ -982,13 +982,13 @@ class KittyService
             $id = $idResult['id'];
             $gen = $idResult['gen'];
 
-            $result[$id] = $this->getPrettyDnaKitten($id);
-
             $forSale = self::getSaleInfo($id);
 
             $isItForSale = $forSale ? 'Yes' : 'No';
 
             if ( ($onsale && $forSale) || !$onsale) {
+
+                $result[$id] = $this->getPrettyDnaKitten($id);
                 $result[$id]['id'] = $id;
                 $result[$id]['gen'] = $gen;
                 $result[$id]['forSale'] = $isItForSale;
