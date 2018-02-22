@@ -883,7 +883,7 @@ class KittyService
             }
         }
 
-        $query = $queryString . implode(' AND ', $filters) . ' LIMIT 25';
+        $query = $queryString . implode(' AND ', $filters) . ' LIMIT 50';
 
         //$this->logger->addDebug('Searching DB');
         //$this->logger->addDebug($query);
@@ -974,7 +974,7 @@ class KittyService
 
     }
 
-    public function writeCsvWithSales(array $ids, Response $response, $filename = 'search.csv') {
+    public function writeCsvWithSales(array $ids, Response $response, $filename = 'search.csv', $onsale = false) {
         $result = [];
 
         //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
@@ -991,13 +991,16 @@ class KittyService
 
             $isItForSale = $forSale ? 'Yes' : 'No';
 
-            $response->write($id.','.$gen.','.$isItForSale);
+            if ( ($onsale && $forSale) || !$onsale) {
 
-            $dna = array_map(function ($dna) {
-                return implode(',', $dna);
-            }, $result[$id]);
+                $response->write($id . ',' . $gen . ',' . $isItForSale);
 
-            $response = $response->write(implode(',', $dna)."\n");
+                $dna = array_map(function ($dna) {
+                    return implode(',', $dna);
+                }, $result[$id]);
+
+                $response = $response->write(implode(',', $dna) . "\n");
+            }
         }
 
         return $response

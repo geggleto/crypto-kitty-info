@@ -30,7 +30,9 @@ class SearchDnaController
 
         $kitties = $this->kittyService->findKittiesFromArray($params);
 
-        return $this->kittyService->writeCsvWithSales($kitties, $response);
+        $onsale = isset($params['onsale']);
+
+        return $this->kittyService->writeCsvWithSales($kitties, $response, 'search.csv', $onsale);
     }
 
 }
