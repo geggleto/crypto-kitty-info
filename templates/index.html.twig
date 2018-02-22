@@ -46,7 +46,7 @@
 
     <div class="field is-grouped">
         <div class="control">
-            <a class="button is-link" v-bind:href="getUrl">Download</a>
+            <a class="button is-link" v-bind:href="getUrl()">Download</a>
         </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
         },
         methods : {
             getUrl : function () {
-                return '/dna/profile/'+this.profile+'/csv';
+                return 'http://dna.cryptokittydata.info//dna/profile/'+this.profile+'/csv';
             }
         },
         delimiters : ['<%', '%>']
