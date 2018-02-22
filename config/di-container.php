@@ -25,7 +25,7 @@ return [
     },
     Twig::class => function ($c) {
         $view = new \Slim\Views\Twig(__DIR__.'/../templates', [
-            'cache' => __DIR__.'/../cache'
+            'cache' => false
         ]);
 
         // Instantiate and add Slim specific extension
