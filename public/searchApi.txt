@@ -14,6 +14,8 @@ accentColor
 wild
 mouth
 
+onsale=whatever <--only shows cats with sale=yes
+
 Values:
 Any valid Kai Code Sequence (must be 4 characters in length)
 You may use _ as a wildcard character
