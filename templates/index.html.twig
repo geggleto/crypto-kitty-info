@@ -35,22 +35,23 @@
         </div>
     </div>
 </section>
-<div class="container is-fullhd" id="app">
-    <h1 class="has-text-weight-bold is-size-1">DNA Profile</h1>
-    <div class="field">
-        <label class="label">Profile Address (0x...)</label>
-        <div class="control">
-            <input class="input" type="text" placeholder="Ethereum Address" v-model="profile">
+<section class="section">
+    <div class="container is-fullhd" id="app">
+        <h1 class="has-text-weight-bold is-size-1">DNA Profile</h1>
+        <div class="field">
+            <label class="label">Profile Address (0x...)</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Ethereum Address" v-model="profile">
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-link" v-bind:href="getUrl()">Download</a>
+            </div>
         </div>
     </div>
-
-    <div class="field is-grouped">
-        <div class="control">
-            <a class="button is-link" v-bind:href="getUrl()">Download</a>
-        </div>
-    </div>
-</div>
-
+</section>
 <script type="text/javascript" src="lib/main.js"></script>
 <script type="application/javascript">
     var app = new Vue({
