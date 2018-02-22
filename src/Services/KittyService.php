@@ -883,12 +883,17 @@ class KittyService
 
         $query = $queryString . implode(' AND ', $filters) . ' LIMIT 25';
 
-        $this->logger->addDebug('Searching DB');
-        $this->logger->addDebug($query);
-        $this->logger->addDebug($values);
+        //$this->logger->addDebug('Searching DB');
+        //$this->logger->addDebug($query);
+        //$this->logger->addDebug($values);
+
+        var_dump($query);
+        var_dump($values);
+
         $statement = $this->PDO->prepare($query);
         $statement->execute($values);
-        $this->logger->addDebug('Done Search');
+
+        //$this->logger->addDebug('Done Search');
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }

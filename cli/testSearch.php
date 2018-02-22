@@ -11,8 +11,11 @@ $container = $app->getContainer();
 
 $service = $container->get(KittyService::class);
 
-var_dump($service->findKittiesFromArray(
+$ids = $service->findKittiesFromArray(
     [
         'body' => '__cc'
     ]
-));
+);
+
+print "\n";
+var_dump($ids);
