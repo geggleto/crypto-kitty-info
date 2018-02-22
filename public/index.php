@@ -30,6 +30,6 @@ $app->get('/dna/profile/{profile}', ProfileController::class);
 
 $app->get('/dna/profile/{profile}/csv', [ProfileController::class, 'exportToCsv']);
 
-$app->get('/', [HomePage::class]);
+$app->get('/', HomePage::class);
 
 $app->run();
