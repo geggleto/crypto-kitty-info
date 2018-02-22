@@ -46,7 +46,7 @@
 
     <div class="field is-grouped">
         <div class="control">
-            <button class="button is-link" v-on:click="download">Download</button>
+            <a class="button is-link" v-bind:href="getUrl">Download</a>
         </div>
     </div>
 </div>
@@ -59,10 +59,11 @@
             profile : ''
         },
         methods : {
-            download : function () {
-                axios.get('dna/profile/'+this.profile+'/csv');
+            getUrl : function () {
+                return '/dna/profile/'+this.profile+'/csv';
             }
-        }
+        },
+        delimiters : ['<%', '%>']
     })
 </script>
 </body>
