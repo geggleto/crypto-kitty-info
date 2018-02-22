@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crypto Kitty Data</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="dropdown navigation">
+    <div class="navbar-item" href="http://cryptokittydata.info/">
+        <a class="navbar-link">
+            Home
+        </a>
+    </div>
+    <div class="navbar-item">
+        <a class="navbar-link" href="http://dna.cryptokittydata.info/">
+            Dna Profiles
+        </a>
+    </div>
+</nav>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-desktop is-offset-2-desktop">
+                    <h1 class="subtitle is-4">
+                        We are working our dogs hard to get you data reports
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container is-fullhd" id="app">
+    <h1 class="has-text-weight-bold is-size-1">DNA Profile</h1>
+    <div class="field">
+        <label class="label">Profile Address (0x...)</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="Ethereum Address" v-model="profile">
+        </div>
+    </div>
+
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link" v-on:click="download">Download</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="lib/main.js"></script>
+<script type="application/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            profile : ''
+        },
+        methods : {
+            download : function () {
+                $.get('http://dna.cryptokittydata.info/dna/profile/'+this.profile);
+            }
+        }
+    })
+</script>
+</body>
+</html>
