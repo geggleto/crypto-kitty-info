@@ -974,7 +974,7 @@ class KittyService
 
     }
 
-    public function writeCsvWithSales(array $ids, Response $response, $filename = 'profile.php') {
+    public function writeCsvWithSales(array $ids, Response $response, $filename = 'search.csv') {
         $result = [];
 
         //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
