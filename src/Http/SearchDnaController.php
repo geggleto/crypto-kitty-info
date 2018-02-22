@@ -4,6 +4,7 @@
 namespace Kitty\Http;
 
 
+use function array_reverse;
 use function implode;
 use InvalidArgumentException;
 use Kitty\Services\KittyService;
@@ -51,6 +52,8 @@ class SearchDnaController
             'pattern',
             'body'
         ];
+
+        $categories = array_reverse($categories);
 
         return $this->twig->render($response, 'search.html.twig', [
             'kitties' => $kittyArray,
