@@ -46,8 +46,8 @@ class ProfileController
 
         $result = [];
 
-        $response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
-
+        //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
+        $response = $response->write('kittyId,Fur,,,,Pattern,,,,Eye Color,,,,Eye Shape,,,,Base Color,,,,Highlight Color,,,,Accent Color,,,,Wild,,,,Mouth,,,,'."\n");
 
         foreach ($ids as $id) {
             $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
