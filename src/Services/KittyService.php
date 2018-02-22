@@ -846,29 +846,29 @@ class KittyService
         $values = [];
 
         foreach ($params as $param => $value) {
-            if ($param='gen') {
+            if ($param=='gen') {
                 $filters[] = $this->getGenFilter();
-            } else if ($param='genU') {
+            } else if ($param=='genU') {
                 $filters[] = $this->getGenUpFilter();
-            } else if ($param='genD') {
+            } else if ($param=='genD') {
                 $filters[] = $this->getGenDownFilter();
-            } else if ($param='body') {
+            } else if ($param=='body') {
                 $filters[] = $this->getBodyFilter();
-            } else if ($param='bodyColor') {
+            } else if ($param=='bodyColor') {
                 $filters[] = $this->getBodyColorFilter();
-            } else if ($param='pattern') {
+            } else if ($param=='pattern') {
                 $filters[] = $this->getPatternFilter();
-            } else if ($param='eyeColor') {
+            } else if ($param=='eyeColor') {
                 $filters[] = $this->getEyeColorFilter();
-            } else if ($param='eyeShape') {
+            } else if ($param=='eyeShape') {
                 $filters[] = $this->getEyeShapeFilter();
-            } else if ($param='highlightColor') {
+            } else if ($param=='highlightColor') {
                 $filters[] = $this->getHighlightColorFilter();
-            } else if ($param='accentColor') {
+            } else if ($param=='accentColor') {
                 $filters[] = $this->getAccentColorFilter();
-            } else if ($param='wild') {
+            } else if ($param=='wild') {
                 $filters[] = $this->getWildFilter();
-            } else if ($param='mouth') {
+            } else if ($param=='mouth') {
                 $filters[] = $this->getMouthFilter();
             } else {
                 continue;
