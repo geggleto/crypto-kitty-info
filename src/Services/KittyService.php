@@ -889,8 +889,8 @@ class KittyService
         //$this->logger->addDebug($query);
         //$this->logger->addDebug($values);
 
-        var_dump($query);
-        var_dump($values);
+//        var_dump($query);
+//        var_dump($values);
 
         $statement = $this->PDO->prepare($query);
         $statement->execute($values);
@@ -905,11 +905,11 @@ class KittyService
     }
 
     protected function getGenUpFilter() {
-        return 'gen => ?';
+        return 'gen <= ?';
     }
 
     protected function getGenDownFilter() {
-        return 'gen =< ?';
+        return 'gen <= ?';
     }
 
     protected function getBodyFilter() {
