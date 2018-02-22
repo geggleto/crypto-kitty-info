@@ -7,6 +7,7 @@
     <title>Crypto Kitty Data</title>
     <link rel="stylesheet" href="css/main.css">
     <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <nav class="navbar" role="navigation" aria-label="dropdown navigation">
@@ -59,7 +60,7 @@
         },
         methods : {
             download : function () {
-                $.get('http://dna.cryptokittydata.info/dna/profile/'+this.profile);
+                axios.get('dna/profile/'+this.profile);
             }
         }
     })
