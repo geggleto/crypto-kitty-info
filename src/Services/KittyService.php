@@ -974,16 +974,13 @@ class KittyService
 
     }
 
-    public function writeCsvWithSales(array $ids, Response $response, $filename = 'search.csv', $onsale = false) {
+    public function getKittyTable(array $ids, $onsale = false) {
         $result = [];
 
-        //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
-        $response = $response->write('kittyId,Gen,Sale,Fur,,,,Pattern,,,,Eye Color,,,,Eye Shape,,,,Base Color,,,,Highlight Color,,,,Accent Color,,,,Wild,,,,Mouth,,,,'."\n");
+        foreach ($ids as $idResult) {
 
-        foreach ($ids as $result) {
-
-            $id = $result['id'];
-            $gen = $result['gen'];
+            $id = $idResult['id'];
+            $gen = $idResult['gen'];
 
             $result[$id] = $this->getPrettyDnaKitten($id);
 
@@ -992,22 +989,12 @@ class KittyService
             $isItForSale = $forSale ? 'Yes' : 'No';
 
             if ( ($onsale && $forSale) || !$onsale) {
-
-                $response->write($id . ',' . $gen . ',' . $isItForSale);
-
-                $dna = array_map(function ($dna) {
-                    return implode(',', $dna);
-                }, $result[$id]);
-
-                $response = $response->write(implode(',', $dna) . "\n");
+                $result[$id]['id'] = $id;
+                $result[$id]['gen'] = $gen;
+                $result[$id]['forSale'] = $isItForSale;
             }
         }
 
-        return $response;
-
-            /*
-            ->withHeader('Content-Type', 'text/csv')
-            ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
-            */
+        return $result;
     }
 }
