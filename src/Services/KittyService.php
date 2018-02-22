@@ -1003,9 +1003,11 @@ class KittyService
             }
         }
 
-        return $response
+        return $response;
+
+            /*
             ->withHeader('Content-Type', 'text/csv')
             ->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
-
+            */
     }
 }
