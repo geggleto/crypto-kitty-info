@@ -7,7 +7,8 @@
         "vlucas/phpdotenv": "^2.4",
         "monolog/monolog": "^1.23",
         "bunny/bunny": "@dev",
-        "bitwasp/buffertools": "^0.5.0"
+        "bitwasp/buffertools": "^0.5.0",
+        "slim/twig-view": "^2.3"
     },
     "autoload" : {
         "psr-4" : {

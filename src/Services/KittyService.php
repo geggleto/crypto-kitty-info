@@ -748,6 +748,8 @@ class KittyService
 
             $offset += $limit;
 
+            usleep(500000);
+
         } while($offset <= $total);
 
         return $list;
