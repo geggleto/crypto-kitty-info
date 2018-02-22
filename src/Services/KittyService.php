@@ -642,6 +642,24 @@ class KittyService
 
     }
 
+    //Get Sale Info
+    public static function getSaleInfo($kittenId)
+    {
+        $hexId = dechex($kittenId);
+
+        while (strlen($hexId) < 8) {
+            $hexId = '0'.$hexId;
+        }
+
+        $client = new Client();
+
+        $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0x78bd793500000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
+
+        $json = json_decode($response->getBody()->__toString(), true);
+
+        return (strlen($json['result']) > 8);
+    }
+
     public static function getDnaFromContract($kittenId)
     {
         $hexId = dechex($kittenId);
@@ -788,5 +806,14 @@ class KittyService
         }
 
         return $result;
+    }
+
+    public function getKittyGen($kittyId)
+    {
+        $statement = $this->PDO->prepare('select `gen` from kitties where `id` = ?');
+
+        $statement->execute([$kittyId]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }
