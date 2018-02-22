@@ -13,7 +13,8 @@ $service = $container->get(KittyService::class);
 
 $ids = $service->findKittiesFromArray(
     [
-        'body' => '__cc'
+        'body' => '__cc',
+        'genD' => '2'
     ]
 );
 

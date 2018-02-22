@@ -874,7 +874,9 @@ class KittyService
                 continue;
             }
 
-            if (strlen($value) === 4) {
+            if ($param === 'gen' || $param === 'genD' || $param === 'genU') {
+                $values[] = $value;
+            } else if (strlen($value) === 4) {
                 $values[] = str_replace('*','_', $value);
             } else {
                 throw new \InvalidArgumentException('Values must be 4 kai codes');
