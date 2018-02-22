@@ -56,13 +56,10 @@ class SearchDnaController
 
         $categories = array_reverse($categories);
 
-        var_dump($kittyArray);
-        die();
-
-//        return $this->twig->render($response, 'search.html.twig', [
-//            'kitties' => $kittyArray,
-//            'categories' => $categories
-//        ]);
+        return $this->twig->render($response, 'search.html.twig', [
+            'kitties' => $kittyArray,
+            'categories' => $categories
+        ]);
     }
 
 }
