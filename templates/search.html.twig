@@ -35,58 +35,56 @@
         </div>
     </div>
 </section>
-<section class="section">
-    <div class="container is-fullhd">
-        <table>
-            <thead>
-            <tr>
-                <th colspan="3"></th>
-                <th colspan="4">Fur</th>
-                <th colspan="4">Pattern</th>
-                <th colspan="4">Eye Color</th>
-                <th colspan="4">Eye Shape</th>
-                <th colspan="4">Base Color</th>
-                <th colspan="4">Highlight Color</th>
-                <th colspan="4">Accent Color</th>
-                <th colspan="4">Wild</th>
-                <th colspan="4">Mouth</th>
-            </tr>
-            <tr>
-                <th>Kitty Id</th>
-                <th>Gen</th>
-                <th>Sale</th>
 
-                {% for i,category in categories %}
+<table width="500%">
+    <thead>
+    <tr>
+        <th colspan="3"></th>
+        <th colspan="4">Fur</th>
+        <th colspan="4">Pattern</th>
+        <th colspan="4">Eye Color</th>
+        <th colspan="4">Eye Shape</th>
+        <th colspan="4">Base Color</th>
+        <th colspan="4">Highlight Color</th>
+        <th colspan="4">Accent Color</th>
+        <th colspan="4">Wild</th>
+        <th colspan="4">Mouth</th>
+    </tr>
+    <tr>
+        <th>Kitty Id</th>
+        <th>Gen</th>
+        <th>Sale</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+        {% for i,category in categories %}
 
-                {% endfor %}
-            </tr>
-            </thead>
+        <th>D0</th>
+        <th>R1</th>
+        <th>R2</th>
+        <th>R3</th>
 
-            <tbody>
-                {% for id,kitty in kitties %}
-                <tr>
-                <th>{{ kitty['id'] }}</th>
-                <th>{{ kitty['gen'] }}</th>
-                <th>{{ kitty['forSale'] }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
 
-                {% for i,category in categories %}
-                    <th>{{ kitty[category]['D0'] }}</th>
-                    <th>{{ kitty[category]['R1'] }}</th>
-                    <th>{{ kitty[category]['R2'] }}</th>
-                    <th>{{ kitty[category]['R3'] }}</th>
-                {% endfor %}
+    <tbody>
+        {% for id,kitty in kitties %}
+        <tr>
+        <th>{{ kitty['id'] }}</th>
+        <th>{{ kitty['gen'] }}</th>
+        <th>{{ kitty['forSale'] }}</th>
 
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</section>
+        {% for i,category in categories %}
+            <th>{{ kitty[category]['D0'] }}</th>
+            <th>{{ kitty[category]['R1'] }}</th>
+            <th>{{ kitty[category]['R2'] }}</th>
+            <th>{{ kitty[category]['R3'] }}</th>
+        {% endfor %}
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 <script type="text/javascript" src="lib/main.js"></script>
 
 <footer class="footer">
