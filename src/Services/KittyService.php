@@ -840,7 +840,7 @@ class KittyService
 
     public function findKittiesFromArray(array $params) {
         //Query Builder
-        $queryString = 'select id from kitties where ';
+        $queryString = 'select id, gen from kitties where ';
 
         $filters = [];
         $values = [];
@@ -980,9 +980,10 @@ class KittyService
         //$response = $response->write('kittyId,mouth,,,,wild,,,,seccolor,,,,patcolor,,,,bodycolor,,,,eyetype,,,,eyecolor,,,,pattern,,,,body,,,,'."\n");
         $response = $response->write('kittyId,Gen,Sale,Fur,,,,Pattern,,,,Eye Color,,,,Eye Shape,,,,Base Color,,,,Highlight Color,,,,Accent Color,,,,Wild,,,,Mouth,,,,'."\n");
 
-        foreach ($ids as $id) {
+        foreach ($ids as $result) {
 
-            $kitty = $this->getKittyGen($id);
+            $id = $result['id'];
+            $gen = $result['gen'];
 
             $result[$id] = $this->getPrettyDnaKitten($id);
 
@@ -990,7 +991,7 @@ class KittyService
 
             $isItForSale = $forSale ? 'Yes' : 'No';
 
-            $response->write($id.','.$kitty['gen'].','.$isItForSale);
+            $response->write($id.','.$gen.','.$isItForSale);
 
             $dna = array_map(function ($dna) {
                 return implode(',', $dna);
