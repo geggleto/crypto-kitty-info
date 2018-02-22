@@ -13,6 +13,7 @@ use Slim\Http\Response;
 use Slim\Views\Twig;
 use function strlen;
 use function strpos;
+use function var_dump;
 
 class SearchDnaController
 {
@@ -55,10 +56,13 @@ class SearchDnaController
 
         $categories = array_reverse($categories);
 
-        return $this->twig->render($response, 'search.html.twig', [
-            'kitties' => $kittyArray,
-            'categories' => $categories
-        ]);
+        var_dump($kittyArray);
+        die();
+
+//        return $this->twig->render($response, 'search.html.twig', [
+//            'kitties' => $kittyArray,
+//            'categories' => $categories
+//        ]);
     }
 
 }
