@@ -5,6 +5,7 @@ namespace Kitty\Services;
 
 use function array_map;
 use GuzzleHttp\Client;
+use Monolog\Logger;
 use PDO;
 use Slim\Http\Response;
 use function substr;
@@ -59,11 +60,17 @@ class KittyService
         '11110' => 'w',
         '11111' => 'x'
     ];
+    /**
+     * @var Logger
+     */
+    private $logger;
 
-    public function __construct(PDO $PDO, Client $client)
+    public function __construct(PDO $PDO, Client $client, Logger $logger)
     {
         $this->PDO = $PDO;
         $this->client = $client;
+        $this->logger = $logger;
+
         // \o/ we have Binary DNA
 
         $this->kai =$this->kai = [
@@ -874,10 +881,16 @@ class KittyService
             }
         }
 
-        $statement = $this->PDO->prepare($queryString . implode(' AND ', $filters) . ' LIMIT 25');
-        $statement->execute($values);
+        $query = $queryString . implode(' AND ', $filters) . ' LIMIT 25';
 
-        return $statement->fetchAll();
+        $this->logger->addDebug('Searching DB');
+        $this->logger->addDebug($query);
+        $this->logger->addDebug($values);
+        $statement = $this->PDO->prepare($query);
+        $statement->execute($values);
+        $this->logger->addDebug('Done Search');
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     protected function getGenFilter() {
