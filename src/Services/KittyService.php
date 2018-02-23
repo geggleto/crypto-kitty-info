@@ -757,7 +757,7 @@ class KittyService
 
             $offset += $limit;
 
-            usleep(1000000);
+            usleep(1500000);
 
         } while($offset <= $total);
 
