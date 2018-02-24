@@ -91,7 +91,7 @@ class SearchPage
                 'w' => 'w',
                 'x' => 'x'
             ],
-            'secondarycolor' => [
+            'accentColor' => [
                 '1' => 'belleblue',
                 '2' => 'sandalwood',
                 '3' => 'peach',
@@ -125,7 +125,7 @@ class SearchPage
                 'w' => 'w',
                 'x' => 'x'
             ],
-            'patterncolor' => [
+            'highlightColor' => [
                 '1' => '1',
                 '2' => '2',
                 '3' => 'egyptiankohl',
@@ -159,7 +159,7 @@ class SearchPage
                 'w' => 'w',
                 'x' => 'x'
             ],
-            'bodycolor' => [
+            'bodyColor' => [
                 '1' => 'shadowgrey',
                 '2' => 'salmon',
                 '3' => '3',
@@ -193,7 +193,7 @@ class SearchPage
                 'w' => 'w',
                 'x' => 'x'
             ],
-            'eyetype' => [
+            'eyeShape' => [
                 '1' => '1',
                 '2' => 'wonky',
                 '3' => 'serpent',
@@ -227,7 +227,7 @@ class SearchPage
                 'w' => 'w',
                 'x' => 'x'
             ],
-            'eyecolor' => [
+            'eyeColor' => [
                 '1' => 'thundergrey',
                 '2' => 'gold',
                 '3' => 'topaz',
