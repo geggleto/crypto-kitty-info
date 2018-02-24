@@ -38,16 +38,138 @@
     <div class="container is-fullhd" id="app">
         <h1 class="has-text-weight-bold is-size-1">Search DNA</h1>
 
-        <div class="field">
-            <label class="label">Categories</label>
-            <div class="control">
-                <select v-model="category">
-                    <option v-for="codes,category_name in categories" :value="category_name">
-                        <% category_name %>
-                    </option>
-                </select>
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Categories</label>
+                    <div class="control">
+                        <select v-model="category">
+                            <option v-for="codes,category_name in categories" :value="category_name">
+                                <% category_name %>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Fancy Table</label>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Fancy</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td>DuCat</td>
+                            <td>cymric</td>
+                            <td>tongue</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ShipCat</td>
+                            <td>sphynx</td>
+                            <td>luckystripe</td>
+                            <td>crazy</td>
+                            <td>orangesoda</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Dracula</td>
+                            <td>laperm</td>
+                            <td>spock</td>
+                            <td>strawberry</td>
+                            <td>wild_1</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Missletoe</td>
+                            <td>oldlace</td>
+                            <td>gerbil</td>
+                            <td>crazy</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>SantaClaws</td>
+                            <td>cloudwhite</td>
+                            <td>scarlet</td>
+                            <td>beard</td>
+                            <td>wild_d</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>PhuZiqaat</td>
+                            <td>chartreux</td>
+                            <td>spock</td>
+                            <td>alien</td>
+                            <td>pouty</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Stitches</td>
+                            <td>hintomint</td>
+                            <td>swampgreen</td>
+                            <td>seafoam</td>
+                            <td>saycheese</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Negato</td>
+                            <td>onyx</td>
+                            <td>henna</td>
+                            <td>wolfgrey</td>
+                            <td>slyboots</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Momo-chan</td>
+                            <td>onyx</td>
+                            <td>henna</td>
+                            <td>sass</td>
+                            <td>bloodred</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Earnie</td>
+                            <td>orangesoda</td>
+                            <td>birman</td>
+                            <td>grim</td>
+                            <td>hotrod</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>MisterPurrfect</td>
+                            <td>strawberry</td>
+                            <td>chocolate</td>
+                            <td>wuvme</td>
+                            <td>baddate</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>YuriCatsuki</td>
+                            <td>elk</td>
+                            <td>tiger</td>
+                            <td>cymric</td>
+                            <td>neckbeard</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="column">
+                Third column
             </div>
         </div>
+
 
 
         <div class="field">
