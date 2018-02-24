@@ -53,8 +53,21 @@
             </div>
             <div class="column">
                 <div class="field">
-                    <label class="label">Fancy Table</label>
-                    <table class="table">
+                    <nav class="level">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <label class="label">Fancy Table</label>
+                            </div>
+                        </div>
+
+                        <div class="level-right">
+                            <div class="level-item">
+                                <a class="button is-link" v-on:click="toggle">Toggle</a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <table class="table" v-if="fancyTable">
                         <thead>
                         <tr>
                             <th>Fancy</th>
@@ -215,7 +228,8 @@
             categories : {{ categories|raw }},
             query : 'onsale=true',
             category : 'mouth',
-            codes : []
+            codes : [],
+            showFancy : false
         },
         methods : {
             getUrl : function () {
@@ -226,6 +240,9 @@
             },
             appendQuery : function (d0) {
                 this.query = this.query + '&'+this.category+'=___'+d0;
+            },
+            toggle : function () {
+                this.showFancy = !this.showFancy;
             }
         },
         delimiters : ['<%', '%>']
