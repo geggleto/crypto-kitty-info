@@ -80,8 +80,8 @@
                         </thead>
                         <tr>
                             <td><a href="https://www.cryptokitties.co/marketplace/sale?search=fancy%3Aducat" target="_blank">Ducat</a></td>
-                            <td>cymric</td>
-                            <td>tongue</td>
+                            <td><a class="button is-link is-small" v-on:click="appendCatAndGene('body','a')">cymric</a></td>
+                            <td><a class="button is-link is-small" v-on:click="appendCatAndGene('mouth','p')">tongue</a></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -224,7 +224,7 @@
             query : 'onsale=true',
             category : 'mouth',
             codes : [],
-            showFancy : false
+            showFancy : false,
         },
         methods : {
             getUrl : function () {
@@ -235,6 +235,9 @@
             },
             appendQuery : function (d0) {
                 this.query = this.query + '&'+this.category+'=___'+d0;
+            },
+            appendCatAndGene : function (category, d0) {
+                this.query = this.query + '&'+category+'=___'+d0;
             },
             toggle : function () {
                 this.showFancy = !this.showFancy;
