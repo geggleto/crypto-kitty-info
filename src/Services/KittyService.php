@@ -883,7 +883,7 @@ class KittyService
             }
         }
 
-        $query = $queryString . implode(' AND ', $filters) . ' LIMIT 250';
+        $query = $queryString . implode(' AND ', $filters) . ' LIMIT 500';
 
         //$this->logger->addDebug('Searching DB');
         //$this->logger->addDebug($query);
