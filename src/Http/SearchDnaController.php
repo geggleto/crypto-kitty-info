@@ -61,5 +61,4 @@ class SearchDnaController
             'categories' => $categories
         ]);
     }
-
 }

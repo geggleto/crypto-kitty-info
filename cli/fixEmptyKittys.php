@@ -18,13 +18,16 @@ $dbAt = $kittyService->getMaxInDb();
 
 $pdo = $container->get(PDO::class);
 
-$statement = $pdo->prepare('select id from kitties where id = ?');
+$statement = $pdo->prepare("select id from kitties where kitty LIKE ? order by id;");
+$statement->execute(['%created_at":null%']);
 
-for ($x=1; $x<=$contractMax; $x++) {
+$removeStatment = $pdo->prepare('delete from kitties where id = ?');
 
-    $statement->execute([$x]);
+while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+    $id = $row['id'];
 
-    if (!$statement->rowCount()) {
-        $kittyService->insertKitty($x);
-    }
+    $removeStatment->execute([$id]);
+
+    $kittyService->insertKitty($id);
+
 }

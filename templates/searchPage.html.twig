@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crypto Kitty Data</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="dropdown navigation">
+    <div class="navbar-item" href="http://cryptokittydata.info/">
+        <a class="navbar-link" href="http://cryptokittydata.info">
+            Home
+        </a>
+    </div>
+    <div class="navbar-item">
+        <a class="navbar-link" href="http://dna.cryptokittydata.info/">
+            Dna Profiles
+        </a>
+    </div>
+</nav>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-desktop is-offset-2-desktop">
+                    <h1 class="subtitle is-4">
+                        We are working our dogs hard to get you data reports
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container is-fullhd" id="app">
+        <h1 class="has-text-weight-bold is-size-1">Search DNA</h1>
+
+        <div class="field">
+            <label class="label">Categories</label>
+            <div class="control">
+                <select v-model="category">
+                    <option v-for="category_name, codes in categories" :value="category_name">
+                        <% category_name %>
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Traits</label>
+            <div class="control">
+                <table class="table">
+                    <tr v-for="code, label in getCodes()">
+                        <td><% code %></td>
+                        <td><% label %></td>
+                    </tr>
+                </table>f
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Query</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Ethereum Address" v-model="query">
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-link" v-bind:href="getUrl()" target="_blank">Search</a>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>Please send kitty donations! Your support helps me build tools 0xCECDDbE88359f6EcEBE90b42643B002543F27fE9</p>
+        </div>
+    </div>
+</footer>
+
+<script type="application/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            categories : '{{ categories|raw }}',
+            query : 'onsale=true',
+            category : 'mouth',
+            codes : []
+        },
+        methods : {
+            getUrl : function () {
+                return 'http://dna.cryptokittydata.info/search?'+this.query;
+            }
+        },
+        delimiters : ['<%', '%>'],
+        computed : {
+            getCodes : function () {
+                return this.categories[this.category];
+            }
+        }
+    })
+</script>
+</body>
+</html>

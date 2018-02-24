@@ -73,7 +73,7 @@ class KittyService
 
         // \o/ we have Binary DNA
 
-        $this->kai =$this->kai = [
+        $this->kai = [
             4 => [
                 'label' => 'Mouth',
                 'codes' => [
