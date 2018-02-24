@@ -87,7 +87,7 @@
     var app = new Vue({
         el: '#app',
         data: {
-            categories : '{{ categories|raw }}',
+            categories : {{ categories|raw }},
             query : 'onsale=true',
             category : 'mouth',
             codes : []
