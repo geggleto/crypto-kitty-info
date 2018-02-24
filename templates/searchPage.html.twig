@@ -50,6 +50,16 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="field">
+                    <label class="label">Options</label>
+                    <div class="control">
+                        <a class="button is-link is-small" v-on:click="appendRaw('no_fancy','true')">No Fancy</a>
+                        <br />
+                        <a class="button is-link is-small" v-on:click="appendRaw('onsale','true')">On Sale</a>
+                    </div>
+                </div>
+
             </div>
             <div class="column">
                 <div class="field">
@@ -222,7 +232,7 @@
         el: '#app',
         data: {
             categories : {{ categories|raw }},
-            query : 'onsale=true',
+            query : '',
             category : 'mouth',
             codes : [],
             showFancy : false,
@@ -239,6 +249,9 @@
             },
             appendCatAndGene : function (category, d0) {
                 this.query = this.query + '&'+category+'=___'+d0;
+            },
+            appendRaw : function (thing, value) {
+                this.query = this.query + '&'+thing+'='+value;
             },
             toggle : function () {
                 this.showFancy = !this.showFancy;

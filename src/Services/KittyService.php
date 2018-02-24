@@ -870,6 +870,8 @@ class KittyService
                 $filters[] = $this->getWildFilter();
             } else if ($param=='mouth') {
                 $filters[] = $this->getMouthFilter();
+            } else if ($param=='no_fancy') {
+                $filters[] = $this->getNoFancyFilter();
             } else {
                 continue;
             }
@@ -910,6 +912,10 @@ class KittyService
 
     protected function getGenDownFilter() {
         return 'gen <= ?';
+    }
+
+    protected function getNoFancyFilter() {
+        return "json_extract(kitty, '$.is_fancy') = ?";
     }
 
     protected function getBodyFilter() {
