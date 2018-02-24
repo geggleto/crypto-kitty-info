@@ -54,7 +54,7 @@
             <div class="control">
                 <div class="columns is-multiline is-mobile">
                     <div class="column" v-for="label, code in getCodes()">
-                        <a class="button is-black is-medium"><% code %> - <% label %></a>
+                        <a class="button is-black is-medium" :click="append(code);"><% code %> - <% label %></a>
                     </div>
                 </div>
             </div>
@@ -97,6 +97,9 @@
             },
             getCodes : function () {
                 return this.categories[this.category];
+            },
+            append : function (d0) {
+                this.query = this.query + '&'+this.category+'=___'+d0;
             }
         },
         delimiters : ['<%', '%>']
