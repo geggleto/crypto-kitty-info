@@ -42,7 +42,7 @@
             <label class="label">Categories</label>
             <div class="control">
                 <select v-model="category">
-                    <option v-for="category_name, codes in categories" :value="category_name">
+                    <option v-for="codes,category_name in categories" :value="category_name">
                         <% category_name %>
                     </option>
                 </select>
@@ -53,7 +53,7 @@
             <label class="label">Traits</label>
             <div class="control">
                 <table class="table">
-                    <tr v-for="code, label in getCodes()">
+                    <tr v-for="label, code in getCodes()">
                         <td><% code %></td>
                         <td><% label %></td>
                     </tr>
