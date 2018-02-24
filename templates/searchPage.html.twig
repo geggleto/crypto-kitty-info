@@ -95,14 +95,12 @@
         methods : {
             getUrl : function () {
                 return 'http://dna.cryptokittydata.info/search?'+this.query;
-            }
-        },
-        delimiters : ['<%', '%>'],
-        methods : {
+            },
             getCodes : function () {
                 return this.categories[this.category];
             }
-        }
+        },
+        delimiters : ['<%', '%>']
     })
 </script>
 </body>
