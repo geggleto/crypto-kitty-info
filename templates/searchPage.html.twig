@@ -52,12 +52,11 @@
         <div class="field">
             <label class="label">Traits</label>
             <div class="control">
-                <table class="table">
-                    <tr v-for="label, code in getCodes()">
-                        <td><% code %></td>
-                        <td><% label %></td>
-                    </tr>
-                </table>f
+                <div class="columns is-multiline is-mobile">
+                    <div class="column" v-for="label, code in getCodes()">
+                        <a class="button is-primary is-small"><% code %> - <% label %></a>
+                    </div>
+                </div>
             </div>
         </div>
 
