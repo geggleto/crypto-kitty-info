@@ -117,7 +117,7 @@
 
             <tbody>
 
-                <tr v-for="kitty, id in kitties">
+                <tr v-for="id, kitty in kitties">
                     <td><a v-bind:href="getKittyUrl(id)" target="_blank"><% id %></a></td>
                     <td><% kitty['gen'] %></td>
 
