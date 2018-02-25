@@ -200,7 +200,7 @@
                 axios('http://dna.cryptokittydata.info/dna/profile/'+this.profile).then(function (response) {
                     var kitties = [];
 
-                    this.loading = false;
+                    app.loading = false;
 
                     for (i in response.data) {
                         kitties[i] = response.data[i];
