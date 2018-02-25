@@ -630,7 +630,7 @@ class KittyService
 
     public function findKitten($kitten)
     {
-        $statement = $this->PDO->prepare('select `genes_kai` as `dna` from kitties where `id` = ?');
+        $statement = $this->PDO->prepare('select `genes_kai` as `dna`, gen from kitties where `id` = ?');
 
         $statement->execute([$kitten]);
 
@@ -638,6 +638,7 @@ class KittyService
 
         return [
             'dna' => $kitten['dna'],
+            'gen' => $kitten['gen'],
             'body' => substr($kitten['dna'], 44, 4),
             'pattern' => substr($kitten['dna'], 40, 4),
             'eyecolor' => substr($kitten['dna'], 36, 4),
@@ -822,6 +823,8 @@ class KittyService
         $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0x78bd793500000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
 
         $json = json_decode($response->getBody()->__toString(), true);
+
+        var_dump(strlen($json['result']));
 
         return (strlen($json['result']) > 8);
     }

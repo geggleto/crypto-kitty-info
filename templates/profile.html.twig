@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crypto Kitty Data</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body id="app">
+<nav class="navbar" role="navigation" aria-label="dropdown navigation">
+    <div class="navbar-item" href="http://cryptokittydata.info/">
+        <a class="navbar-link" href="http://cryptokittydata.info">
+            Home
+        </a>
+    </div>
+    <div class="navbar-item">
+        <a class="navbar-link" href="http://dna.cryptokittydata.info/">
+            Dna Profiles
+        </a>
+    </div>
+
+    <div class="navbar-end">
+        <div class="navbar-item">
+            <a class="button is-link" v-on:click="logout">Disconnect</a>
+        </div>
+    </div>
+</nav>
+<section class="section" v-if="kitties.length">
+    <div class="container is-fullhd">
+        <h1 class="has-text-weight-bold is-size-1">Kitty Profile</h1>
+        <div class="field">
+            <label class="label">Profile Address (0x...)</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Ethereum Address" v-model="profile">
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-link">Connect</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" style="overflow-x: auto;" v-if="!kitties.length">
+    <table width="400%" class="table">
+        <thead>
+        <tr>
+            <th colspan="3"></th>
+            <th colspan="4">Fur</th>
+            <th colspan="4">Pattern</th>
+            <th colspan="4">Eye Color</th>
+            <th colspan="4">Eye Shape</th>
+            <th colspan="4">Base Color</th>
+            <th colspan="4">Highlight Color</th>
+            <th colspan="4">Accent Color</th>
+            <th colspan="4">Wild</th>
+            <th colspan="4">Mouth</th>
+        </tr>
+        <tr>
+            <th>Kitty Id</th>
+            <th>Gen</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+            <th>D0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+            <tr v-for="kitty, id in kitties">
+                <td><a v-bind:href="getKittyUrl(id)" target="_blank"><% id %></a></td>
+                <td><% kitty['gen'] %></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript" src="lib/main.js"></script>
+<script type="application/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            kitties : []
+        },
+        methods : {
+            getUrl : function () {
+                axios('http://dna.cryptokittydata.info/dna/profile/'+this.profile).then(function (response) {
+                    console.log(response);
+                    localStorage.setItem('kitties', response);
+                    app.kitties = response;
+                });
+            },
+            logout : function () {
+                localStorage.removeItem('kitties');
+            },
+            getKittyUrl : function (id) {
+                return 'https://www.cryptokitties.co/kitty/'+id;
+            }
+        },
+        delimiters : ['<%', '%>'],
+        mounted: function () {
+            // Code for localStorage/sessionStorage.
+            this.kitties = localStorage.getItem('kitties');
+        }
+    })
+</script>
+
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>Please send kitty donations! Your support helps me build tools 0xCECDDbE88359f6EcEBE90b42643B002543F27fE9</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

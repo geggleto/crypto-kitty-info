@@ -9,14 +9,4 @@ $app = new KittyApp();
 
 $container = $app->getContainer();
 
-$service = $container->get(KittyService::class);
-
-$ids = $service->findKittiesFromArray(
-    [
-        'body' => '__cc',
-        'genD' => '2'
-    ]
-);
-
-print "\n";
-var_dump($ids);
+var_dump(KittyService::getSaleInfo('546937'));
