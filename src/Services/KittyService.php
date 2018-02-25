@@ -1003,7 +1003,7 @@ class KittyService
                 $result[$id]['fancy'] = $fancy;
             }
 
-            if (count($result) === 50) {
+            if (count($result) === 100) {
                 break;
             }
         }
