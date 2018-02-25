@@ -824,8 +824,6 @@ class KittyService
 
         $json = json_decode($response->getBody()->__toString(), true);
 
-        var_dump(strlen($json['result']));
-
         return (strlen($json['result']) > 8);
     }
 
