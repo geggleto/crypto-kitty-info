@@ -30,7 +30,7 @@
         </div>
     </nav>
 
-    <section class="section" v-if="!kitties.length">
+    <section class="section" v-if="!length">
         <div class="container is-fullhd">
             <h1 class="has-text-weight-bold is-size-1">Kitty Profile</h1>
             <div class="field">
@@ -48,7 +48,7 @@
         </div>
     </section>
 
-    <div class="container" style="overflow-x: auto;" v-if="kitties.length">
+    <div class="container" style="overflow-x: auto;" v-if="length">
         <table width="400%" class="table">
             <thead>
             <tr>
@@ -180,7 +180,8 @@
         el: '#app',
         data: {
             profile : "",
-            kitties : {}
+            kitties : {},
+            length : 0
         },
         methods : {
             getUrl : function () {
@@ -196,6 +197,8 @@
 
                         console.log(response.data[i]);
                     }
+
+                    app.length = Object.keys(app.kitties).length;
                 });
             },
             logout : function () {
