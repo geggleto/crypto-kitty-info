@@ -119,7 +119,7 @@
 
                 <tr v-for="kitty, id in kitties">
                     <td><a v-bind:href="getKittyUrl(id)" target="_blank"><% id %></a></td>
-                    <td><% console.log(kitty) %></td>
+                    <td></td>
 
                     <td></td>
                     <td></td>
@@ -186,8 +186,6 @@
             getUrl : function () {
                 localStorage.setItem('profile', this.profile);
 
-
-
                 axios('http://dna.cryptokittydata.info/dna/profile/'+this.profile).then(function (response) {
                     var kitties = [];
 
@@ -195,7 +193,7 @@
                         kitties[i] = response.data[i];
                     }
 
-                    app.kitties = kitties;
+                    this.kitties = kitties;
 
                     console.log(kitties);
                 });
