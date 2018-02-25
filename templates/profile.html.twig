@@ -169,6 +169,13 @@
             </tbody>
         </table>
     </div>
+
+    <div class="modal" v-bind:class="{ is-active: loading}">>
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <h3>Herding your cats, please be patient!</h3>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="lib/main.js"></script>
@@ -181,14 +188,19 @@
         data: {
             profile : "",
             kitties : {},
-            length : 0
+            length : 0,
+            loading : false
         },
         methods : {
             getUrl : function () {
                 localStorage.setItem('profile', this.profile);
 
+                this.loading = true;
+
                 axios('http://dna.cryptokittydata.info/dna/profile/'+this.profile).then(function (response) {
                     var kitties = [];
+
+                    this.loading = false;
 
                     for (i in response.data) {
                         kitties[i] = response.data[i];
