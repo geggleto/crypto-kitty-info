@@ -181,6 +181,8 @@
         },
         methods : {
             getUrl : function () {
+                localStorage.setItem('profile', this.profile);
+
                 axios('http://dna.cryptokittydata.info/dna/profile/'+this.profile).then(function (response) {
                     console.log(response);
                     localStorage.setItem('kitties', response);
@@ -198,9 +200,14 @@
         mounted: function () {
             // Code for localStorage/sessionStorage.
             var kitties = localStorage.getItem('kitties');
+            var profile = localStorage.getItem('profile');
 
             if (kitties !== null) {
                 this.kitties = kitties;
+            }
+
+            if (profile !== null) {
+                this.profile = profile;
             }
         }
     })
