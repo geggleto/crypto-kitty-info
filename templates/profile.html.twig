@@ -15,18 +15,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar" role="navigation" aria-label="dropdown navigation">
-        <div class="navbar-item" href="http://cryptokittydata.info/">
-            <a class="navbar-link" href="http://cryptokittydata.info">
-                Home
-            </a>
-        </div>
-        <div class="navbar-item">
-            <a class="navbar-link" href="http://dna.cryptokittydata.info/">
-                Dna Profiles
-            </a>
-        </div>
-    </nav>
+    {% include "nav.html.twig" %}
 
     <section class="section" v-if="!length">
         <div class="container is-fullhd">
