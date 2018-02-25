@@ -198,6 +198,7 @@
             },
             logout : function () {
                 localStorage.removeItem('kitties');
+                app.kitties = [];
             },
             getKittyUrl : function (id) {
                 return 'https://www.cryptokitties.co/kitty/'+id;
