@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="css/main.css">
     <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="app">
@@ -47,64 +51,64 @@
             <thead>
             <tr>
                 <th colspan="3"></th>
-                <th colspan="4">Fur</th>
-                <th colspan="4">Pattern</th>
-                <th colspan="4">Eye Color</th>
-                <th colspan="4">Eye Shape</th>
-                <th colspan="4">Base Color</th>
-                <th colspan="4">Highlight Color</th>
-                <th colspan="4">Accent Color</th>
-                <th colspan="4">Wild</th>
-                <th colspan="4">Mouth</th>
+                <th colspan="4"><a v-on:click="disableColumn('fur')">Fur</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('pattern')">Pattern</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('eyecolor')">Eye Color</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('eyeshape')">Eye Shape</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('basecolor')">Base Color</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('highlightcolor')">Highlight Color</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('accentcolor')">Accent Color</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('wild')">Wild</a></th>
+                <th colspan="4"><a v-on:click="disableColumn('mouth')">Mouth</a></th>
             </tr>
             <tr>
                 <th>Kitty Id</th>
                 <th>Gen</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="fur">D0</th>
+                <th class="fur">R1</th>
+                <th class="fur">R2</th>
+                <th class="fur">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="pattern">D0</th>
+                <th class="pattern">R1</th>
+                <th class="pattern">R2</th>
+                <th class="pattern">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="eyecolor">D0</th>
+                <th class="eyecolor">R1</th>
+                <th class="eyecolor">R2</th>
+                <th class="eyecolor">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="eyeshape">D0</th>
+                <th class="eyeshape">R1</th>
+                <th class="eyeshape">R2</th>
+                <th class="eyeshape">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="basecolor">D0</th>
+                <th class="basecolor">R1</th>
+                <th class="basecolor">R2</th>
+                <th class="basecolor">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="highlightcolor">D0</th>
+                <th class="highlightcolor">R1</th>
+                <th class="highlightcolor">R2</th>
+                <th class="highlightcolor">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="accentcolor">D0</th>
+                <th class="accentcolor">R1</th>
+                <th class="accentcolor">R2</th>
+                <th class="accentcolor">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="wild">D0</th>
+                <th class="wild">R1</th>
+                <th class="wild">R2</th>
+                <th class="wild">R3</th>
 
-                <th>D0</th>
-                <th>R1</th>
-                <th>R2</th>
-                <th>R3</th>
+                <th class="mouth">D0</th>
+                <th class="mouth">R1</th>
+                <th class="mouth">R2</th>
+                <th class="mouth">R3</th>
 
             </tr>
             </thead>
@@ -115,50 +119,50 @@
                     <td><a v-bind:href="getKittyUrl(id)" target="_blank"><% id %></a></td>
                     <td><% kitty['gen'] %></td>
 
-                    <td><% kitty['body']['D0'] %></td>
-                    <td><% kitty['body']['R1'] %></td>
-                    <td><% kitty['body']['R2'] %></td>
-                    <td><% kitty['body']['R3'] %></td>
+                    <td class="fur"><% kitty['body']['D0'] %></td>
+                    <td class="fur"><% kitty['body']['R1'] %></td>
+                    <td class="fur"><% kitty['body']['R2'] %></td>
+                    <td class="fur"><% kitty['body']['R3'] %></td>
 
-                    <td><% kitty['pattern']['D0'] %></td>
-                    <td><% kitty['pattern']['R1'] %></td>
-                    <td><% kitty['pattern']['R2'] %></td>
-                    <td><% kitty['pattern']['R3'] %></td>
+                    <td class="pattern"><% kitty['pattern']['D0'] %></td>
+                    <td class="pattern"><% kitty['pattern']['R1'] %></td>
+                    <td class="pattern"><% kitty['pattern']['R2'] %></td>
+                    <td class="pattern"><% kitty['pattern']['R3'] %></td>
 
-                    <td><% kitty['eyecolor']['D0'] %></td>
-                    <td><% kitty['eyecolor']['R1'] %></td>
-                    <td><% kitty['eyecolor']['R2'] %></td>
-                    <td><% kitty['eyecolor']['R3'] %></td>
+                    <td class="eyecolor"><% kitty['eyecolor']['D0'] %></td>
+                    <td class="eyecolor"><% kitty['eyecolor']['R1'] %></td>
+                    <td class="eyecolor"><% kitty['eyecolor']['R2'] %></td>
+                    <td class="eyecolor"><% kitty['eyecolor']['R3'] %></td>
 
-                    <td><% kitty['eyetype']['D0'] %></td>
-                    <td><% kitty['eyetype']['R1'] %></td>
-                    <td><% kitty['eyetype']['R2'] %></td>
-                    <td><% kitty['eyetype']['R3'] %></td>
+                    <td class="eyeshape"><% kitty['eyetype']['D0'] %></td>
+                    <td class="eyeshape"><% kitty['eyetype']['R1'] %></td>
+                    <td class="eyeshape"><% kitty['eyetype']['R2'] %></td>
+                    <td class="eyeshape"><% kitty['eyetype']['R3'] %></td>
 
-                    <td><% kitty['bodycolor']['D0'] %></td>
-                    <td><% kitty['bodycolor']['R1'] %></td>
-                    <td><% kitty['bodycolor']['R2'] %></td>
-                    <td><% kitty['bodycolor']['R3'] %></td>
+                    <td class="basecolor"><% kitty['bodycolor']['D0'] %></td>
+                    <td class="basecolor"><% kitty['bodycolor']['R1'] %></td>
+                    <td class="basecolor"><% kitty['bodycolor']['R2'] %></td>
+                    <td class="basecolor"><% kitty['bodycolor']['R3'] %></td>
 
-                    <td><% kitty['patterncolor']['D0'] %></td>
-                    <td><% kitty['patterncolor']['R1'] %></td>
-                    <td><% kitty['patterncolor']['R2'] %></td>
-                    <td><% kitty['patterncolor']['R3'] %></td>
+                    <td class="highlightcolor"><% kitty['patterncolor']['D0'] %></td>
+                    <td class="highlightcolor"><% kitty['patterncolor']['R1'] %></td>
+                    <td class="highlightcolor"><% kitty['patterncolor']['R2'] %></td>
+                    <td class="highlightcolor"><% kitty['patterncolor']['R3'] %></td>
 
-                    <td><% kitty['secondarycolor']['D0'] %></td>
-                    <td><% kitty['secondarycolor']['R1'] %></td>
-                    <td><% kitty['secondarycolor']['R2'] %></td>
-                    <td><% kitty['secondarycolor']['R3'] %></td>
+                    <td class="accentcolor"><% kitty['secondarycolor']['D0'] %></td>
+                    <td class="accentcolor"><% kitty['secondarycolor']['R1'] %></td>
+                    <td class="accentcolor"><% kitty['secondarycolor']['R2'] %></td>
+                    <td class="accentcolor"><% kitty['secondarycolor']['R3'] %></td>
 
-                    <td><% kitty['wild']['D0'] %></td>
-                    <td><% kitty['wild']['R1'] %></td>
-                    <td><% kitty['wild']['R2'] %></td>
-                    <td><% kitty['wild']['R3'] %></td>
+                    <td class="wild"><% kitty['wild']['D0'] %></td>
+                    <td class="wild"><% kitty['wild']['R1'] %></td>
+                    <td class="wild"><% kitty['wild']['R2'] %></td>
+                    <td class="wild"><% kitty['wild']['R3'] %></td>
 
-                    <td><% kitty['mouth']['D0'] %></td>
-                    <td><% kitty['mouth']['R1'] %></td>
-                    <td><% kitty['mouth']['R2'] %></td>
-                    <td><% kitty['mouth']['R3'] %></td>
+                    <td class="mouth"><% kitty['mouth']['D0'] %></td>
+                    <td class="mouth"><% kitty['mouth']['R1'] %></td>
+                    <td class="mouth"><% kitty['mouth']['R2'] %></td>
+                    <td class="mouth"><% kitty['mouth']['R3'] %></td>
                 </tr>
             </tbody>
         </table>
@@ -216,6 +220,9 @@
             },
             getKittyUrl : function (id) {
                 return 'https://www.cryptokitties.co/kitty/'+id;
+            },
+            disableColumn : function (type) {
+                $('.'+type).toggle();
             }
         },
         delimiters : ['<%', '%>'],
