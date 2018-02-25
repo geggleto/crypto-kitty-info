@@ -184,9 +184,16 @@
                 localStorage.setItem('profile', this.profile);
 
                 axios('http://dna.cryptokittydata.info/dna/profile/'+this.profile).then(function (response) {
-                    console.log(response.data);
-                    localStorage.setItem('kitties', response.data);
-                    app.kitties = response.data;
+                    var kitties = [];
+
+                    for (i in response.data) {
+                        kitties[i] = response.data[i];
+                    }
+
+                    localStorage.setItem('kitties', kitties);
+                    app.kitties = kitties;
+
+                    console.log(kitties);
                 });
             },
             logout : function () {
