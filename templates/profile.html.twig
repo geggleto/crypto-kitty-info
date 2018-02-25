@@ -191,15 +191,15 @@
 
                     for (i in response.data) {
                         kitties[i] = response.data[i];
+
+                        this.kitties[i] = response.data[i];
+
+                        console.log(response.data[i]);
                     }
-
-                    this.kitties = kitties;
-
-                    console.log(kitties);
                 });
             },
             logout : function () {
-                app.kitties = [];
+                this.kitties = [];
             },
             getKittyUrl : function (id) {
                 return 'https://www.cryptokitties.co/kitty/'+id;
