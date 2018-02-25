@@ -36,6 +36,48 @@
     </section>
 
     <div class="container" style="overflow-x: auto;" v-if="length">
+
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('ducat')">DuCat</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('shipcat')">ShipCat</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('dracula')">Dracula</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('mistletoe')">Mistletoe</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('santaclaws')">SantaClaws</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('phuziqaat')">PhuZiqaat</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('stitches')">Stitches</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('negato')">Negato</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('momo-chan')">Momo-chan</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('earnie')">Earnie</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('misterpurrfect')">MisterPurrfect</a>
+                </div>
+                <div class="column">
+                    <a class="button is-link is-active" v-on:click="selectColumns('yuricatsuki')">YuriCatsuki</a>
+                </div>
+            </div>
+        </div>
+
         <table class="table">
             <thead>
             <tr>
@@ -223,6 +265,80 @@
                 $('.accentcolor').show();
                 $('.wild').show();
                 $('.mouth').show();
+            },
+            disableColumns : function () {
+                $('.fur').hide();
+                $('.pattern').hide();
+                $('.eyecolor').hide();
+                $('.eyeshape').hide();
+                $('.basecolor').hide();
+                $('.highlightcolor').hide();
+                $('.accentcolor').hide();
+                $('.wild').hide();
+                $('.mouth').hide();
+            },
+            selectColumns : function (fancyCatType) {
+                this.disableColumns();
+
+                if (fancyCatType === 'ducat') {
+                    $('.fur').show();
+                    $('.mouth').show();
+                } else if (fancyCatType === 'shipcat') {
+                    $('.fur').show();
+                    $('.pattern').show();
+                    $('.eyeshape').show();
+                    $('.basecolor').show();
+                } else if (fancyCatType === 'dracula') {
+                    $('.fur').show();
+                    $('.pattern').show();
+                    $('.eyecolor').show();
+                    $('.wild').show();
+                } else if (fancyCatType === 'mistletoe') {
+                    $('.eyeshape').show();
+                    $('.basecolor').show();
+                    $('.mouth').show();
+                } else if (fancyCatType === 'santaclaws') {
+                    $('.basecolor').show();
+                    $('.highlightcolor').show();
+                    $('.mouth').show();
+                    $('.wild').show();
+                } else if (fancyCatType === 'phuziqaat') {
+                    $('.fur').show();
+                    $('.pattern').show();
+                    $('.eyeshape').show();
+                    $('.mouth').show();
+                } else if (fancyCatType === 'stitches') {
+                    $('.basecolor').show();
+                    $('.highlightcolor').show();
+                    $('.accentcolor').show();
+                    $('.mouth').show();
+                } else if (fancyCatType === 'negato') {
+                    $('.pattern').show();
+                    $('.eyeshape').show();
+                    $('.basecolor').show();
+                    $('.highlightcolor').show();
+                } else if (fancyCatType === 'momo-chan') {
+                    $('.pattern').show();
+                    $('.eyeshape').show();
+                    $('.basecolor').show();
+                    $('.highlightcolor').show();
+                    $('.accentcolor').show();
+                } else if (fancyCatType === 'earnie') {
+                    $('.pattern').show();
+                    $('.fur').show();
+                    $('.basecolor').show();
+                    $('.mouth').show();
+                } else if (fancyCatType === 'misterpurrfect') {
+                    $('.eyeshape').show();
+                    $('.eyecolor').show();
+                    $('.highlightcolor').show();
+                    $('.mouth').show();
+                } else if (fancyCatType === 'yuricatsuki') {
+                    $('.fur').show();
+                    $('.pattern').show();
+                    $('.wild').show();
+                    $('.mouth').show();
+                }
             }
         },
         delimiters : ['<%', '%>'],
