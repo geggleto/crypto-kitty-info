@@ -43,6 +43,7 @@
             <th>Kitty Id</th>
             <th>Gen</th>
             <th>Sale</th>
+            <th>Fancy</th>
 
             {% for i,category in categories %}
 
@@ -61,6 +62,7 @@
                 <td><a href="https://www.cryptokitties.co/kitty/{{ kitty['id'] }}" target="_blank">{{ kitty['id'] }}</a></td>
                 <td>{{ kitty['gen'] }}</td>
                 <td>{{ kitty['forSale'] }}</td>
+                <td>{{ kitty['fancy'] }}</td>
 
 
                 <td>{{ kitty['body']['D0'] }}</td>

@@ -843,7 +843,7 @@ class KittyService
 
     public function findKittiesFromArray(array $params) {
         //Query Builder
-        $queryString = 'select id, gen from kitties where ';
+        $queryString = "select id, gen, json_extract(kitty, '$.is_fancy') as `fancy` from kitties where ";
 
         $filters = [];
         $values = [];
@@ -990,6 +990,7 @@ class KittyService
 
             $id = $idResult['id'];
             $gen = $idResult['gen'];
+            $fancy = $idResult['fancy'];
 
             $forSale = self::getSaleInfo($id);
 
@@ -1001,6 +1002,7 @@ class KittyService
                 $result[$id]['id'] = $id;
                 $result[$id]['gen'] = $gen;
                 $result[$id]['forSale'] = $isItForSale;
+                $result[$id]['fancy'] = $fancy;
             }
 
             if (count($result) === 50) {
