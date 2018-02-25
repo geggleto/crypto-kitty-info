@@ -7,6 +7,7 @@ namespace Kitty\Http;
 use function array_reverse;
 use function implode;
 use InvalidArgumentException;
+use const JSON_PRETTY_PRINT;
 use Kitty\Services\KittyService;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -56,8 +57,8 @@ class SearchDnaController
 
         $categories = array_reverse($categories);
 
-        return $this->twig->render($response, 'search.html.twig', [
-            'kitties' => $kittyArray,
+        return $this->twig->render($response, 'search2.html.twig', [
+            'kitties' => json_encode($kittyArray, JSON_PRETTY_PRINT),
             'categories' => $categories
         ]);
     }
