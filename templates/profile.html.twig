@@ -117,7 +117,7 @@
 
             <tbody>
 
-                <tr v-for="id, kitty in kitties">
+                <tr v-for="kitty, id in kitties">
                     <td><a v-bind:href="getKittyUrl(id)" target="_blank"><% id %></a></td>
                     <td><% kitty['gen'] %></td>
 
@@ -190,7 +190,6 @@
                         kitties[i] = response.data[i];
                     }
 
-                    localStorage.setItem('kitties', kitties);
                     app.kitties = kitties;
 
                     console.log(kitties);
@@ -207,23 +206,14 @@
         delimiters : ['<%', '%>'],
         mounted: function () {
             // Code for localStorage/sessionStorage.
-            var kitties = localStorage.getItem('kitties');
             var profile = localStorage.getItem('profile');
 
-            if (kitties !== null) {
-                this.kitties = kitties;
-            }
-
-            if (profile !== null) {
-                this.profile = profile;
-            } else {
-                this.$nextTick(function () {
-                    if (typeof web3 !== 'undefined') {
-                        this.profile = web3.eth.accounts[0];
-                        this.getUrl();
-                    }
-                });
-            }
+            this.$nextTick(function () {
+                if (typeof web3 !== 'undefined') {
+                    this.profile = web3.eth.accounts[0];
+                    this.getUrl();
+                }
+            });
         }
     })
 </script>
