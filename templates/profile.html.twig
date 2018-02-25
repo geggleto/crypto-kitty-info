@@ -180,7 +180,7 @@
         el: '#app',
         data: {
             profile : "",
-            kitties : {}
+            kitties : []
         },
         methods : {
             getUrl : function () {
@@ -192,7 +192,7 @@
                     for (i in response.data) {
                         kitties[i] = response.data[i];
 
-                        this.kitties[i] = response.data[i];
+                        app.kitties[i] = response.data[i];
 
                         console.log(response.data[i]);
                     }
