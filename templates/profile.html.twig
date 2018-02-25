@@ -212,7 +212,7 @@
 
             this.$nextTick(function () {
                 if (typeof web3 !== 'undefined') {
-                    console.log(web3);
+                    console.log(web3.eth.accounts[0]);
 
                     this.profile = web3.eth.accounts[0];
                 }
