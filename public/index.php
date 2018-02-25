@@ -2,6 +2,7 @@
 
 use Kitty\Http\DnaController;
 use Kitty\Http\HomePage;
+use Kitty\Http\MyProfile;
 use Kitty\Http\ProfileController;
 use Kitty\Http\SearchDnaController;
 use Kitty\Http\SearchPage;
@@ -31,6 +32,8 @@ $app->get('/dna/kitty/{kittenId}/pretty', [DnaController::class, 'searchForKitte
 $app->get('/dna/profile/{profile}', ProfileController::class);
 
 $app->get('/dna/profile/{profile}/csv', [ProfileController::class, 'exportToCsv']);
+
+$app->get('/profile', MyProfile::class);
 
 $app->get('/', HomePage::class);
 
