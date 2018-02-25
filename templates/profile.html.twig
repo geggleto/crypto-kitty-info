@@ -196,7 +196,11 @@
         delimiters : ['<%', '%>'],
         mounted: function () {
             // Code for localStorage/sessionStorage.
-            this.kitties = localStorage.getItem('kitties');
+            var kitties = localStorage.getItem('kitties');
+
+            if (kitties !== null) {
+                this.kitties = kitties;
+            }
         }
     })
 </script>
