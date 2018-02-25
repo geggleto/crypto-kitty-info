@@ -226,7 +226,6 @@
             this.$nextTick(function () {
                 if (typeof web3 !== 'undefined') {
                     this.profile = web3.eth.accounts[0];
-                    this.getUrl();
                 }
             });
         }
