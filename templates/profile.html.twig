@@ -93,9 +93,9 @@
                 <th colspan="4" class="mouth is-centered"><a v-on:click="disableColumn('mouth')">Mouth</a></th>
             </tr>
             <tr>
-                <th>Kitty Id</th>
-                <th>Gen</th>
-                <th>Fancy</th>
+                <td>Kitty Id</td>
+                <td>Gen</td>
+                <td>Fancy</td>
 
                 <th class="fur">D0</th>
                 <th class="fur">R1</th>
@@ -150,6 +150,7 @@
                 <tr v-for="kitty, id in kitties">
                     <td><a v-bind:href="getKittyUrl(id)" target="_blank"><% id %></a></td>
                     <td><% kitty['gen'] %></td>
+                    <td><% kitty['fancy'] %></td>
 
                     <td class="fur"><% kitty['body']['D0'] %></td>
                     <td class="fur"><% kitty['body']['R1'] %></td>
