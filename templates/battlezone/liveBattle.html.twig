@@ -26,32 +26,30 @@
         </div>
     </div>
 </section>
-<div class="columns">
+<div class="columns" id="app">
     <div class="column">
 
     </div>
     <div class="column is-8-desktop">
-        <div id="app">
-            <div class="container" v-if="!signedIn">
-                <div class="field has-addons">
-                    <div class="control">
-                        <input class="input is-expanded" type="text" placeholder="ETH Address" v-model="profile">
-                    </div>
-                    <div class="control">
-                        <a class="button is-info" v-on:click="login()">
-                            Login
-                        </a>
-                    </div>
+        <div v-if="!signedIn">
+            <div class="field has-addons">
+                <div class="control">
+                    <input class="input is-expanded" type="text" placeholder="ETH Address" v-model="profile">
+                </div>
+                <div class="control">
+                    <a class="button is-info" v-on:click="login()">
+                        Login
+                    </a>
                 </div>
             </div>
-
-            <div class="container" v-if="turn">
-                <a class="button" v-on:click="skill1" v-bind:class="{ disabled: !skill1 }">Skill 1</a>
-                <a class="button" v-on:click="skill2" v-bind:class="{ disabled: !skill2 }">Skill 2</a>
-                <a class="button" v-on:click="skill3" v-bind:class="{ disabled: !skill3 }">Skill 3</a>
-            </div>
-
         </div>
+
+        <div class="container" v-if="turn">
+            <a class="button" v-on:click="skill1" v-bind:class="{ disabled: !skill1 }">Skill 1</a>
+            <a class="button" v-on:click="skill2" v-bind:class="{ disabled: !skill2 }">Skill 2</a>
+            <a class="button" v-on:click="skill3" v-bind:class="{ disabled: !skill3 }">Skill 3</a>
+        </div>
+
     </div>
     <div class="column">
 
