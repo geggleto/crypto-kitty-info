@@ -27,14 +27,14 @@
     </div>
 </section>
 <div class="columns" id="app">
-    <div class="column">
+    <div class="column is-3-desktop">
 
     </div>
-    <div class="column is-8-desktop">
+    <div class="column is-6-desktop">
         <div v-if="!signedIn">
             <div class="field has-addons">
-                <div class="control">
-                    <input class="input is-expanded" type="text" placeholder="ETH Address" v-model="profile">
+                <div class="control is-expanded">
+                    <input class="input" type="text" placeholder="ETH Address" v-model="profile">
                 </div>
                 <div class="control">
                     <a class="button is-info" v-on:click="login()">
