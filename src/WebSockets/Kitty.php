@@ -56,7 +56,7 @@ class Kitty implements \JsonSerializable
 
     public static function makeKitty($id)
     {
-        return new self($id, 100, 10,10, new BasicAttack(0), new PowerAttack(4), new Heal(5));
+        return new self($id, 100, 10,10, new BasicAttack(0, 'target'), new PowerAttack(4,'target'), new Heal(5, 'self'));
     }
 
     /**
