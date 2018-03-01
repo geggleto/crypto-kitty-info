@@ -7,6 +7,7 @@ use function array_map;
 use GuzzleHttp\Client;
 use Monolog\Logger;
 use PDO;
+use function sleep;
 use Slim\Http\Response;
 use function substr;
 use function urlencode;
@@ -740,25 +741,30 @@ class KittyService
         $list = [];
         $offset = 0;
 
+        $client = new Client();
+
         do {
-            $client = new Client();
 
-            //https://api.cryptokitties.co/kitties?owner_wallet_address=0xcecddbe88359f6ecebe90b42643b002543f27fe9&offset=12
-            $response = $client->get('https://api.cryptokitties.co/kitties?owner_wallet_address=' . $address . '&offset=' . $offset);
-            $body     = json_decode($response->getBody()->__toString(), true);
+            try {
+                //https://api.cryptokitties.co/kitties?owner_wallet_address=0xcecddbe88359f6ecebe90b42643b002543f27fe9&offset=12
+                $response = $client->get('https://api.cryptokitties.co/kitties?limit=20&owner_wallet_address=' . $address . '&offset=' . $offset);
+                $body     = json_decode($response->getBody()->__toString(), true);
 
-            $total   = $body['total'];
-            $limit   = $body['limit']; // 12
-            $offset  = $body['offset'];
-            $kitties = $body['kitties'];
+                $total   = $body['total'];
+                $limit   = $body['limit']; // 20 :)
+                $offset  = $body['offset'];
+                $kitties = $body['kitties'];
 
-            foreach ($kitties as $kitty) {
-                $list[] = $kitty['id'];
+                foreach ($kitties as $kitty) {
+                    $list[] = $kitty['id'];
+                }
+
+                $offset += $limit;
+            } catch (\Exception $exception) {
+
             }
 
-            $offset += $limit;
-
-            usleep(1500000);
+            sleep(1);
 
         } while($offset <= $total);
 
