@@ -7,6 +7,7 @@ use function json_decode;
 use Kitty\WebSockets\Skills\PowerAttack;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
+use function var_dump;
 
 class CryptoBattle implements MessageComponentInterface
 {
@@ -53,6 +54,7 @@ class CryptoBattle implements MessageComponentInterface
                 $this->matchPlayer();
 
             } else if ($messagePacket['command'] === 'TakeTurn') {
+
                 $skill = $messagePacket['skill'];
                 $result = $player->getBattle()->takeTurn($player, $skill);
 
@@ -60,6 +62,8 @@ class CryptoBattle implements MessageComponentInterface
                     $this->battleCleanUp($player);
                 }
             }
+
+            var_dump($messagePacket);
         }
     }
 
