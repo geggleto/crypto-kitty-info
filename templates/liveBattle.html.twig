@@ -20,52 +20,57 @@
     <a class="button" v-on:click="skill3">Skill 3</a>
 </div>
 <script type="application/javascript">
-    var app = new Vue({
-        el: '#app',
-        data: {
-            conn : null,
-            profile : ''
+var app = new Vue({
+    el: '#app',
+    data: {
+        conn : null,
+        profile : ''
+    },
+    methods: {
+        skill1 : function () {
+            this.conn.send(JSON.stringify({
+                command : "TakeTurn",
+                skill : 1
+            }));
         },
-        methods: {
-            skill1 : function () {
-                this.conn.send(JSON.stringify({
-                    command : "TakeTurn",
-                    skill : 1
-                }));
-            },
-            skill2 : function () {
-                this.conn.send(JSON.stringify({
-                    command : "TakeTurn",
-                    skill : 2
-                }));
-            },
-            skill3 : function () {
-                this.conn.send(JSON.stringify({
-                    command : "TakeTurn",
-                    skill : 3
-                }));
-            }
+        skill2 : function () {
+            this.conn.send(JSON.stringify({
+                command : "TakeTurn",
+                skill : 2
+            }));
         },
-        mounted : function () {
-            this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
-
-            this.conn.onmessage = function (ev) {
-                console.log(ev.data);
-            };
-
-            this.$nextTick(function () {
-                if (typeof web3 !== 'undefined') {
-                    this.profile = web3.eth.accounts[0];
-
-                    this.conn.send(JSON.stringify({
-                        command : "IdentifyPlayer",
-                        address : this.profile,
-                        kittyId : 1
-                    }));
-                }
-            });
+        skill3 : function () {
+            this.conn.send(JSON.stringify({
+                command : "TakeTurn",
+                skill : 3
+            }));
+        },
+        login : function () {
+            this.conn.send(JSON.stringify({
+                command : "IdentifyPlayer",
+                address : this.profile,
+                kittyId : 1
+            }));
         }
-    });
+    },
+    mounted : function () {
+        this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
+
+        this.conn.onmessage = function (ev) {
+            console.log(ev.data);
+        };
+
+        this.conn.onopen = function (ev) {
+            app.login();
+        };
+
+        this.$nextTick(function () {
+            if (typeof web3 !== 'undefined') {
+                this.profile = web3.eth.accounts[0];
+            }
+        });
+    }
+});
 </script>
 </body>
 </html>
