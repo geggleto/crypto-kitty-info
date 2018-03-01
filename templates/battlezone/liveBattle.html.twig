@@ -104,19 +104,19 @@ var app = new Vue({
         }
     },
     mounted : function () {
-        try {
-            this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
+        this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
 
-            this.conn.onmessage = function (ev) {
-                app.turn = ev.turn;
-            };
+        this.conn.onmessage = function (ev) {
+            app.turn = ev.turn;
+        };
 
-            this.conn.onopen = function (ev) {
+        this.conn.onopen = function (ev) {
 
-            };
-        } catch (err) {
-            this.service = false;
-        }
+        };
+
+        this.conn.onerror = function (ev) {
+            app.service = false;
+        };
 
         this.$nextTick(function () {
             if (typeof web3 !== 'undefined') {
