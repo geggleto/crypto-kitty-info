@@ -31,6 +31,10 @@
 
     </div>
     <div class="column is-6-desktop">
+        <div class="notification is-danger" v-if="!service">
+            There was a problem connecting to the Kitty Battle Zone Servers
+        </div>
+
         <div v-if="!signedIn">
             <div class="field has-addons">
                 <div class="control is-expanded">
@@ -60,6 +64,8 @@
 var app = new Vue({
     el: '#app',
     data: {
+        service : true,
+
         conn : null,
         profile : '',
         turn : false,
@@ -98,21 +104,26 @@ var app = new Vue({
         }
     },
     mounted : function () {
-        this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
+        try {
+            this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
 
-        this.conn.onmessage = function (ev) {
-            app.turn = ev.turn;
-        };
+            this.conn.onmessage = function (ev) {
+                app.turn = ev.turn;
+            };
 
-        this.conn.onopen = function (ev) {
+            this.conn.onopen = function (ev) {
 
-        };
+            };
+        } catch (err) {
+            this.service = false;
+        }
 
         this.$nextTick(function () {
             if (typeof web3 !== 'undefined') {
                 this.profile = web3.eth.accounts[0];
             }
         });
+
     }
 });
 </script>
