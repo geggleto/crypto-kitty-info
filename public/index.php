@@ -1,5 +1,6 @@
 <?php
 
+use Kitty\Http\BattlePage;
 use Kitty\Http\DnaController;
 use Kitty\Http\HomePage;
 use Kitty\Http\MyProfile;
@@ -40,5 +41,7 @@ $app->get('/', HomePage::class);
 $app->get('/search', SearchDnaController::class);
 
 $app->get('/page', SearchPage::class);
+
+$app->get('/battle', BattlePage::class);
 
 $app->run();
