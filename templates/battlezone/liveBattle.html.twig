@@ -118,6 +118,12 @@ var app = new Vue({
             app.service = false;
         };
 
+        this.conn.onclose = function (ev) {
+            if (ev.code !== 3001) {
+                app.service = false;
+            }
+        };
+
         this.$nextTick(function () {
             if (typeof web3 !== 'undefined') {
                 this.profile = web3.eth.accounts[0];
