@@ -1,6 +1,5 @@
 <?php
 
-use Kitty\Http\BattlePage;
 use Kitty\Http\BattleZone\BattlePage;
 use Kitty\Http\DnaController;
 use Kitty\Http\HomePage;
