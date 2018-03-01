@@ -105,7 +105,7 @@ class CryptoBattle implements MessageComponentInterface
 
             $battle->sendUpdate();
 
-            $this->battles = $battle;
+            $this->battles[] = $battle;
         }
     }
 
