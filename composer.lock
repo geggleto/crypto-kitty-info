@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "525443c711429b8ba6c9dea3361c097f",
-    "content-hash": "5ebabed5e91785f3d935a04aa73d1f7d",
+    "hash": "a117975e7bdcee85ad88978446a6acdd",
+    "content-hash": "a00563b0f8f648597ae4e292f1af7a7b",
     "packages": [
         {
             "name": "bitwasp/buffertools",
@@ -1135,6 +1135,46 @@
             "time": "2017-04-27 10:56:23"
         },
         {
+            "name": "react/mysql",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bixuehujin/reactphp-mysql.git",
+                "reference": "80527df3d5a687a08a67c6bb716db1086600ea32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bixuehujin/reactphp-mysql/zipball/80527df3d5a687a08a67c6bb716db1086600ea32",
+                "reference": "80527df3d5a687a08a67c6bb716db1086600ea32",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "react/dns": "0.4.*",
+                "react/socket": "0.8.*"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "1.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\MySQL\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "mysql driver for reactphp.",
+            "keywords": [
+                "mysql",
+                "php",
+                "reactphp"
+            ],
+            "time": "2018-02-06 04:39:01"
+        },
+        {
             "name": "react/promise",
             "version": "v2.5.1",
             "source": {
@@ -1758,7 +1798,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bunny/bunny": 20
+        "bunny/bunny": 20,
+        "react/mysql": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -7,6 +7,7 @@ use function json_decode;
 use Kitty\WebSockets\Skills\PowerAttack;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
+use React\MySQL\Connection;
 use function var_dump;
 
 class CryptoBattle implements MessageComponentInterface
@@ -20,10 +21,18 @@ class CryptoBattle implements MessageComponentInterface
     /** @var BattleInstance[] */
     protected $battles;
 
-    public function __construct() { //Probably need to include bunny
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    public function __construct(Connection $connection) { //Probably need to include bunny
+
         $this->clients = new \SplObjectStorage();
         $this->queue = [];
         $this->battles = [];
+
+        $this->connection = $connection;
     }
 
     public function onOpen(ConnectionInterface $conn) {
