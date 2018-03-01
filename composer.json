@@ -8,7 +8,8 @@
         "monolog/monolog": "^1.23",
         "bunny/bunny": "@dev",
         "bitwasp/buffertools": "^0.5.0",
-        "slim/twig-view": "^2.3"
+        "slim/twig-view": "^2.3",
+        "cboden/ratchet": "^0.4.1"
     },
     "autoload" : {
         "psr-4" : {
