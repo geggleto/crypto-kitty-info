@@ -112,14 +112,17 @@ class CryptoBattle implements MessageComponentInterface
     protected function battleCleanUp(Player $player)
     {
         $battle = $player->getBattle();
-        $op = $battle->getOpponent($player);
-        $battle->endMatch($op);
 
-        $battle->getPlayer2()->setBattle(null);
-        $player->setBattle(null);
+        if ($battle !== null) {
+            $op = $battle->getOpponent($player);
+            $battle->endMatch($op);
 
-        $this->battles = array_filter($this->battles, function (BattleInstance $battle) {
-            return $battle->getStatus() === 'active';
-        });
+            $battle->getPlayer2()->setBattle(null);
+            $player->setBattle(null);
+
+            $this->battles = array_filter($this->battles, function (BattleInstance $battle) {
+                return $battle->getStatus() === 'active';
+            });
+        }
     }
 }
