@@ -14,18 +14,61 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="app">
-    <a class="button" v-on:click="skill1" v-if="turn">Skill 1</a>
-    <a class="button" v-on:click="skill2" v-if="turn">Skill 2</a>
-    <a class="button" v-on:click="skill3" v-if="turn">Skill 3</a>
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Kitty Battle Zone
+            </h1>
+            <h2 class="subtitle">
+                Enter the Fray
+            </h2>
+        </div>
+    </div>
+</section>
+<div class="columns">
+    <div class="column">
+
+    </div>
+    <div class="column">
+        <div id="app">
+            <div class="container" v-if="!signedIn">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input is-expanded" type="text" placeholder="ETH Address" v-model="profile">
+                    </div>
+                    <div class="control">
+                        <a class="button is-info" v-on:click="login()">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" v-if="turn">
+                <a class="button" v-on:click="skill1" v-bind:class="{ disabled: !skill1 }">Skill 1</a>
+                <a class="button" v-on:click="skill2" v-bind:class="{ disabled: !skill2 }">Skill 2</a>
+                <a class="button" v-on:click="skill3" v-bind:class="{ disabled: !skill3 }">Skill 3</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="column">
+
+    </div>
 </div>
+
 <script type="application/javascript">
 var app = new Vue({
     el: '#app',
     data: {
         conn : null,
         profile : '',
-        turn : false
+        turn : false,
+        signedIn : false,
+        skill1 : true,
+        skill2 : true,
+        skill3 : true
     },
     methods: {
         skill1 : function () {
@@ -52,6 +95,8 @@ var app = new Vue({
                 address : this.profile,
                 kittyId : 1
             }));
+
+            this.signedIn = true;
         }
     },
     mounted : function () {
@@ -62,8 +107,7 @@ var app = new Vue({
         };
 
         this.conn.onopen = function (ev) {
-            app.login();
-            console.log(ev.data);
+
         };
 
         this.$nextTick(function () {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kitty\Http;
+namespace Kitty\Http\BattleZone;
 
 
 use Slim\Http\Request;
@@ -22,6 +22,6 @@ class BattlePage
 
     public function __invoke(Request $request, Response $response)
     {
-        return $this->twig->render($response, 'liveBattle.html.twig');
+        return $this->twig->render($response, 'battlezone/liveBattle.html.twig');
     }
 }

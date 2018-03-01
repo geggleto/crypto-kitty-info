@@ -71,8 +71,6 @@ class CryptoBattle implements MessageComponentInterface
                     $this->battleCleanUp($player);
                 }
             }
-
-            var_dump($messagePacket);
         }
     }
 
