@@ -101,7 +101,11 @@ class CryptoBattle implements MessageComponentInterface
             $player1 = array_pop($this->queue);
             $player2 = array_pop($this->queue);
 
-            $this->battles[] = new BattleInstance($player1, $player2);
+            $battle = new BattleInstance($player1, $player2);
+
+            $battle->sendUpdate();
+
+            $this->battles = $battle;
         }
     }
 
