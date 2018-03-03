@@ -12,7 +12,6 @@
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script src="/js/web3.min.js"></script>
 </head>
 <body>
 <section class="hero is-danger is-bold">
@@ -92,10 +91,12 @@ var app = new Vue({
             //     kittyId : 1
             // }));
 
-            this.web3.eth.personal_sign(this.profile, "Crypto Kitty Battles");
-
-            this.signedIn = true;
-            this.page = 'registration';
+            web3.eth.sign(this.profile,web3.toHex("Crypto Kitty Battles"), function (err,res) {
+                if (!err) {
+                    this.signedIn = true;
+                    this.page = 'registration';
+                }
+            });
         },
         connect : function () {
             this.service = true;
@@ -131,8 +132,6 @@ var app = new Vue({
         this.$nextTick(function () {
             if (typeof web3 !== 'undefined') {
                 this.profile = web3.eth.accounts[0];
-
-                this.web3 = new Web3(web3.currentProvider);
             }
         });
 
