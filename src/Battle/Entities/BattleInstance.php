@@ -115,7 +115,7 @@ class BattleInstance
     public function toArray()
     {
         return [
-            'uuid' => $this->uuid,
+            'uuid' => $this->uuid->toString(),
             'turn' => $this->turn,
             'status' => $this->status,
             'winner' => $this->winner,
@@ -124,4 +124,31 @@ class BattleInstance
         ];
 
     }
+
+    /**
+     * @return Kitty
+     */
+    public function getKitty1(): Kitty
+    {
+        return $this->kitty1;
+    }
+
+    /**
+     * @return Kitty
+     */
+    public function getKitty2(): Kitty
+    {
+        return $this->kitty2;
+    }
+
+
+    public function swapTurn()
+    {
+        if ($this->turn === $this->kitty1->getId()) {
+            $this->turn = $this->kitty2->getId();
+        } else {
+            $this->turn = $this->kitty1->getId();
+        }
+    }
+
 }

@@ -56,23 +56,18 @@ var app = new Vue({
     el: '#app',
     data: {
         page : 'connection',
-
         service : true,
         conn : null,
         profile : '',
         turn : false,
         signedIn : false,
-        skill1 : true,
-        skill2 : true,
-        skill3 : true,
-        battle : {
 
-        },
         kitties : [],
         selectionPage : 0,
         selectionLimit : 20,
         selectionOffset: 0,
         loadingRemoteAsset : false,
+        battleId : '',
         selectedKitty : {
             image   : 'https://bulma.io/images/placeholders/128x128.png',
             health  : 100,
@@ -114,20 +109,23 @@ var app = new Vue({
     methods: {
         skill1 : function () {
             this.conn.send(JSON.stringify({
-                command : "TakeTurn",
-                skill : 1
+                command : "player.take.turn",
+                skill : 1,
+                battleId : app.battleId
             }));
         },
         skill2 : function () {
             this.conn.send(JSON.stringify({
-                command : "TakeTurn",
-                skill : 2
+                command : "player.take.turn",
+                skill : 2,
+                battleId : app.battleId
             }));
         },
         skill3 : function () {
             this.conn.send(JSON.stringify({
-                command : "TakeTurn",
-                skill : 3
+                command : "player.take.turn",
+                skill : 3,
+                battleId : app.battleId
             }));
         },
         login : function () {
@@ -161,6 +159,8 @@ var app = new Vue({
                 if (app.page === 'queue') { // We are waiting in Queue
                     if (msg.event === 'battle.started') {
                         app.page = 'battle';
+
+                        app.battleId = msg.uuid;
 
                         //Load the state
                         if (msg.kitty1.id === app.selectedKitty.id) {

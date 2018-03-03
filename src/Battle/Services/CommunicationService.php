@@ -7,6 +7,7 @@ use function json_encode;
 use Kitty\Battle\Events\BattleAction;
 use Kitty\Battle\Events\BattleEvent;
 use Kitty\Battle\Events\BattleHasBegun;
+use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerEvent;
 use Kitty\Battle\Events\PlayerQueued;
@@ -33,6 +34,14 @@ class CommunicationService
     {
         $data = $battleEvent->getBattleInstance()->toArray();
         $data['event'] = BattleHasBegun::EVENT_ROUTING_KEY;
+
+        $this->sendBattleEvent($battleEvent, $data);
+    }
+
+    public function onBattleUpdate(BattleUpdate $battleEvent) : void
+    {
+        $data = $battleEvent->getBattleInstance()->toArray();
+        $data['event'] = BattleUpdate::EVENT_ROUTING_KEY;
 
         $this->sendBattleEvent($battleEvent, $data);
     }

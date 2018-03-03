@@ -11,7 +11,11 @@ use Kitty\Battle\Events\BattleAction;
 use Kitty\Battle\Events\BattleAttackAction;
 use Kitty\Battle\Events\BattleAttackUpAction;
 use Kitty\Battle\Events\BattleDefenseUpAction;
+use Kitty\Battle\Events\BattleHasBegun;
+use Kitty\Battle\Events\BattleHasEnded;
 use Kitty\Battle\Events\BattleHealAction;
+use Kitty\Battle\Events\BattleUpdate;
+use Kitty\Battle\Events\PlayerActionTaken;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class BattleService
@@ -21,12 +25,70 @@ class BattleService
      */
     private $eventDispatcher;
 
+    /** @var BattleInstance[] */
+    private $battles;
+
     public function __construct(EventDispatcher $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function apply(BattleInstance $battleInstance, BaseSkill $skill, Kitty $attacker, Kitty $defender)
+    public function onBattleHasBegun(BattleHasBegun $battleHasBegun)
+    {
+        $this->battles[$battleHasBegun->getBattleInstance()->getUuid()->toString()] = $battleHasBegun->getBattleInstance();
+    }
+
+    public function onBattleHasEnded(BattleHasEnded $battleHasEnded)
+    {
+        unset($this->battles[$battleHasEnded->getBattleInstance()->getUuid()->toString()]);
+    }
+
+    public function onPlayerActionTaken(PlayerActionTaken $actionTaken)
+    {
+        if (!isset($this->battles[$actionTaken->getBattleId()])) {
+            return;
+        }
+
+        $battle = $this->battles[$actionTaken->getBattleId()];
+
+        $attacker = null;
+        $defender = null;
+
+        if ($battle->getPlayer1()->getConnection() === $actionTaken->getConnection())
+        {
+            //Player 1 Attacker
+            $attacker = $battle->getKitty1();
+            $defender = $battle->getKitty2();
+        } else {
+            //Player 2 Attacker
+            $attacker = $battle->getKitty2();
+            $defender = $battle->getKitty1();
+        }
+
+        $skill = null;
+
+        if ($actionTaken->getSkill() == 1) {
+            $skill = $attacker->getSkill1();
+        } else if ($actionTaken->getSkill() == 2) {
+            $skill = $attacker->getSkill2();
+        } else {
+            $skill = $attacker->getSkill3();
+        }
+
+        $this->apply($battle, $skill, $attacker, $defender);
+
+        $battle->swapTurn();
+
+        $this->eventDispatcher->dispatch(BattleUpdate::EVENT_ROUTING_KEY, new BattleUpdate($battle));
+
+    }
+
+    protected function apply(
+        BattleInstance $battleInstance,
+        BaseSkill $skill,
+        Kitty $attacker,
+        Kitty $defender
+    )
     {
         if ($skill->getPower() !== 0) {
             $def = null;
@@ -93,7 +155,6 @@ class BattleService
             $target->receiveAttackUp($skill->getDefenseUp());
 
             $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, new BattleDefenseUpAction($battleInstance, $target, $skill->getDefenseUp()));
-
         }
     }
 }
