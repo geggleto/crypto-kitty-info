@@ -72,7 +72,16 @@ var app = new Vue({
         selectionPage : 0,
         selectionLimit : 20,
         selectionOffset: 0,
-        loadingRemoteAsset : false
+        loadingRemoteAsset : false,
+        selectedKitty : {
+            image   : 'https://bulma.io/images/placeholders/128x128.png',
+            health  : 100,
+            attack  : 10,
+            defense : 10,
+            wins    : 0,
+            losses  : 0,
+            id : 0
+        }
     },
     methods: {
         skill1 : function () {
@@ -156,8 +165,8 @@ var app = new Vue({
                 app.loadingRemoteAsset = false;
             });
         },
-        personalSign : function () {
-
+        selectKitty : function (index) {
+            this.selectedKitty = this.kitties[index];
         }
     },
     mounted : function () {

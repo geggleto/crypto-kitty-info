@@ -6,7 +6,7 @@
 
             <div class="columns">
                 <div class="column is-3">
-
+                    {% include "battlezone/partials/kittyDisplayCard.html.twig" %}
                 </div>
                 <div class="column">
                     <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
@@ -21,14 +21,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="kitty in kitties">
+                            <tr v-for="(kitty, key)  in kitties">
                                 <td><% kitty.id %></td>
                                 <td>100</td>
                                 <td>10</td>
                                 <td>10</td>
                                 <td>5</td>
                                 <td>
-                                    <a class="button is-success">
+                                    <a class="button is-success" v-on:click="selectKitty(key)">
                                         <span class="icon is-small">
                                           <i class="fas fa-quidditch"></i>
                                         </span>
@@ -40,7 +40,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </section>
 

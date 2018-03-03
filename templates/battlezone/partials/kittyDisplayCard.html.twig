@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-image">
+        <figure class="image is-4by3">
+            <img v-bind:src="selectedKitty.image">
+        </figure>
+    </div>
+    <div class="card-content">
+        <table>
+            <thead>
+                <tr class="is-primary">
+                    <th colspan="4">Kitty #<span><% selectedKitty.id %></span></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="2">Health</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Attack</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Defense</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Heal</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td>Wins:</td>
+                <td><% selectedKitty.wins %></td>
+                <td>Losses:</td>
+                <td><% selectedKitty.losses %></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
