@@ -175,6 +175,9 @@ var app = new Vue({
         selectKitty : function (index) {
             this.selectedKitty.image = this.kitties[index].image_url_cdn;
             this.selectedKitty.id = this.kitties[index].id;
+        },
+        enterBattle : function () {
+            this.page = 'queue';
         }
     },
     mounted : function () {

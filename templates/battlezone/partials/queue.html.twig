@@ -1,3 +1,22 @@
 <div class="container" v-if="page == 'queue'">
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Select Your Kitty</h1>
 
+            <div class="columns">
+                <div class="column is-4">
+                    {% include "battlezone/partials/queue/selectedKitty.html.twig" %}
+                </div>
+                <div class="column is-4">
+                    <figure class="image is-4by3">
+                        <img src="/img/Versus_sign.png">
+                    </figure>
+                </div>
+                <div class="column is-4">
+                    {% include "battlezone/partials/queue/opponentKitty.html.twig" %}
+                </div>
+            </div>
+
+        </div>
+    </section>
 </div>
