@@ -87,7 +87,8 @@ var app = new Vue({
             skill3 : 'Lick Paws',
             skill1tier : 1,
             skill2tier : 1,
-            skill3tier : 1
+            skill3tier : 1,
+            maxhealth : 100
         },
         opponentKitty : {
             image   : '/img/mascot03.png',
@@ -103,8 +104,10 @@ var app = new Vue({
             skill3 : '???',
             skill1tier : '???',
             skill2tier : '???',
-            skill3tier : '???'
-        }
+            skill3tier : '???',
+            maxhealth : 100
+        },
+        battle_log : []
     },
     methods: {
         skill1 : function () {
@@ -126,12 +129,6 @@ var app = new Vue({
             }));
         },
         login : function () {
-            // this.conn.send(JSON.stringify({
-            //     command : "IdentifyPlayer",
-            //     address : this.profile,
-            //     kittyId : 1
-            // }));
-
             var signer = web3.eth.defaultAccount || web3.eth.accounts[0];
             var original_message = "Crypto Kitty Battles!";
             var message = web3.toHex(original_message);
@@ -155,7 +152,27 @@ var app = new Vue({
             this.conn = new WebSocket('ws://dna.kitty.fyi:8080/battle');
 
             this.conn.onmessage = function (ev) {
-                app.turn = ev.turn;
+                console.log(ev.data);
+                var msg = JSON.parse(ev.data);
+
+                if (app.page === 'queue') { // We are waiting in Queue
+                    if (msg['event'] === 'battle.started') {
+                        app.page = 'battle';
+
+                        //Load the state
+                        if (msg.data.kitty1.id === app.selectedKitty.id) {
+                            app.selectedKitty = msg.data.kitty1;
+                            app.opponentKitty = msg.data.kitty2;
+                        } else {
+                            app.selectedKitty = msg.data.kitty2;
+                            app.opponentKitty = msg.data.kitty1;
+                        }
+                    }
+                }
+
+                if (app.page === 'battle') { // We are in Battle
+
+                }
             };
 
             this.conn.onopen = function (ev) {
@@ -194,6 +211,13 @@ var app = new Vue({
         },
         enterBattle : function () {
             this.page = 'queue';
+            this.battle_log = [];
+
+            this.conn.send(JSON.stringify({
+                command : "IdentifyPlayer",
+                address : this.profile,
+                kittyId : app.selectedKitty.id
+            }));
         }
     },
     mounted : function () {

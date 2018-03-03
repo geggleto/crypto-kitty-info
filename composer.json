@@ -10,7 +10,10 @@
         "bitwasp/buffertools": "^0.5.0",
         "slim/twig-view": "^2.3",
         "cboden/ratchet": "^0.4.1",
-        "react/mysql" : "dev-master"
+        "react/mysql" : "dev-master",
+        "league/tactician": "^1.0",
+        "symfony/event-dispatcher": "^4.0",
+        "ramsey/uuid": "^3.7"
     },
     "autoload" : {
         "psr-4" : {

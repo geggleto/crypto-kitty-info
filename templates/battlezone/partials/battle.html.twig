@@ -1,9 +1,25 @@
 <div class="container" v-if="page == 'battle'">
 
-    <div class="container" v-if="turn">
-        <a class="button" v-on:click="skill1" v-bind:class="{ disabled: !skill1 }">Skill 1</a>
-        <a class="button" v-on:click="skill2" v-bind:class="{ disabled: !skill2 }">Skill 2</a>
-        <a class="button" v-on:click="skill3" v-bind:class="{ disabled: !skill3 }">Skill 3</a>
-    </div>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">QUEUED FOR BATTLE</h1>
+
+            <div class="columns">
+                <div class="column is-4">
+                    {% include "battlezone/partials/battle/selectedKitty.html.twig" %}
+                </div>
+                <div class="column is-4">
+                    <figure class="image is-4by3">
+                        <img src="/img/Versus_sign.png">
+                    </figure>
+
+                </div>
+                <div class="column is-4">
+                    {% include "battlezone/partials/battle/opponentKitty.html.twig" %}
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 </div>
