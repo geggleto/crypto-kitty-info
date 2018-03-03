@@ -91,12 +91,13 @@ var app = new Vue({
             //     kittyId : 1
             // }));
 
-            web3.personal.sign(this.profile,web3.toHex("Crypto Kitty Battles"), function (err,res) {
+            web3.personal.sign(this.profile, "Crypto Kitty Battles", function (err,res) {
                 if (!err) {
                     this.signedIn = true;
                     this.page = 'registration';
                 } else {
                     console.log(err);
+                    console.log(this.profile)
                 }
             });
         },
