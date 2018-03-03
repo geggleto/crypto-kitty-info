@@ -91,7 +91,7 @@ var app = new Vue({
             //     kittyId : 1
             // }));
 
-            web3.eth.sign(this.profile,web3.toHex("Crypto Kitty Battles"), function (err,res) {
+            web3.personal.sign(this.profile,web3.toHex("Crypto Kitty Battles"), function (err,res) {
                 if (!err) {
                     this.signedIn = true;
                     this.page = 'registration';
@@ -124,6 +124,9 @@ var app = new Vue({
         loadingKitties : function () {
 
             var $kitties = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
+        },
+        personalSign : function () {
+
         }
     },
     mounted : function () {
