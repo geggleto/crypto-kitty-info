@@ -149,8 +149,8 @@ var app = new Vue({
             $.get(kittiesUrl, function (res) {
                 console.log(res);
 
-                for (i in res) {
-                    app.kitties.push(res[i]);
+                for (i in res.kitties) {
+                    app.kitties.push(res.kitties[i]);
                 }
 
                 app.loadingRemoteAsset = false;
