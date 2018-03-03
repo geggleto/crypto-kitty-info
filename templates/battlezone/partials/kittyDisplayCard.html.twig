@@ -33,16 +33,9 @@
                 <td colspan="2"><% selectedKitty.heal %></td>
             </tr>
             <tr>
-                <td>W:</td>
-                <td><% selectedKitty.wins %></td>
-                <td>L:</td>
-                <td><% selectedKitty.losses %></td>
-            </tr>
+                <td colspan="3" class="has-text-weight-bold">Skill Name</td>
 
-            <tr>
-                <td colspan="3" class="is-bold">Skill Name</td>
-
-                <td class="is-bold">Tier</td>
+                <td class="has-text-weight-bold">Tier</td>
             </tr>
             <tr>
                 <td colspan="3"><% selectedKitty.skill1 %></td>
@@ -58,6 +51,13 @@
             <tr>
                 <td colspan="3"><% selectedKitty.skill3 %></td>
                 <td><span class="tag is-dark"><% selectedKitty.skill3tier %></span></td>
+            </tr>
+
+            <tr>
+                <td>W:</td>
+                <td><% selectedKitty.wins %></td>
+                <td>L:</td>
+                <td><% selectedKitty.losses %></td>
             </tr>
 
             </tbody>
