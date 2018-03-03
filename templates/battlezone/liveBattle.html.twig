@@ -181,7 +181,9 @@ var app = new Vue({
                 }
 
                 if (app.page === 'battle') { // We are in Battle
-
+                    if (msg.event === 'battle.action') {
+                        app.battle_log.push(msg.message);
+                    }
                 }
             };
 
