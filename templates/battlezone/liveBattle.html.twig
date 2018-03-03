@@ -14,7 +14,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<section class="hero">
+<section class="hero is-danger is-bold">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
@@ -58,7 +58,11 @@ var app = new Vue({
         skill3 : true,
         battle : {
 
-        }
+        },
+        kitties : [],
+        selectionPage : 0,
+        selectionLimit : 20,
+        selectionOffset: 0
     },
     methods: {
         skill1 : function () {
@@ -80,13 +84,16 @@ var app = new Vue({
             }));
         },
         login : function () {
-            this.conn.send(JSON.stringify({
-                command : "IdentifyPlayer",
-                address : this.profile,
-                kittyId : 1
-            }));
+            // this.conn.send(JSON.stringify({
+            //     command : "IdentifyPlayer",
+            //     address : this.profile,
+            //     kittyId : 1
+            // }));
+
+            web3.eth.personal_sign(this.profile, "Crypto Kitty Battles");
 
             this.signedIn = true;
+            this.page = 'registration';
         },
         connect : function () {
             this.service = true;
@@ -110,6 +117,10 @@ var app = new Vue({
                     app.service = false;
                 }
             };
+        },
+        loadingKitties : function () {
+
+            var $kitties = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
         }
     },
     mounted : function () {
