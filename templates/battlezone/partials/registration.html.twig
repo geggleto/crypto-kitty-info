@@ -1,7 +1,47 @@
 <div class="container" v-if="page == 'registration'">
 
-    {% include "battlezone/partials/connectionError.html.twig" %}
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Select Your Kitty</h1>
 
-    {% include "battlezone/partials/connection.html.twig" %}
+            <div class="columns">
+                <div class="column is-3">
+
+                </div>
+                <div class="column">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID #</th>
+                            <th>Health</th>
+                            <th>Attack</th>
+                            <th>Defense</th>
+                            <th>Heal</th>
+                            <th>Cooldown</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="kitty in kitties">
+                                <td><% kitty.id %></td>
+                                <td>100</td>
+                                <td>10</td>
+                                <td>10</td>
+                                <td>5</td>
+                                <td>
+                                    <a class="button is-success">
+                                        <span class="icon is-small">
+                                          <i class="fas fa-check"></i>
+                                        </span>
+                                        <span>Save</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 </div>

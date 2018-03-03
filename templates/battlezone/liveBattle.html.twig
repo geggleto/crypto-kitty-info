@@ -7,7 +7,7 @@
     <title>Crypto Kitty Data</title>
     <link rel="stylesheet" href="css/main.css">
     <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -111,6 +111,7 @@ var app = new Vue({
 
                 app.signedIn = true;
                 app.page = 'registration';
+                app.loadingKitties();
             });
         },
         connect : function () {
@@ -137,8 +138,11 @@ var app = new Vue({
             };
         },
         loadingKitties : function () {
+            var kittiesUrl = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
 
-            var $kitties = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
+            $.get(kittiesUrl, function (res) {
+                app.kitties.push(res);
+            });
         },
         personalSign : function () {
 
