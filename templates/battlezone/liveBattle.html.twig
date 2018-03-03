@@ -167,7 +167,7 @@ var app = new Vue({
             });
         },
         selectKitty : function (index) {
-            this.selectedKitty = this.kitties[index];
+            this.selectedKitty.image = this.kitties[index].image_url_cdn;
         }
     },
     mounted : function () {
