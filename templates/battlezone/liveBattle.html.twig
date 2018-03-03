@@ -46,6 +46,9 @@
     <div class="column is-1-desktop">
 
     </div>
+
+
+    {% include "battlezone/partials/loadingModal.html.twig" %}
 </div>
 
 <script type="application/javascript">
@@ -69,7 +72,7 @@ var app = new Vue({
         selectionPage : 0,
         selectionLimit : 20,
         selectionOffset: 0,
-        web3 : {}
+        loadingRemoteAsset : false
     },
     methods: {
         skill1 : function () {
@@ -138,10 +141,14 @@ var app = new Vue({
             };
         },
         loadingKitties : function () {
+
+            this.loadingRemoteAsset = true;
+
             var kittiesUrl = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
 
             $.get(kittiesUrl, function (res) {
                 app.kitties.push(res);
+                app.loadingRemoteAsset = false;
             });
         },
         personalSign : function () {
