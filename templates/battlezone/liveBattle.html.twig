@@ -214,7 +214,7 @@ var app = new Vue({
             this.battle_log = [];
 
             this.conn.send(JSON.stringify({
-                command : "IdentifyPlayer",
+                command : "enter.queue",
                 address : this.profile,
                 kittyId : app.selectedKitty.id
             }));
