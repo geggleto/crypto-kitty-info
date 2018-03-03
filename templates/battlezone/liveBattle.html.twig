@@ -95,6 +95,8 @@ var app = new Vue({
                 if (!err) {
                     this.signedIn = true;
                     this.page = 'registration';
+                } else {
+                    console.log(err);
                 }
             });
         },
