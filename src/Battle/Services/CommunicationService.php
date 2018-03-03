@@ -13,7 +13,7 @@ use Kitty\Battle\Events\PlayerQueued;
 
 class CommunicationService
 {
-    public function onPlayerQueued(PlayerQueued $playerQueued) : void
+    public function onPlayerWasQueued(PlayerQueued $playerQueued) : void
     {
         $data = $playerQueued->getPlayerConnection()->toArray();
         $data['event'] = PlayerQueued::EVENT_ROUTING_KEY;
