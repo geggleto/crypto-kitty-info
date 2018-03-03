@@ -2,6 +2,7 @@
 namespace Kitty\WebSockets;
 
 use Kitty\Battle\Commands\EnterQueue;
+use Kitty\Battle\Commands\TakeTurn;
 use Kitty\Battle\Entities\PlayerConnection;
 use Kitty\Battle\Events\PlayerConnected;
 use League\Tactician\CommandBus;
@@ -68,8 +69,16 @@ class ConnectionManager implements MessageComponentInterface
                     )
                 );
 
+            } else if ($decoded['command'] === TakeTurn::COMMAND_ROUTING_KEY) {
+                //Player wishes to enter the queue with a cat
+                $this->commandBus->handle(
+                    new TakeTurn(
+                        $player,
+                        $decoded['skill'],
+                        $decoded['battleId']
+                    )
+                );
             }
-
         }
     }
 
