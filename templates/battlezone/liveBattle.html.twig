@@ -107,7 +107,9 @@ var app = new Vue({
             skill3tier : '???',
             maxhealth : 100
         },
-        battle_log : []
+        battle_log : [
+
+        ]
     },
     methods: {
         skill1 : function () {
@@ -168,6 +170,9 @@ var app = new Vue({
                             app.selectedKitty = msg.kitty2;
                             app.opponentKitty = msg.kitty1;
                         }
+
+                        app.battle_log.push("Battle Started!");
+                        app.battle_log.push("Kitty #" + msg.turn + " has first move!");
                     }
                 }
 
