@@ -33,7 +33,7 @@ class BattleStartHandler
             $battleStart->getUuid(),
             $battleStart->getPlayer1(),
             $battleStart->getPlayer2(),
-            (random_int(0,100)>50)?$battleStart->getPlayer1()->getAddress() : $battleStart->getPlayer2()->getAddress()
+            (random_int(0,100)>50)?$battleStart->getPlayer1()->getKittyId() : $battleStart->getPlayer2()->getKittyId()
         );
 
         $this->eventDispatcher->dispatch(BattleHasBegun::EVENT_ROUTING_KEY, new BattleHasBegun($battle));
