@@ -4,6 +4,7 @@ use function DI\get;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Commands\EnterQueue;
 use Kitty\Battle\Commands\IdentifyPlayerAndKittyCommand;
+use Kitty\Battle\Events\BattleAction;
 use Kitty\Battle\Events\BattleHasBegun;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerQueued;
@@ -66,7 +67,7 @@ $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPla
 //When a battle is started!
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationService, 'onBattleStart']);
 
-
+$dispatcher->addListener(BattleAction::EVENT_ROUTING_KEY, [$communicationService, 'onBattleAction']);
 
 // Run the server application through the WebSocket protocol on port 8080
 $app = new Ratchet\App('dna.kitty.fyi', 8080, '0.0.0.0', $loop);
