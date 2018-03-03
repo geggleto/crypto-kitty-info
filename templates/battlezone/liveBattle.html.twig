@@ -93,7 +93,7 @@ var app = new Vue({
 
             var signer = web3.eth.defaultAccount || web3.eth.accounts[0];
             var original_message = "Crypto Kitty Battles!";
-            var message = "0x" + original_message.toHex();
+            var message = web3.toHex(original_message);
             var message_hash = web3.eth.accounts.hashMessage(original_message);
 
             web3.personal.sign(message, signer, function(err, res) {
