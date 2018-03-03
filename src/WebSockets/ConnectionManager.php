@@ -63,7 +63,7 @@ class ConnectionManager implements MessageComponentInterface
                 $this->commandBus->handle(
                     new EnterQueue(
                         $player,
-                        (string)$decoded['profile'],
+                        (string)$decoded['address'],
                         (int)$decoded['kittyId']
                     )
                 );
