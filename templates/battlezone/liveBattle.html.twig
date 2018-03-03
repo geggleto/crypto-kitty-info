@@ -161,12 +161,12 @@ var app = new Vue({
                         app.page = 'battle';
 
                         //Load the state
-                        if (msg.data.kitty1.id === app.selectedKitty.id) {
-                            app.selectedKitty = msg.data.kitty1;
-                            app.opponentKitty = msg.data.kitty2;
+                        if (msg.kitty1.id === app.selectedKitty.id) {
+                            app.selectedKitty = msg.kitty1;
+                            app.opponentKitty = msg.kitty2;
                         } else {
-                            app.selectedKitty = msg.data.kitty2;
-                            app.opponentKitty = msg.data.kitty1;
+                            app.selectedKitty = msg.kitty2;
+                            app.opponentKitty = msg.kitty1;
                         }
                     }
                 }
