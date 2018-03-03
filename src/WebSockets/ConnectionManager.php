@@ -74,8 +74,8 @@ class ConnectionManager implements MessageComponentInterface
                 $this->commandBus->handle(
                     new TakeTurn(
                         $player,
-                        $decoded['skill'],
-                        $decoded['battleId']
+                        (int)$decoded['skill'],
+                        (string)$decoded['battleId']
                     )
                 );
             }

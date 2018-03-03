@@ -4,13 +4,18 @@ use function DI\get;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Commands\EnterQueue;
 use Kitty\Battle\Commands\IdentifyPlayerAndKittyCommand;
+use Kitty\Battle\Commands\TakeTurn;
 use Kitty\Battle\Events\BattleAction;
 use Kitty\Battle\Events\BattleHasBegun;
+use Kitty\Battle\Events\BattleHasEnded;
+use Kitty\Battle\Events\PlayerActionTaken;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerQueued;
 use Kitty\Battle\Handlers\BattleStartHandler;
 use Kitty\Battle\Handlers\EnterQueueHandler;
 use Kitty\Battle\Handlers\IdentifyPlayerAndKittyHandler;
+use Kitty\Battle\Handlers\TakeTurnHandler;
+use Kitty\Battle\Services\BattleService;
 use Kitty\Battle\Services\CommunicationService;
 use Kitty\Battle\Services\QueueService;
 use Kitty\WebSockets\BattleManager;
@@ -44,16 +49,19 @@ $dispatcher = new EventDispatcher();
 
 $battleStartHandler = new BattleStartHandler($dispatcher, $connection);
 $enterQueueHandler = new EnterQueueHandler($dispatcher);
+$takeTurnHandler = new TakeTurnHandler($dispatcher);
 
 $commandBus = League\Tactician\Setup\QuickStart::create(
     [
         BattleStart::class => $battleStartHandler,
-        EnterQueue::class => $enterQueueHandler
+        EnterQueue::class => $enterQueueHandler,
+        TakeTurn::class => $takeTurnHandler
     ]
 );
 
 
 $queueService = new QueueService($commandBus);
+$battleService = new BattleService($dispatcher);
 
 //Wire Events ugh there's a lot of them
 
@@ -66,8 +74,13 @@ $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPla
 
 //When a battle is started!
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationService, 'onBattleStart']);
-
 $dispatcher->addListener(BattleAction::EVENT_ROUTING_KEY, [$communicationService, 'onBattleAction']);
+
+//Battle Service
+$dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasBegun']);
+$dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasEnded']);
+$dispatcher->addListener(PlayerActionTaken::EVENT_ROUTING_KEY, [$battleService, 'onPlayerActionTaken']);
+
 
 // Run the server application through the WebSocket protocol on port 8080
 $app = new Ratchet\App('dna.kitty.fyi', 8080, '0.0.0.0', $loop);
