@@ -147,7 +147,7 @@ var app = new Vue({
             var kittiesUrl = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
 
             $.get(kittiesUrl, function (res) {
-                app.kitties.push(res);
+                app.kitties.push(res.kitties);
                 app.loadingRemoteAsset = false;
             });
         },
