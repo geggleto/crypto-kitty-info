@@ -1,0 +1,18 @@
+<div class="container" v-if="page == 'connection'">
+
+    {% include "battlezone/partials/connectionError.html.twig" %}
+
+    <div v-if="!signedIn">
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input class="input" type="text" placeholder="ETH Address" v-model="profile">
+            </div>
+            <div class="control">
+                <a class="button is-info" v-on:click="login()">
+                    Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

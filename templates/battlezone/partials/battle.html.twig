@@ -1,0 +1,9 @@
+<div class="container" v-if="page == 'battle'">
+
+    <div class="container" v-if="turn">
+        <a class="button" v-on:click="skill1" v-bind:class="{ disabled: !skill1 }">Skill 1</a>
+        <a class="button" v-on:click="skill2" v-bind:class="{ disabled: !skill2 }">Skill 2</a>
+        <a class="button" v-on:click="skill3" v-bind:class="{ disabled: !skill3 }">Skill 3</a>
+    </div>
+
+</div>
