@@ -173,6 +173,10 @@ var app = new Vue({
 
                         app.battle_log.push("Battle Started!");
                         app.battle_log.push("Kitty #" + msg.turn + " has first move!");
+
+                        if (msg.turn === app.selectedKitty.id) {
+                            app.turn = true;
+                        }
                     }
                 }
 
