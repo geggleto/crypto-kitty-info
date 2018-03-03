@@ -119,8 +119,8 @@ class BattleInstance
             'turn' => $this->turn,
             'status' => $this->status,
             'winner' => $this->winner,
-            'kitty1' => $this->kitty1,
-            'kitty2' => $this->kitty2
+            'kitty1' => $this->kitty1->toArray(),
+            'kitty2' => $this->kitty2->toArray()
         ];
 
     }
