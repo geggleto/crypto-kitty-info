@@ -8,7 +8,11 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
                 <tr class="is-primary">
-                    <th colspan="4">Kitty #<span><% selectedKitty.id %></span></th>
+                    <th colspan="4">
+                        <span class="tag is-link is-medium">
+                            Kitty #<span><% selectedKitty.id %></span>
+                        </span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -35,8 +39,28 @@
                 <td><% selectedKitty.losses %></td>
             </tr>
 
+            <tr>
+                <td colspan="4">Skills</td>
+            </tr>
+            <tr>
+                <td><span class="tag is-dark"><% selectedKitty.skill1tier %></span></td>
+                <td colspan="3"><% selectedKitty.skill1 %></td>
+            </tr>
+
+            <tr>
+                <td><span class="tag is-dark"><% selectedKitty.skill2tier %></span></td>
+                <td colspan="3"><% selectedKitty.skill2 %></td>
+            </tr>
+
+            <tr>
+                <td><span class="tag is-dark"><% selectedKitty.skill3tier %></span></td>
+                <td colspan="3"><% selectedKitty.skill3 %></td>
+            </tr>
+
             </tbody>
         </table>
+
+
 
         <a class="button is-primary is-fullwidth">
             <span>Enter The Fray</span>
