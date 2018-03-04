@@ -8,6 +8,7 @@ use Kitty\Battle\Commands\TakeTurn;
 use Kitty\Battle\Events\BattleAction;
 use Kitty\Battle\Events\BattleHasBegun;
 use Kitty\Battle\Events\BattleHasEnded;
+use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerActionTaken;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerQueued;
@@ -75,6 +76,8 @@ $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPla
 //When a battle is started!
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationService, 'onBattleStart']);
 $dispatcher->addListener(BattleAction::EVENT_ROUTING_KEY, [$communicationService, 'onBattleAction']);
+$dispatcher->addListener(BattleUpdate::EVENT_ROUTING_KEY, [$communicationService, 'onBattleUpdate']);
+
 
 //Battle Service
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasBegun']);
