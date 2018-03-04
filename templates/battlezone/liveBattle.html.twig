@@ -204,6 +204,8 @@ var app = new Vue({
 
                         if (msg.turn === app.selectedKitty.id) {
                             app.turn = true;
+                        } else {
+                            app.turn = false;
                         }
 
                     }
