@@ -4,9 +4,9 @@
             <img v-bind:src="opponentKitty.image">
         </figure>
 
-        <progress class="progress is-success is-radiusless	" v-if="opponentKitty.health >= 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">60%</progress>
-        <progress class="progress is-warning is-radiusless	" v-if="opponentKitty.health >= 30 && opponentKitty.health < 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">75%</progress>
-        <progress class="progress is-danger is-radiusless	" v-if="opponentKitty.health < 30" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">90%</progress>
+        <progress class="progress is-success" v-if="opponentKitty.health >= 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">60%</progress>
+        <progress class="progress is-warning" v-if="opponentKitty.health >= 30 && opponentKitty.health < 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">75%</progress>
+        <progress class="progress is-danger" v-if="opponentKitty.health < 30" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">90%</progress>
 
     </div>
     <div class="card-content">
