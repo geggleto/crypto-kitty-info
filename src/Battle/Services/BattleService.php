@@ -88,7 +88,7 @@ class BattleService
             $this->eventDispatcher->dispatch(BattleHasEnded::EVENT_ROUTING_KEY, new BattleHasEnded($battle));
         } else {
             $battle->swapTurn();
-//            $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, []);
+
             $this->eventDispatcher->dispatch(BattleUpdate::EVENT_ROUTING_KEY, new BattleUpdate($battle));
         }
     }

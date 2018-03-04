@@ -56,7 +56,7 @@ class CommunicationService
         $this->sendBattleAction($battleAction, $data);
     }
 
-    public function onBattleEnded(BattleHasEnded $battleEvent) : void
+    public function onBattleHasEnded(BattleHasEnded $battleEvent) : void
     {
         $data = $battleEvent->getBattleInstance()->toArray();
         $data['event'] = BattleHasEnded::EVENT_ROUTING_KEY;
