@@ -41,6 +41,6 @@ class BattleHealAction extends BattleAction
 
     public function __toString() : string
     {
-        return "#{$this->kitty->getId()} healed for {$this->healed}";
+        return "<span class=\"icon has-text-info\"><i class=\"fas fa-medkit\"></i></span> #{$this->kitty->getId()} healed for {$this->healed}";
     }
 }
