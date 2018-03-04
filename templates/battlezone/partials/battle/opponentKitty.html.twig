@@ -18,7 +18,11 @@
             <tbody>
             <tr>
                 <td colspan="2" class="has-text-weight-bold">Health</td>
-                <td colspan="2"><% opponentKitty.health %> / <% opponentKitty.maxhealth %></td>
+                <td colspan="2">
+                    <progress class="progress is-success" v-if="opponentKitty.health >= 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">60%</progress>
+                    <progress class="progress is-warning" v-if="opponentKitty.health >= 30 && opponentKitty.health < 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">75%</progress>
+                    <progress class="progress is-danger" v-if="opponentKitty.health < 30" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">90%</progress>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" class="has-text-weight-bold">Attack</td>
