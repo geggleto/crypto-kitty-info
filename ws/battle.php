@@ -77,7 +77,7 @@ $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPla
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationService, 'onBattleStart']);
 $dispatcher->addListener(BattleAction::EVENT_ROUTING_KEY, [$communicationService, 'onBattleAction']);
 $dispatcher->addListener(BattleUpdate::EVENT_ROUTING_KEY, [$communicationService, 'onBattleUpdate']);
-
+$dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$communicationService, 'onBattleHasEnded']);
 
 //Battle Service
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasBegun']);
