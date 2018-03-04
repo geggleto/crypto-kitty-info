@@ -1,3 +1,35 @@
 <div class="container" v-if="page == 'results'">
 
+    <section class="section">
+        <div class="container">
+            <h1 class="title">KITTY FIGHT OVER!</h1>
+
+            <div class="columns">
+                <div class="column is-4" v-if="winner == selectedKitty.id">
+                    <h1>Winner!</h1>
+                    {% include "battlezone/partials/battle/selectedKitty.html.twig" %}
+                </div>
+                <div class="column is-4">
+                    <figure class="image is-4by3">
+                        <img src="/img/Versus_sign.png">
+                    </figure>
+                    <div class="box">
+                        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                            <tbody>
+                            <tr v-for="item in battle_log">
+                                <td>
+                                    <% item %>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="column is-4" v-if="winner == opponentKitty.id">
+                    <h1>Winner!</h1>
+                    {% include "battlezone/partials/battle/opponentKitty.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

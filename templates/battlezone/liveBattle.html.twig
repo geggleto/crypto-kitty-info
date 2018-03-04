@@ -68,6 +68,7 @@ var app = new Vue({
         selectionOffset: 0,
         loadingRemoteAsset : false,
         battleId : '',
+        winner : '',
         selectedKitty : {
             image   : 'https://bulma.io/images/placeholders/128x128.png',
             health  : 100,
@@ -187,6 +188,23 @@ var app = new Vue({
                 if (app.page === 'battle') { // We are in Battle
                     if (msg.event === 'battle.action') {
                         app.battle_log.push(msg.message);
+                    }
+
+                    if (msg.event === 'battle.update') {
+                        //Load the state
+                        if (msg.kitty1.id === app.selectedKitty.id) {
+                            app.selectedKitty = msg.kitty1;
+                            app.opponentKitty = msg.kitty2;
+                        } else {
+                            app.selectedKitty = msg.kitty2;
+                            app.opponentKitty = msg.kitty1;
+                        }
+                    }
+
+                    if (msg.event === 'battle.ended') {
+                        app.winner = msg.winner;
+
+                        app.page = 'results';
                     }
                 }
             };

@@ -77,10 +77,19 @@ class BattleService
 
         $this->apply($battle, $skill, $attacker, $defender);
 
-        $battle->swapTurn();
+        //Is the game over?
+        if ( $attacker->getHealth() <= 0 ) {
+            $battle->endGameWithWinner($defender->getId());
 
-        $this->eventDispatcher->dispatch(BattleUpdate::EVENT_ROUTING_KEY, new BattleUpdate($battle));
+            $this->eventDispatcher->dispatch(BattleHasEnded::EVENT_ROUTING_KEY, new BattleHasEnded($battle));
+        } else if ($defender->getHealth() <= 0) {
+            $battle->endGameWithWinner($attacker->getId());
 
+            $this->eventDispatcher->dispatch(BattleHasEnded::EVENT_ROUTING_KEY, new BattleHasEnded($battle));
+        } else {
+            $battle->swapTurn();
+            $this->eventDispatcher->dispatch(BattleUpdate::EVENT_ROUTING_KEY, new BattleUpdate($battle));
+        }
     }
 
     protected function apply(

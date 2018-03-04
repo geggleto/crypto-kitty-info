@@ -151,4 +151,11 @@ class BattleInstance
         }
     }
 
+    public function endGameWithWinner($winner)
+    {
+        $this->status = 'ended';
+        $this->winner = $winner;
+        $this->turn = '';
+    }
+
 }
