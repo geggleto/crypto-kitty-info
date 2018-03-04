@@ -55,7 +55,7 @@ class BattleService
         $attacker = null;
         $defender = null;
 
-        if ($battle->getPlayer1()->getAddress() === $actionTaken->getAddress())
+        if ($battle->getKitty1()->getId() === $actionTaken->getKittyId())
         {
             var_dump("Player 1 Attacking {$actionTaken->getAddress()}");
             //Player 1 Attacker

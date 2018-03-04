@@ -26,7 +26,8 @@ class TakeTurnHandler
             new PlayerActionTaken(
                 $command->getAddress(),
                 $command->getSkill(),
-                $command->getBattleId()
+                $command->getBattleId(),
+                $command->getKittyId()
             )
         );
     }

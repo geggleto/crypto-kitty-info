@@ -114,7 +114,8 @@ var app = new Vue({
                 command : "player.take.turn",
                 skill : 1,
                 battleId : app.battleId,
-                address : app.profile
+                address : app.profile,
+                kittyId : app.selectedKitty.id
             }));
         },
         skill2 : function () {
@@ -123,7 +124,8 @@ var app = new Vue({
                 command : "player.take.turn",
                 skill : 2,
                 battleId : app.battleId,
-                address : app.profile
+                address : app.profile,
+                kittyId : app.selectedKitty.id
             }));
         },
         skill3 : function () {
@@ -132,7 +134,8 @@ var app = new Vue({
                 command : "player.take.turn",
                 skill : 3,
                 battleId : app.battleId,
-                address : app.profile
+                address : app.profile,
+                kittyId : app.selectedKitty.id
             }));
         },
         login : function () {

@@ -13,12 +13,14 @@ class TakeTurn
     private $skill;
     private $battleId;
     private $address;
+    private $kittyId;
 
-    public function __construct($address, $skill, $battleId)
+    public function __construct($address, $skill, $battleId, $kittyId)
     {
         $this->skill = $skill;
         $this->battleId = $battleId;
         $this->address = $address;
+        $this->kittyId = $kittyId;
     }
 
     /**
@@ -44,6 +46,15 @@ class TakeTurn
     {
         return $this->battleId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getKittyId()
+    {
+        return $this->kittyId;
+    }
+
 
 
 }

@@ -14,13 +14,14 @@ class PlayerActionTaken extends Event
     private $address;
     private $skill;
     private $battleId;
+    private $kittyId;
 
-    public function __construct($address, $skill, $battleId)
+    public function __construct($address, $skill, $battleId, $kittyId)
     {
-
         $this->address = $address;
         $this->skill = $skill;
         $this->battleId = $battleId;
+        $this->kittyId = $kittyId;
     }
 
     /**
@@ -48,5 +49,15 @@ class PlayerActionTaken extends Event
     {
         return $this->battleId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getKittyId()
+    {
+        return $this->kittyId;
+    }
+
+
 
 }

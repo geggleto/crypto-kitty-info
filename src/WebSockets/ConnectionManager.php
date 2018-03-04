@@ -75,7 +75,8 @@ class ConnectionManager implements MessageComponentInterface
                     new TakeTurn(
                         (string)$decoded['address'],
                         (int)$decoded['skill'],
-                        (string)$decoded['battleId']
+                        (string)$decoded['battleId'],
+                        (string)$decoded['kittyId']
                     )
                 );
             }
