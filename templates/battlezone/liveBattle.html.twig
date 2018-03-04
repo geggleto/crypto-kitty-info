@@ -190,7 +190,7 @@ var app = new Vue({
                         app.battle_log.push(msg.message);
                     }
 
-                    if (msg.event === 'battle.update') {
+                    if (msg.event === 'battle.updated') {
                         //Load the state
                         if (msg.kitty1.id === app.selectedKitty.id) {
                             app.selectedKitty = msg.kitty1;
@@ -201,6 +201,10 @@ var app = new Vue({
                         }
 
                         app.battle_log.push("Kitty #" + msg.turn + "'s move");
+
+                        if (msg.turn === app.selectedKitty.id) {
+                            app.turn = true;
+                        }
 
                     }
 
