@@ -16,9 +16,7 @@
                         <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                             <tbody>
                             <tr v-for="item in battle_log">
-                                <td>
-                                    <% item %>
-                                </td>
+                                <td v-html="item"></td>
                             </tr>
                             </tbody>
                         </table>
