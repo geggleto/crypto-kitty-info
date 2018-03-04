@@ -59,6 +59,6 @@ class BattleAttackAction extends BattleAction
         //<span class="icon has-text-danger">
         //<i class="fas fa-ban"></i>
         //</span>
-        return "<span class=\"icon has-text-danger\"><i class=\"fas fa-bolt\"></i></span> #{$this->attacker->getId()} attacked #{$this->defender->getId()} for {$this->damage} damage";
+        return "#{$this->attacker->getId()} attacked #{$this->defender->getId()} for <span class=\"icon has-text-danger\"><i class=\"fas fa-bolt\"></i></span> {$this->damage} damage";
     }
 }
