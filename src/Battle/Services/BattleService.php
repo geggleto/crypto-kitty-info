@@ -17,6 +17,7 @@ use Kitty\Battle\Events\BattleHealAction;
 use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerActionTaken;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use function var_dump;
 
 class BattleService
 {
@@ -54,12 +55,14 @@ class BattleService
         $attacker = null;
         $defender = null;
 
-        if ($battle->getPlayer1()->getConnection() === $actionTaken->getConnection())
+        if ($battle->getPlayer1()->getAddress() === $actionTaken->getAddress())
         {
+            var_dump("Player 1 Attacking {$actionTaken->getAddress()}");
             //Player 1 Attacker
             $attacker = $battle->getKitty1();
             $defender = $battle->getKitty2();
         } else {
+            var_dump("Player 2 Attacking {$actionTaken->getAddress()}");
             //Player 2 Attacker
             $attacker = $battle->getKitty2();
             $defender = $battle->getKitty1();

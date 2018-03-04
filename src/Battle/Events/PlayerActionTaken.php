@@ -10,28 +10,28 @@ use Symfony\Component\EventDispatcher\Event;
 class PlayerActionTaken extends Event
 {
     public const EVENT_ROUTING_KEY = 'player.take.turn';
-    /**
-     * @var PlayerConnection
-     */
-    private $connection;
+
+    private $address;
     private $skill;
     private $battleId;
 
-    public function __construct(PlayerConnection $connection, $skill, $battleId)
+    public function __construct($address, $skill, $battleId)
     {
 
-        $this->connection = $connection;
+        $this->address = $address;
         $this->skill = $skill;
         $this->battleId = $battleId;
     }
 
     /**
-     * @return PlayerConnection
+     * @return mixed
      */
-    public function getConnection(): PlayerConnection
+    public function getAddress()
     {
-        return $this->connection;
+        return $this->address;
     }
+
+
 
     /**
      * @return mixed

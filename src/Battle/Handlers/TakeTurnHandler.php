@@ -24,7 +24,7 @@ class TakeTurnHandler
     {
         $this->eventDispatcher->dispatch(PlayerActionTaken::EVENT_ROUTING_KEY,
             new PlayerActionTaken(
-                $command->getConnection(),
+                $command->getAddress(),
                 $command->getSkill(),
                 $command->getBattleId()
             )

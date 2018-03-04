@@ -9,27 +9,24 @@ use Kitty\Battle\Entities\PlayerConnection;
 class TakeTurn
 {
     const COMMAND_ROUTING_KEY = 'player.take.turn';
-    /**
-     * @var PlayerConnection
-     */
-    private $connection;
 
     private $skill;
     private $battleId;
+    private $address;
 
-    public function __construct(PlayerConnection $connection, $skill, $battleId)
+    public function __construct($address, $skill, $battleId)
     {
-        $this->connection = $connection;
         $this->skill = $skill;
         $this->battleId = $battleId;
+        $this->address = $address;
     }
 
     /**
-     * @return PlayerConnection
+     * @return mixed
      */
-    public function getConnection(): PlayerConnection
+    public function getAddress()
     {
-        return $this->connection;
+        return $this->address;
     }
 
     /**

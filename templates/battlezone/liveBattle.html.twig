@@ -109,28 +109,30 @@ var app = new Vue({
     },
     methods: {
         skill1 : function () {
-            console.log("Using Skill 1");
+            //console.log("Using Skill 1");
             this.conn.send(JSON.stringify({
                 command : "player.take.turn",
                 skill : 1,
-                battleId : app.battleId
+                battleId : app.battleId,
+                address : app.profile
             }));
         },
         skill2 : function () {
-            console.log("Using Skill 2");
+            //console.log("Using Skill 2");
             this.conn.send(JSON.stringify({
                 command : "player.take.turn",
                 skill : 2,
-                battleId : app.battleId
+                battleId : app.battleId,
+                address : app.profile
             }));
         },
         skill3 : function () {
-            console.log("Using Skill 3");
-
+            //console.log("Using Skill 3");
             this.conn.send(JSON.stringify({
                 command : "player.take.turn",
                 skill : 3,
-                battleId : app.battleId
+                battleId : app.battleId,
+                address : app.profile
             }));
         },
         login : function () {
