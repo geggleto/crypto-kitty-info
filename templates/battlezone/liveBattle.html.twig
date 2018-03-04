@@ -199,6 +199,9 @@ var app = new Vue({
                             app.selectedKitty = msg.kitty2;
                             app.opponentKitty = msg.kitty1;
                         }
+
+                        app.battle_log.push("Kitty #" + msg.turn + "'s move");
+
                     }
 
                     if (msg.event === 'battle.ended') {
