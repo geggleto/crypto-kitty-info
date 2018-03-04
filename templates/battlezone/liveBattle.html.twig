@@ -181,8 +181,8 @@ var app = new Vue({
                             app.opponentKitty = msg.kitty1;
                         }
 
-                        app.battle_log.push("Battle Started!");
-                        app.battle_log.push("Kitty #" + msg.turn + " has first move!");
+                        app.battle_log.unshift("Battle Started!");
+                        app.battle_log.unshift("Kitty #" + msg.turn + " has first move!");
 
                         if (msg.turn === app.selectedKitty.id) {
                             app.turn = true;
@@ -192,7 +192,7 @@ var app = new Vue({
 
                 if (app.page === 'battle') { // We are in Battle
                     if (msg.event === 'battle.action') {
-                        app.battle_log.push(msg.message);
+                        app.battle_log.unshift(msg.message);
                     }
 
                     if (msg.event === 'battle.updated') {
@@ -205,7 +205,7 @@ var app = new Vue({
                             app.opponentKitty = msg.kitty1;
                         }
 
-                        app.battle_log.push("Kitty #" + msg.turn + "'s move");
+                        app.battle_log.unshift("Kitty #" + msg.turn + "'s move");
 
                         if (msg.turn === app.selectedKitty.id) {
                             app.turn = true;
