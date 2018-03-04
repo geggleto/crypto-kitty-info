@@ -56,6 +56,9 @@ class BattleAttackAction extends BattleAction
 
     public function __toString() : string
     {
-        return "#{$this->attacker->getId()} attacked #{$this->defender->getId()} for {$this->damage} damage";
+        //<span class="icon has-text-danger">
+        //<i class="fas fa-ban"></i>
+        //</span>
+        return "<span class=\"icon has-text-danger\"><i class=\"fas fa-bolt\"></i></span> #{$this->attacker->getId()} attacked #{$this->defender->getId()} for {$this->damage} damage";
     }
 }
