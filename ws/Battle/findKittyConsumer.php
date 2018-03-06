@@ -4,6 +4,7 @@ use Kitty\Battle\Consumers\FetchKittyConsumer;
 use Kitty\Battle\Services\KittyBattleService;
 use Kitty\Infrastructure\CreateChannel;
 use Kitty\Infrastructure\DeclareQueue;
+use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use React\EventLoop\Factory;
 
@@ -15,8 +16,7 @@ $dotenv->load();
 //Monolog
 $log = new Monolog\Logger('crypto');
 
-$log->pushHandler(new \Monolog\Handler\RotatingFileHandler(__DIR__ . '/../logs/find-kitty-service-logs.log', 3, Logger::WARNING));
-
+$log->pushHandler(new StreamHandler(__DIR__.'/../../logs/kitty-service-logs.log', Logger::WARNING));
 
 $pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATABASE'), getenv('MYSQL_USERNAME'), getenv('MYSQL_PASSWORD'));
 
