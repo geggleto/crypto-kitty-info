@@ -32,8 +32,10 @@ class BattleInstance
      */
     private $uuid;
 
+    /** @var Kitty */
     private $kitty1;
 
+    /** @var Kitty */
     private $kitty2;
 
     /**
@@ -59,9 +61,6 @@ class BattleInstance
         $this->status = 'active';
         $this->winner = '';
         $this->uuid = $uuid;
-
-        $this->kitty1 = Kitty::makeKitty($player1->getKittyId());
-        $this->kitty2 = Kitty::makeKitty($player2->getKittyId());
     }
 
     /**
@@ -158,4 +157,19 @@ class BattleInstance
         $this->turn = '';
     }
 
+    /**
+     * @param mixed $kitty1
+     */
+    public function setKitty1($kitty1): void
+    {
+        $this->kitty1 = $kitty1;
+    }
+
+    /**
+     * @param mixed $kitty2
+     */
+    public function setKitty2($kitty2): void
+    {
+        $this->kitty2 = $kitty2;
+    }
 }

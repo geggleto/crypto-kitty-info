@@ -18,11 +18,6 @@ class ConnectionManager implements MessageComponentInterface
     protected $clients;
 
     /**
-     * @var Connection
-     */
-    private $connection;
-
-    /**
      * @var CommandBus
      */
     private $commandBus;
@@ -32,14 +27,12 @@ class ConnectionManager implements MessageComponentInterface
     private $dispatcher;
 
     public function __construct(
-        Connection $connection,
         CommandBus $commandBus,
         EventDispatcher $dispatcher
     ) {
 
         $this->clients = [];
 
-        $this->connection = $connection;
         $this->commandBus = $commandBus;
         $this->dispatcher = $dispatcher;
     }

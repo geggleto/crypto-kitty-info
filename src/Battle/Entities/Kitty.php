@@ -8,6 +8,7 @@ use Kitty\Battle\Entities\Skills\BaseSkill;
 use Kitty\Battle\Entities\Skills\BasicAttack;
 use Kitty\Battle\Entities\Skills\Heal;
 use Kitty\Battle\Entities\Skills\PowerAttack;
+use Kitty\Battle\Services\KittyBattleSkillService;
 
 class Kitty
 {
@@ -41,17 +42,20 @@ class Kitty
     /** @var string */
     private $image_cdn_url;
 
+    private $wins;
+
+    private $losses;
+
     /**
      * Kitty constructor.
      *
-     * @param           $id
-     * @param           $health
-     * @param           $attack
-     * @param           $defense
-     * @param           $heal
-     * @param BaseSkill $skill1
-     * @param BaseSkill $skill2
-     * @param BaseSkill $skill3
+     * @param $id
+     * @param $health
+     * @param $attack
+     * @param $defense
+     * @param $heal
+     * @param $wins
+     * @param $losses
      */
     public function __construct(
         $id,
@@ -59,25 +63,32 @@ class Kitty
         $attack,
         $defense,
         $heal,
-        BaseSkill $skill1,
-        BaseSkill $skill2,
-        BaseSkill $skill3)
+        $wins,
+        $losses)
     {
         $this->id      = $id;
         $this->health  = $health;
         $this->attack  = $attack;
         $this->defense = $defense;
-        $this->skill1  = $skill1;
-        $this->skill2  = $skill2;
-        $this->skill3  = $skill3;
         $this->maxhealth = $health;
         $this->heal = $heal;
+
         $this->image_cdn_url = 'https://img.cn.cryptokitties.co/0x06012c8cf97bead5deae237070f9587f8e7a266d/'.$id.'.svg';
+        $this->wins = $wins;
+        $this->losses = $losses;
     }
 
-    public static function makeKitty($id)
+    public static function makeKittyFromArray(array $payload)
     {
-        return new self($id, 100, 10,10, 10, new BasicAttack(), new PowerAttack(), new Heal());
+        return new self(
+            $payload['id'],
+            $payload['health'],
+            $payload['attack'],
+            $payload['defense'],
+            $payload['heal'],
+            $payload['wins'],
+            $payload['losses']
+        );
     }
 
     /**
@@ -136,31 +147,6 @@ class Kitty
         return $this->skill3;
     }
 
-    public function receiveAttack($amount)
-    {
-        $this->health -= $amount;
-    }
-
-    public function receiveHeal($amount)
-    {
-        $this->health += $amount;
-    }
-
-    public function receiveAttackUp($amount)
-    {
-        $this->attack += $amount;
-    }
-
-    public function receiveDefenseUp($amount)
-    {
-        $this->defense += $amount;
-    }
-
-    public function receiveDamageOverTime($amount)
-    {
-        //Nothing yet
-    }
-
     /**
      * @return int
      */
@@ -187,15 +173,37 @@ class Kitty
             'maxhealth' => $this->maxhealth,
             'heal' => $this->heal,
             'image' => $this->image_cdn_url,
-            'skill1' => $this->skill1->getName(),
-            'skill2' => $this->skill2->getName(),
-            'skill3' => $this->skill3->getName(),
-            'skill1tier' => 1,
-            'skill2tier' => 1,
-            'skill3tier' => 1,
-            'wins' => '?',
-            'losses' => '?'
+            'skill1' => $this->skill1->toArray(),
+            'skill2' => $this->skill2->toArray(),
+            'skill3' => $this->skill3->toArray(),
+            'wins' => $this->wins,
+            'losses' => $this->losses
         ];
     }
+
+    /**
+     * @param BaseSkill $skill1
+     */
+    public function setSkill1(BaseSkill $skill1): void
+    {
+        $this->skill1 = $skill1;
+    }
+
+    /**
+     * @param BaseSkill $skill2
+     */
+    public function setSkill2(BaseSkill $skill2): void
+    {
+        $this->skill2 = $skill2;
+    }
+
+    /**
+     * @param BaseSkill $skill3
+     */
+    public function setSkill3(BaseSkill $skill3): void
+    {
+        $this->skill3 = $skill3;
+    }
+
 
 }

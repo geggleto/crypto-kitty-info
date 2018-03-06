@@ -1,21 +1,25 @@
-<article class="message is-dark" v-if="page == 'connection'">
-    <div class="message-header">
-        <p>Login Via Metamask</p>
-    </div>
-    <div class="message-body">
-        {% include "battlezone/partials/connectionError.html.twig" %}
-
-        <div v-if="!signedIn">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input class="input" type="text" placeholder="ETH Address" disabled v-model="profile">
-                </div>
-                <div class="control">
-                    <a class="button is-info" v-on:click="login()">
-                        Login via Metamask
-                    </a>
+<section class="section">
+    <article class="message is-dark" v-if="page == 'connection'">
+        <div class="message-header">
+            <p>Login Via Metamask</p>
+        </div>
+        <div class="message-body">
+            {% include "battlezone/partials/connectionError.html.twig" %}
+            <br />
+            {% include "battlezone/partials/connectionInfo.html.twig" %}
+            <br />
+            <div v-if="!signedIn">
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input class="input" type="text" placeholder="ETH Address" disabled v-model="profile">
+                    </div>
+                    <div class="control">
+                        <a class="button is-info" v-on:click="login()">
+                            Login via Metamask
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</article>
+    </article>
+</section>

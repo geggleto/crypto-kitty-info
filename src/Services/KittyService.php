@@ -4,6 +4,7 @@
 namespace Kitty\Services;
 
 use function array_map;
+use function bindec;
 use GuzzleHttp\Client;
 use Monolog\Logger;
 use PDO;
@@ -1015,5 +1016,31 @@ class KittyService
         }
 
         return $result;
+    }
+
+    public function processKitty($id)
+    {
+        $statement = $this->PDO->prepare('select `id`, substr(genes_kai, 9,4) as `attack_iv`, substr(genes_kai, 5,4) as `defense_iv`, substr(genes_kai, 17,4) as `heal_iv` from kitties where id = ?');
+
+        $statement->execute([$id]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function calcIv($kaiCode) {
+        $base = 35;
+
+        return 5 + ( ($base + bindec($this->kaiToBin($kaiCode[3])) + bindec($this->kaiToBin($kaiCode[2])/2)) / 100);
+    }
+
+    public function kaiToBin($kaiCode)
+    {
+        foreach ($this->kai as $bin => $kai) {
+            if ($kaiCode == $kai) {
+                return $bin;
+            }
+        }
+
+        return '00000';
     }
 }

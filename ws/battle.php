@@ -3,8 +3,8 @@
 use function DI\get;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Commands\EnterQueue;
-use Kitty\Battle\Commands\IdentifyPlayerAndKittyCommand;
 use Kitty\Battle\Commands\TakeTurn;
+use Kitty\Battle\Entities\Skills\BaseSkill;
 use Kitty\Battle\Events\BattleAction;
 use Kitty\Battle\Events\BattleHasBegun;
 use Kitty\Battle\Events\BattleHasEnded;
@@ -14,41 +14,32 @@ use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerQueued;
 use Kitty\Battle\Handlers\BattleStartHandler;
 use Kitty\Battle\Handlers\EnterQueueHandler;
-use Kitty\Battle\Handlers\IdentifyPlayerAndKittyHandler;
 use Kitty\Battle\Handlers\TakeTurnHandler;
 use Kitty\Battle\Services\BattleService;
 use Kitty\Battle\Services\CommunicationService;
+use Kitty\Battle\Services\KittyBattleService;
+use Kitty\Battle\Services\KittyBattleSkillService;
 use Kitty\Battle\Services\QueueService;
-use Kitty\WebSockets\BattleManager;
+use Kitty\Battle\Transformers\KittyHydrator;
 use Kitty\WebSockets\ConnectionManager;
-use Kitty\WebSockets\PlayerManager;
-use Kitty\WebSockets\PlayerQueueManager;
-use React\MySQL\Connection;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = new \Dotenv\Dotenv(__DIR__.'/../');
-$dotenv->load();
-
-$options = array(
-    'host'   => getenv('MYSQL_HOST'),
-    'port'   => 3306,
-    'user'   => getenv('MYSQL_USERNAME'),
-    'passwd' => getenv('MYSQL_PASSWORD'),
-    'dbname' => getenv('MYSQL_DATABASE'),
-);
-
 $loop = React\EventLoop\Factory::create();
 
-//MySql
-$connection = new Connection($loop, $options);
+$kittyBattleSkillService = new KittyBattleSkillService();
+$kittyBattleSkillService->addSkill(new BaseSkill(1, 'Claw', 1, 10, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0));
+$kittyBattleSkillService->addSkill(new BaseSkill(2, 'Pounce', 1, 20, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0));
+$kittyBattleSkillService->addSkill(new BaseSkill(3, 'Lick Paws', 1, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0));
+
+$kittyBattleService = new KittyBattleService($loop, new KittyHydrator($kittyBattleSkillService));
 
 $communicationService = new CommunicationService();
 
 $dispatcher = new EventDispatcher();
 
-$battleStartHandler = new BattleStartHandler($dispatcher, $connection);
+$battleStartHandler = new BattleStartHandler($dispatcher, $kittyBattleService);
 $enterQueueHandler = new EnterQueueHandler($dispatcher);
 $takeTurnHandler = new TakeTurnHandler($dispatcher);
 
@@ -87,5 +78,6 @@ $dispatcher->addListener(PlayerActionTaken::EVENT_ROUTING_KEY, [$battleService, 
 
 // Run the server application through the WebSocket protocol on port 8080
 $app = new Ratchet\App('dna.kitty.fyi', 8080, '0.0.0.0', $loop);
-$app->route('/battle', new ConnectionManager($connection, $commandBus, $dispatcher), ['*']);
+$app->route('/battle', new ConnectionManager($commandBus, $dispatcher), ['*']);
+//TODO Add a Service End-Point
 $app->run();
