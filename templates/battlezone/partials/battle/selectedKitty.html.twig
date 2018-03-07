@@ -57,7 +57,7 @@
 
             <tr>
                 <td colspan="3">
-                    <progress class="progress" :value="selectedKitty.skill1.countdown" :max="selectedKitty.skill3.cooldown" v-if="!selectedKitty.skill3.is_ready">15%</progress>
+                    <progress class="progress" :value="selectedKitty.skill3.countdown" :max="selectedKitty.skill3.cooldown" v-if="!selectedKitty.skill3.is_ready">15%</progress>
                     <a class="button is-small  is-link" :disabled="turn && selectedKitty.skill3.is_ready ? null : true" v-on:click="skill3"><% selectedKitty.skill3.name %></a>
                 </td>
                 <td>
