@@ -5,7 +5,7 @@ namespace Kitty\Battle\Repositories;
 
 
 use Bunny\Channel;
-use Bunny\Client;
+use Bunny\Async\Client;
 use Bunny\Message;
 use function json_decode;
 use PDO;
