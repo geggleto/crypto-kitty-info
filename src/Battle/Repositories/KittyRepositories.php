@@ -30,9 +30,12 @@ class KittyRepositories
 
     public function __invoke(Message $message, Channel $channel, Client $client) {
         $this->logger->debug('Received Message: ' . $message->content);
+
         $payload = json_decode($message->content, true);
 
         $statement = $this->pdo->prepare('select * from kitty_battle_kitty where id = ?');
+
+
         $statement->execute([$payload['id']]);
 
         $kitty = $statement->fetch(PDO::FETCH_ASSOC);

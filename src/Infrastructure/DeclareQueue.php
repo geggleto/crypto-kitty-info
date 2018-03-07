@@ -46,6 +46,7 @@ class DeclareQueue
         return \React\Promise\all([
             $channel->queueDeclare($this->queueName, false, true, false),
             \React\Promise\resolve($channel),
+            $channel->queueDeclare($this->queueName.'.response', false, true, false),
         ]);
     }
 }

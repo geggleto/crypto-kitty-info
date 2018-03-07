@@ -46,7 +46,7 @@ class RpcCommand
             \json_encode($this->payload->jsonSerialize()),
             [
                 'correlation_id' => $corr_id,
-                'reply_to' => $responseQueue->queue,
+                'reply_to' => $responseQueue->queue.'.response',
             ],
             '',
             $this->queue

@@ -28,7 +28,7 @@ class FetchKittyConsumer
 
     public function __invoke(array $values)
     {
-        list ($responseQueue, $channel) = $values;
+        list ($incoming, $channel, $outgoing) = $values;
 
         $this->logger->debug('Starting Consumer');
 
