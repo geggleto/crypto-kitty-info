@@ -67,10 +67,9 @@ class ConnectionManager implements MessageComponentInterface
                 //Player wishes to enter the queue with a cat
                 $this->commandBus->handle(
                     new TakeTurn(
-                        (string)$decoded['address'],
+                        $player,
                         (int)$decoded['skill'],
-                        (string)$decoded['battleId'],
-                        (string)$decoded['kittyId']
+                        (string)$decoded['battleId']
                     )
                 );
             }

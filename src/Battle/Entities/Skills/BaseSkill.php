@@ -12,6 +12,10 @@ class BaseSkill
 
     protected $tier;
 
+    protected $cooldown;
+
+    protected $timeLeftOnCooldown;
+
     protected $attack_up;
 
     protected $attack_down;
@@ -85,8 +89,9 @@ class BaseSkill
      * @param $blind
      * @param $evade_up
      * @param $evade_down
+     * @param $cooldown
      */
-    public function __construct($id, $name, $tier, $power, $attack_up, $attack_down, $defense_up, $defense_down, $haste, $slow, $burning, $poisoned, $freezing, $sleep, $confused, $stunned, $accuracy_up, $accuracy_down, $crit_up, $crit_down, $heal_power, $heal_over_time, $blind, $evade_up, $evade_down)
+    public function __construct($id, $name, $tier, $power, $attack_up, $attack_down, $defense_up, $defense_down, $haste, $slow, $burning, $poisoned, $freezing, $sleep, $confused, $stunned, $accuracy_up, $accuracy_down, $crit_up, $crit_down, $heal_power, $heal_over_time, $blind, $evade_up, $evade_down, $cooldown)
     {
         $this->id             = $id;
         $this->name           = $name;
@@ -113,6 +118,7 @@ class BaseSkill
         $this->evade_up       = $evade_up;
         $this->evade_down     = $evade_down;
         $this->power = $power;
+        $this->cooldown = $cooldown;
     }
 
 
@@ -311,14 +317,21 @@ class BaseSkill
     public function apply(Kitty $friend, Kitty $enemy)
     {
         //TODO Apply skill
+        $this->timeLeftOnCooldown = $this->cooldown;
 
     }
 
     public function applyAll(array $friends, array $enemies)
     {
         //TODO Apply All skill
+        $this->timeLeftOnCooldown = $this->cooldown;
+    }
 
-
+    public function decreaseCooldown()
+    {
+        if ($this->timeLeftOnCooldown > 0) {
+            $this->timeLeftOnCooldown--;
+        }
     }
 
     public function toArray()
@@ -327,7 +340,10 @@ class BaseSkill
 
         return [
             'name' => $this->name,
-            'tier' => $this->tier
+            'tier' => $this->tier,
+            'cooldown' => $this->cooldown,
+            'is_ready' => ($this->timeLeftOnCooldown === 0),
+            'countdown' => $this->timeLeftOnCooldown
         ];
     }
 

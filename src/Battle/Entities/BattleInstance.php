@@ -146,9 +146,18 @@ class BattleInstance
     public function swapTurn()
     {
         if ($this->turn === $this->kitty1->getId()) {
+            //Player 1 turn
+            $this->kitty1->getSkill1()->decreaseCooldown();
+            $this->kitty1->getSkill2()->decreaseCooldown();
+            $this->kitty1->getSkill3()->decreaseCooldown();
+
             $this->turn = $this->kitty2->getId();
         } else {
             $this->turn = $this->kitty1->getId();
+
+            $this->kitty2->getSkill1()->decreaseCooldown();
+            $this->kitty2->getSkill2()->decreaseCooldown();
+            $this->kitty2->getSkill3()->decreaseCooldown();
         }
     }
 
