@@ -3,6 +3,7 @@
 
 namespace Kitty\Infrastructure;
 
+use Bunny\Channel;
 use Psr\Log\LoggerInterface;
 use React\Promise\Deferred;
 
@@ -37,16 +38,17 @@ class RpcCommand
      */
     public function __invoke(array $values)
     {
+        /** @var $channel Channel */
         list ($responseQueue, $channel) = $values;
 
         $corr_id = uniqid($this->queue, true);
 
         $deferred = new Deferred();
 
-        $this->logger->debug('Consuming on ' . $responseQueue->queue.'response');
+        $this->logger->debug('Consuming on ' . $responseQueue->queue.'.response');
         $channel->consume(
             new RpcCommandConsume($deferred, $corr_id, $this->logger),
-            $responseQueue->queue.'response'
+            $responseQueue->queue.'.response'
         );
 
         $this->logger->debug('Producing message to ' . $this->queue);
