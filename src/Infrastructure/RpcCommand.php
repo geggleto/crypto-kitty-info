@@ -39,7 +39,7 @@ class RpcCommand
 
         $channel->consume(
             new RpcCommandConsume($deferred, $corr_id),
-            $responseQueue->queue
+            $responseQueue->queue.'response'
         );
 
         $channel->publish(
