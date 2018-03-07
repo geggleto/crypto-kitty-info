@@ -36,7 +36,7 @@ $loop = React\EventLoop\Factory::create();
 
 $log = new Monolog\Logger('crypto');
 
-$log->pushHandler(new StreamHandler(__DIR__.'/../../logs/websocket-logs.log', Logger::DEBUG));
+$log->pushHandler(new StreamHandler(__DIR__.'/../logs/websocket-logs.log', Logger::DEBUG));
 
 
 $kittyBattleSkillService = new KittyBattleSkillService();
@@ -58,10 +58,6 @@ $dispatcher = new EventDispatcher();
 $battleStartHandler = new BattleStartHandler($dispatcher, $kittyBattleService);
 $enterQueueHandler = new EnterQueueHandler($dispatcher);
 $takeTurnHandler = new TakeTurnHandler($dispatcher);
-
-$dispatcher->addListener('*', function (Event $event) use ($log) {
-    $log->debug('Received ' . get_class($event));
-});
 
 $commandBus = League\Tactician\Setup\QuickStart::create(
     [
@@ -94,6 +90,17 @@ $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$communicationServi
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasBegun']);
 $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasEnded']);
 $dispatcher->addListener(PlayerActionTaken::EVENT_ROUTING_KEY, [$battleService, 'onPlayerActionTaken']);
+
+$dispatcher->addListener(PlayerConnected::EVENT_ROUTING_KEY, function (Event $event) use ($log) {
+    $log->debug('Received ' . get_class($event));
+});
+$dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, function (Event $event) use ($log) {
+    $log->debug('Received ' . get_class($event));
+});
+$dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, function (Event $event) use ($log) {
+    $log->debug('Received ' . get_class($event));
+});
+
 
 
 // Run the server application through the WebSocket protocol on port 8080
