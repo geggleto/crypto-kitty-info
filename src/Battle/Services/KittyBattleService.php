@@ -61,7 +61,8 @@ class KittyBattleService
                     self::FETCH_QUEUE,
                     new CommandPayload([
                         'id' => $id
-                    ])
+                    ]),
+                    $this->logger
                 )
             )->then($this->hydrator);
     }

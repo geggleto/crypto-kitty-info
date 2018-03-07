@@ -6,6 +6,7 @@ namespace Kitty\Battle\Handlers;
 
 use Kitty\Battle\Commands\TakeTurn;
 use Kitty\Battle\Events\PlayerActionTaken;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class TakeTurnHandler
@@ -18,6 +19,7 @@ class TakeTurnHandler
     public function __construct(EventDispatcher $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
+
     }
 
     public function handle(TakeTurn $command)

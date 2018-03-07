@@ -10,6 +10,7 @@ use Kitty\Battle\Entities\BattleInstance;
 use Kitty\Battle\Entities\Kitty;
 use Kitty\Battle\Events\BattleHasBegun;
 use Kitty\Battle\Services\KittyBattleService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use function random_int;
 
@@ -23,20 +24,27 @@ class BattleStartHandler
      * @var KittyBattleService
      */
     private $kittyBattleService;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * BattleStartHandler constructor.
      *
      * @param EventDispatcher    $eventDispatcher
      * @param KittyBattleService $kittyBattleService
+     * @param LoggerInterface    $logger
      */
     public function __construct(
         EventDispatcher $eventDispatcher,
-        KittyBattleService $kittyBattleService
+        KittyBattleService $kittyBattleService,
+        LoggerInterface $logger
     )
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->kittyBattleService = $kittyBattleService;
+        $this->logger = $logger;
     }
 
     public function handle(BattleStart $battleStart)
@@ -48,20 +56,29 @@ class BattleStartHandler
             (random_int(0,100)>50)?$battleStart->getPlayer1()->getKittyId() : $battleStart->getPlayer2()->getKittyId()
         );
 
+        $this->logger->debug('Starting Battle');
+
         $p1 = $this->kittyBattleService->fetchKitty($battleStart->getPlayer1()->getKittyId())
             ->then(function (Kitty $kitty) use ($battle) {
+                $this->logger->debug('Setting Kitty 1');
                 $battle->setKitty1($kitty);
+
+                return true;
             });
 
         $p2 = $this->kittyBattleService->fetchKitty($battleStart->getPlayer2()->getKittyId())
             ->then(function (Kitty $kitty) use ($battle) {
+                $this->logger->debug('Setting Kitty 2');
                 $battle->setKitty2($kitty);
+
+                return true;
             });
 
         all([
             $p1,
             $p2
         ])->then(function () use ($battle) {
+                $this->logger->debug('Starting Battle');
                 $this->eventDispatcher->dispatch(BattleHasBegun::EVENT_ROUTING_KEY, new BattleHasBegun($battle));
         });
     }

@@ -3,6 +3,7 @@
 
 namespace Kitty\Infrastructure;
 
+use Psr\Log\LoggerInterface;
 use React\Promise\Deferred;
 
 /**
@@ -17,11 +18,16 @@ class RpcCommand
 {
     private $payload;
     private $queue;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-    public function __construct($queueName, CommandPayload $payload)
+    public function __construct($queueName, CommandPayload $payload, LoggerInterface $logger)
     {
         $this->queue   = $queueName;
         $this->payload = $payload;
+        $this->logger = $logger;
     }
 
     /**
@@ -37,11 +43,13 @@ class RpcCommand
 
         $deferred = new Deferred();
 
+        $this->logger->debug('Consuming on ' . $responseQueue->queue.'response');
         $channel->consume(
-            new RpcCommandConsume($deferred, $corr_id),
+            new RpcCommandConsume($deferred, $corr_id, $this->logger),
             $responseQueue->queue.'response'
         );
 
+        $this->logger->debug('Producing message to ' . $this->queue);
         $channel->publish(
             \json_encode($this->payload->jsonSerialize()),
             [

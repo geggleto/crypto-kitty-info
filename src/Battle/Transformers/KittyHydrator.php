@@ -6,6 +6,7 @@ namespace Kitty\Battle\Transformers;
 
 use Kitty\Battle\Entities\Kitty;
 use Kitty\Battle\Services\KittyBattleSkillService;
+use Psr\Log\LoggerInterface;
 
 class KittyHydrator
 {
@@ -13,10 +14,17 @@ class KittyHydrator
      * @var KittyBattleSkillService
      */
     private $kittyBattleSkillService;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-    public function __construct(KittyBattleSkillService $kittyBattleSkillService)
+    public function __construct(
+        KittyBattleSkillService $kittyBattleSkillService, LoggerInterface $logger
+    )
     {
         $this->kittyBattleSkillService = $kittyBattleSkillService;
+        $this->logger = $logger;
     }
 
     /**
@@ -26,6 +34,8 @@ class KittyHydrator
      */
     public function __invoke(array $kittyArray)
     {
+        $this->logger->debug('Hydrating Kitty');
+
         $kitty = Kitty::makeKittyFromArray($kittyArray);
 
         $kitty->setSkill1($this->kittyBattleSkillService->get($kitty['skill1']));
