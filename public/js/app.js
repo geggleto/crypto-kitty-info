@@ -175,6 +175,7 @@ var app = new Vue({
                 app.service = false;
                 app.page = 'connection';
                 app.profile = '';
+                app.signedIn = false;
             };
 
             this.conn.onclose = function (ev) {
@@ -182,6 +183,7 @@ var app = new Vue({
                     app.profile = '';
                     app.service = false;
                     app.page = 'connection';
+                    app.signedIn = false;
                 }
             };
         },
