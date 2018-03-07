@@ -12,6 +12,7 @@ use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerEvent;
 use Kitty\Battle\Events\PlayerQueued;
+use Kitty\Battle\Events\PlayerRemoved;
 
 class CommunicationService
 {
@@ -63,10 +64,6 @@ class CommunicationService
 
         $this->sendBattleEvent($battleEvent, $data);
     }
-
-
-
-
 
 
     protected function sendPlayerEvent(PlayerEvent $playerQueued, array $data) : void

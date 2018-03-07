@@ -4,9 +4,7 @@
 namespace Kitty\Battle\Events;
 
 
-use Kitty\Battle\Entities\PlayerConnection;
-
 class PlayerRemoved extends PlayerEvent
 {
-
+    public const EVENT_ROUTING_KEY = 'player.removed';
 }

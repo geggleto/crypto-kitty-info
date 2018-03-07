@@ -56,6 +56,9 @@ class BattleInstance
         $this->player1 = $player1;
         $this->player2 = $player2;
 
+        $this->getPlayer1()->setBattle($this);
+        $this->getPlayer2()->setBattle($this);
+
         $this->turn = $turn;
 
         $this->status = 'active';

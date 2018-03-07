@@ -272,6 +272,48 @@ var app = new Vue({
                 address : this.profile,
                 kittyId : this.selectedCat
             }));
+        },
+        resetBattle : function () {
+            this.page = 'registration';
+            this.battleId = '';
+            this.winner = '';
+            this.selectedCat = 0;
+            this.selectedKitty = {
+                image   : 'https://bulma.io/images/placeholders/128x128.png',
+                    health  : 100,
+                    attack  : 10,
+                    defense : 10,
+                    heal    : 5,
+                    wins    : 0,
+                    losses  : 0,
+                    id : 0,
+                    skill1 : 'Basic Attack',
+                    skill2 : 'Power Attack',
+                    skill3 : 'Lick Paws',
+                    skill1tier : 1,
+                    skill2tier : 1,
+                    skill3tier : 1,
+                    maxhealth : 100
+            };
+            this.opponentKitty = {
+                image   : 'https://bulma.io/images/placeholders/128x128.png',
+                    health  : '???',
+                    attack  : '???',
+                    defense : '???',
+                    heal    : '???',
+                    wins    : '???',
+                    losses  : '???',
+                    id : '???',
+                    skill1 : '???',
+                    skill2 : '???',
+                    skill3 : '???',
+                    skill1tier : '???',
+                    skill2tier : '???',
+                    skill3tier : '???',
+                    maxhealth : 100
+            };
+            this.battle_log = [];
+            this.last_msg = {};
         }
     },
     mounted : function () {

@@ -12,6 +12,7 @@ use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerActionTaken;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerQueued;
+use Kitty\Battle\Events\PlayerRemoved;
 use Kitty\Battle\Handlers\BattleStartHandler;
 use Kitty\Battle\Handlers\EnterQueueHandler;
 use Kitty\Battle\Handlers\TakeTurnHandler;
@@ -79,6 +80,8 @@ $dispatcher->addListener(PlayerConnected::EVENT_ROUTING_KEY, [$communicationServ
 //When a player is added to the waiting queue
 $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$communicationService, 'onPlayerWasQueued']);
 $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPlayerWasQueued']);
+
+$dispatcher->addListener(PlayerRemoved::EVENT_ROUTING_KEY, [$battleService, 'onPlayerRemoved']);
 
 //When a battle is started!
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationService, 'onBattleStart']);

@@ -16,6 +16,7 @@ use Kitty\Battle\Events\BattleHasEnded;
 use Kitty\Battle\Events\BattleHealAction;
 use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerActionTaken;
+use Kitty\Battle\Events\PlayerRemoved;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use function var_dump;
 
@@ -94,6 +95,19 @@ class BattleService
 
             $this->eventDispatcher->dispatch(BattleUpdate::EVENT_ROUTING_KEY, new BattleUpdate($battle));
         }
+    }
+
+    public function onPlayerRemoved(PlayerRemoved $playerRemoved)
+    {
+        $battle = $playerRemoved->getPlayerConnection()->getBattle();
+
+        if ($battle->getPlayer1() === $playerRemoved->getPlayerConnection()) {
+            $battle->endGameWithWinner($battle->getPlayer2());
+        } else {
+            $battle->endGameWithWinner($battle->getPlayer2());
+        }
+
+        $this->eventDispatcher->dispatch(BattleHasEnded::EVENT_ROUTING_KEY, new BattleHasEnded($battle));
     }
 
     protected function apply(

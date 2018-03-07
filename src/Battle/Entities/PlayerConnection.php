@@ -19,6 +19,9 @@ class PlayerConnection
     /** @var int */
     private $kittyId;
 
+    /** @var BattleInstance */
+    private $battle;
+
     public function __construct(ConnectionInterface $connection)
     {
         $this->connection = $connection;
@@ -71,4 +74,23 @@ class PlayerConnection
             'kittyId' => $this->kittyId
         ];
     }
+
+    /**
+     * @param BattleInstance $battle
+     */
+    public function setBattle(BattleInstance $battle): void
+    {
+        $this->battle = $battle;
+    }
+
+    /**
+     * @return BattleInstance
+     */
+    public function getBattle(): BattleInstance
+    {
+        return $this->battle;
+    }
+
+
+
 }

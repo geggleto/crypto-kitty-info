@@ -1,5 +1,4 @@
 <div class="container" v-if="page == 'results'">
-
     <section class="section">
         <div class="container">
             <h1 class="title">KITTY FIGHT OVER!</h1>
@@ -30,6 +29,8 @@
                     {% include "battlezone/partials/battle/opponentKitty.html.twig" %}
                 </div>
             </div>
+
+            <a class="button is-fullwidth is-info" :click="resetBattle">Back to Profile</a>
         </div>
     </section>
 </div>
