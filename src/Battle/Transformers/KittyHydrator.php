@@ -34,7 +34,7 @@ class KittyHydrator
      */
     public function hydrate($kittyString)
     {
-        $this->logger->debug('Hydrating Kitty');
+        $this->logger->debug('Hydrating Kitty: ' . $kittyString);
 
         $kittyArray = json_decode($kittyString, true);
 

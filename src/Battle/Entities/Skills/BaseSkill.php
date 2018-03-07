@@ -325,7 +325,10 @@ class BaseSkill
     {
         //TODO Serialize Skill
 
-        return [];
+        return [
+            'name' => $this->name,
+            'tier' => $this->tier
+        ];
     }
 
 

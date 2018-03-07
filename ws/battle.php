@@ -91,16 +91,6 @@ $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'on
 $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasEnded']);
 $dispatcher->addListener(PlayerActionTaken::EVENT_ROUTING_KEY, [$battleService, 'onPlayerActionTaken']);
 
-$dispatcher->addListener(PlayerConnected::EVENT_ROUTING_KEY, function (Event $event) use ($log) {
-    $log->debug('Received ' . get_class($event));
-});
-$dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, function (Event $event) use ($log) {
-    $log->debug('Received ' . get_class($event));
-});
-$dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, function (Event $event) use ($log) {
-    $log->debug('Received ' . get_class($event));
-});
-
 
 
 // Run the server application through the WebSocket protocol on port 8080
