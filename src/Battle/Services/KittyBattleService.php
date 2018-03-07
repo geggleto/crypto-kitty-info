@@ -24,6 +24,10 @@ class KittyBattleService
     private $hydrator;
 
     public const FETCH_QUEUE = 'kitty.fetch';
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * KittyBattleService constructor.
@@ -39,7 +43,8 @@ class KittyBattleService
     )
     {
         $this->hydrator = $kittyHydrator;
-        $this->channel = new CreateChannel($loop, $options, $logger);
+        $this->channel = (new CreateChannel($loop, $options, $logger))();
+        $this->logger = $logger;
     }
 
     /**
@@ -50,7 +55,7 @@ class KittyBattleService
     public function fetchKitty($id): PromiseInterface
     {
         return $this->channel
-            ->then(new DeclareQueue(self::FETCH_QUEUE)) //Ensure Queue Exists
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger)) //Ensure Queue Exists
             ->then(
                 new RpcCommand(
                     self::FETCH_QUEUE,
