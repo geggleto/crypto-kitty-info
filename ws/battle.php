@@ -68,7 +68,7 @@ $commandBus = League\Tactician\Setup\QuickStart::create(
 );
 
 
-$queueService = new QueueService($commandBus);
+$queueService = new QueueService($commandBus, $log);
 $battleService = new BattleService($dispatcher);
 
 //Wire Events ugh there's a lot of them
