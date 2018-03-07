@@ -49,6 +49,7 @@ class ConnectionManager implements MessageComponentInterface
     public function onMessage(ConnectionInterface $from, $msg) //Receive Command
     {
         $player = $this->findPlayer($from);
+
         if ($player !== null) {
             $decoded = json_decode($msg, true);
 
