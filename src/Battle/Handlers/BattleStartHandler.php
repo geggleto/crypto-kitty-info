@@ -3,14 +3,13 @@
 
 namespace Kitty\Battle\Handlers;
 
-
-use function GuzzleHttp\Promise\all;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Entities\BattleInstance;
 use Kitty\Battle\Entities\Kitty;
 use Kitty\Battle\Events\BattleHasBegun;
 use Kitty\Battle\Services\KittyBattleService;
 use Psr\Log\LoggerInterface;
+use function React\Promise\all;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use function random_int;
 
