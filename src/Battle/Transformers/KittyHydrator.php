@@ -36,11 +36,13 @@ class KittyHydrator
     {
         $this->logger->debug('Hydrating Kitty');
 
-        $kitty = Kitty::makeKittyFromArray(json_decode($kittyString, true));
+        $kittyArray = json_decode($kittyString, true);
 
-        $kitty->setSkill1($this->kittyBattleSkillService->get($kitty['skill1']));
-        $kitty->setSkill2($this->kittyBattleSkillService->get($kitty['skill2']));
-        $kitty->setSkill3($this->kittyBattleSkillService->get($kitty['skill3']));
+        $kitty = Kitty::makeKittyFromArray($kittyArray);
+
+        $kitty->setSkill1($this->kittyBattleSkillService->get($kittyArray['skill1']));
+        $kitty->setSkill2($this->kittyBattleSkillService->get($kittyArray['skill2']));
+        $kitty->setSkill3($this->kittyBattleSkillService->get($kittyArray['skill3']));
 
         return $kitty;
     }
