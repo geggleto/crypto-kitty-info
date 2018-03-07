@@ -39,7 +39,7 @@ class KittyRepositories
 
         $kitty = $statement->fetch(PDO::FETCH_ASSOC);
 
-        return $channel->publish(
+        $channel->publish(
                 json_encode($kitty),
                 [
                     'correlation_id' => $message->getHeader('correlation_id'),
