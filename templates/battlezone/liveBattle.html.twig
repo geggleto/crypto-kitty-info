@@ -168,7 +168,6 @@ var app = new Vue({
 
                 if (app.page === 'queue') { // We are waiting in Queue
                     if (msg.event === 'battle.started') {
-                        console.log("selected: " + app.selectedKitty.id);
                         app.page = 'battle';
 
                         app.battleId = msg.uuid;
