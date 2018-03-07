@@ -35,6 +35,9 @@ class CreateChannel
         $this->logger->debug('Creating Channel');
 
         return (new Client($this->loop, $this->options, $this->logger))->connect()->then(function (Client $client) {
+
+            $this->logger->debug('Client/Channel Created');
+
             return $client->channel();
         });
     }
