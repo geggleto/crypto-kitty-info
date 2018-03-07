@@ -28,7 +28,7 @@ class KittyHydrator
     }
 
     /**
-     * @param array $kittyArray
+     * @param $kittyString
      *
      * @return Kitty
      */

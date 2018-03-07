@@ -13,6 +13,7 @@ use Kitty\Infrastructure\DeclareQueue;
 use Kitty\Infrastructure\RpcCommand;
 use Psr\Log\LoggerInterface;
 use React\EventLoop\LoopInterface;
+use React\Promise\Promise;
 use React\Promise\PromiseInterface;
 
 class KittyBattleService
@@ -50,7 +51,7 @@ class KittyBattleService
     /**
      * @param $id
      *
-     * @return PromiseInterface
+     * @return Promise
      */
     public function fetchKitty($id): PromiseInterface
     {

@@ -59,19 +59,15 @@ class BattleStartHandler
         $this->logger->debug('Starting Battle');
 
         $p1 = $this->kittyBattleService->fetchKitty($battleStart->getPlayer1()->getKittyId())
-            ->then(function (Kitty $kitty) use ($battle) {
+            ->done(function (Kitty $kitty) use ($battle) {
                 $this->logger->debug('Setting Kitty 1');
                 $battle->setKitty1($kitty);
-
-                return true;
             });
 
         $p2 = $this->kittyBattleService->fetchKitty($battleStart->getPlayer2()->getKittyId())
-            ->then(function (Kitty $kitty) use ($battle) {
+            ->done(function (Kitty $kitty) use ($battle) {
                 $this->logger->debug('Setting Kitty 2');
                 $battle->setKitty2($kitty);
-
-                return true;
             });
 
         all([
