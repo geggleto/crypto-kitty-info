@@ -121,7 +121,7 @@ class BattleInstance
             'kitty1' => $this->kitty1->toArray(),
             'kitty2' => $this->kitty2->toArray(),
             'player1' => $this->getPlayer1()->toArray(),
-            'player2' => $this->getPlayer1()->toArray(),
+            'player2' => $this->getPlayer2()->toArray(),
         ];
 
     }
