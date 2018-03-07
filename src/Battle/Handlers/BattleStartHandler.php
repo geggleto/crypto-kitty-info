@@ -77,8 +77,9 @@ class BattleStartHandler
         all([
             $p1,
             $p2
-        ])->then(function ($values) use ($battle) {
-                $this->logger->debug('Starting Battle');
+        ])->done(function ($values) use ($battle) {
+                $this->logger->debug('Sending Battle Event');
+
                 $this->eventDispatcher->dispatch(BattleHasBegun::EVENT_ROUTING_KEY, new BattleHasBegun($battle));
         });
     }
