@@ -178,7 +178,7 @@ var app = new Vue({
                         console.log(msg.player1.address);
                         console.log(app.profile);
 
-                        if (msg.player1.address === app.profile) {
+                        if (msg.player1.kittyId === app.selectedKitty) {
                             app.selectedKitty = msg.kitty1;
                             app.opponentKitty = msg.kitty2;
                         } else {
