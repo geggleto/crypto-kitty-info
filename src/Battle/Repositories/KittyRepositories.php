@@ -38,13 +38,12 @@ class KittyRepositories
         $message = $statement->fetch(PDO::FETCH_ASSOC);
 
         return $channel->publish(
-                $message,
+                json_encode($message),
                 [
                     'correlation_id' => $message->getHeader('correlation_id'),
                 ],
                 '',
-                $message->getHeader('reply_to'
-            )
+                $message->getHeader('reply_to')
         )->then(function () use ($channel, $message) {
             $channel->ack($message);
         });

@@ -27,11 +27,10 @@ class RpcCommandConsume
     }
 
     public function __invoke(Message $message, Channel $channel, Client $client) {
-        if ($message->getHeader('correlation_id') !== $this->corr_id) {
+        if ($message->getHeader('correlation_id') != $this->corr_id) {
             return;
         }
 
         $this->deferred->resolve($message->content);
-        $client->disconnect();
     }
 }
