@@ -29,6 +29,9 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = new \Dotenv\Dotenv(__DIR__.'/../');
+$dotenv->load();
+
 $loop = React\EventLoop\Factory::create();
 
 $log = new Monolog\Logger('crypto');
