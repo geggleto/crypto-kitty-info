@@ -22,18 +22,29 @@ use Kitty\Battle\Services\KittyBattleSkillService;
 use Kitty\Battle\Services\QueueService;
 use Kitty\Battle\Transformers\KittyHydrator;
 use Kitty\WebSockets\ConnectionManager;
+use Monolog\Handler\StreamHandler;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
 $loop = React\EventLoop\Factory::create();
 
+$log = new Monolog\Logger('crypto');
+
+$log->pushHandler(new StreamHandler(__DIR__.'/../../logs/websocket-logs.log', Logger::DEBUG));
+
+
 $kittyBattleSkillService = new KittyBattleSkillService();
 $kittyBattleSkillService->addSkill(new BaseSkill(1, 'Claw', 1, 10, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0));
 $kittyBattleSkillService->addSkill(new BaseSkill(2, 'Pounce', 1, 20, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0));
 $kittyBattleSkillService->addSkill(new BaseSkill(3, 'Lick Paws', 1, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0));
 
-$kittyBattleService = new KittyBattleService($loop, new KittyHydrator($kittyBattleSkillService));
+$kittyBattleService = new KittyBattleService($loop, new KittyHydrator($kittyBattleSkillService), $log, [
+    'host'      => 'localhost',
+    'vhost'     => '/',    // The default vhost is /
+    'user'      => getenv('RABBIT_USER'), // The default user is guest
+    'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
+]);
 
 $communicationService = new CommunicationService();
 

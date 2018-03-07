@@ -11,6 +11,7 @@ use Kitty\Infrastructure\CommandPayload;
 use Kitty\Infrastructure\CreateChannel;
 use Kitty\Infrastructure\DeclareQueue;
 use Kitty\Infrastructure\RpcCommand;
+use Psr\Log\LoggerInterface;
 use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
 
@@ -32,11 +33,13 @@ class KittyBattleService
      */
     public function __construct(
         LoopInterface $loop,
-        KittyHydrator $kittyHydrator
+        KittyHydrator $kittyHydrator,
+        LoggerInterface $logger,
+        array $options
     )
     {
         $this->hydrator = $kittyHydrator;
-        $this->channel = new CreateChannel($loop);
+        $this->channel = new CreateChannel($loop, $options, $logger);
     }
 
     /**
