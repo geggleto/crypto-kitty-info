@@ -32,11 +32,11 @@ class KittyHydrator
      *
      * @return Kitty
      */
-    public function __invoke(array $kittyArray)
+    public function hydrate($kittyString)
     {
         $this->logger->debug('Hydrating Kitty');
 
-        $kitty = Kitty::makeKittyFromArray($kittyArray);
+        $kitty = Kitty::makeKittyFromArray(json_decode($kittyString, true));
 
         $kitty->setSkill1($this->kittyBattleSkillService->get($kitty['skill1']));
         $kitty->setSkill2($this->kittyBattleSkillService->get($kitty['skill2']));

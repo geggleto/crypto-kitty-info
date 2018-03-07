@@ -65,7 +65,7 @@ class KittyBattleService
                     $this->logger
                 )
             )->then(function ($payload) {
-                $this->logger->debug('Resolved payload' . $payload);
+                return $this->hydrator->hydrate($payload);
             });
     }
 }
