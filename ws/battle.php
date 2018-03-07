@@ -23,6 +23,7 @@ use Kitty\Battle\Services\QueueService;
 use Kitty\Battle\Transformers\KittyHydrator;
 use Kitty\WebSockets\ConnectionManager;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
