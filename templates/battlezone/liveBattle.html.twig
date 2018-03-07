@@ -71,6 +71,7 @@ var app = new Vue({
         loadingRemoteAsset : false,
         battleId : '',
         winner : '',
+        selectedCat : 0,
         selectedKitty : {
             image   : 'https://bulma.io/images/placeholders/128x128.png',
             health  : 100,
@@ -166,16 +167,13 @@ var app = new Vue({
             this.conn.onmessage = function (ev) {
                 var msg = JSON.parse(ev.data);
 
-                console.log(msg);
-
                 if (app.page === 'queue') { // We are waiting in Queue
                     if (msg.event === 'battle.started') {
                         app.page = 'battle';
 
                         app.battleId = msg.uuid;
 
-                        //Load the state
-                        if (msg.kitty1.id === app.selectedKitty.id) {
+                        if (msg.player1.address === app.profile) {
                             app.selectedKitty = msg.kitty1;
                             app.opponentKitty = msg.kitty2;
                         } else {
@@ -260,7 +258,9 @@ var app = new Vue({
         selectKitty : function (index) {
             this.selectedKitty.image = this.kitties[index].image_url_cdn;
             this.selectedKitty.id = this.kitties[index].id;
+            this.selectedCat = this.kitties[index].id;
         },
+
         enterBattle : function () {
             this.page = 'queue';
             this.battle_log = [];
@@ -268,7 +268,7 @@ var app = new Vue({
             this.conn.send(JSON.stringify({
                 command : "enter.queue",
                 address : this.profile,
-                kittyId : app.selectedKitty.id
+                kittyId : this.selectedCat
             }));
         }
     },
