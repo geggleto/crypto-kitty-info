@@ -48,6 +48,8 @@ class BattleStartHandler
 
     public function handle(BattleStart $battleStart)
     {
+        $this->logger->debug('Starting Battle', [$battleStart->getPlayer1()->toArray(), $battleStart->getPlayer2()->toArray()]);
+
         $battle = new BattleInstance(
             $battleStart->getUuid(),
             $battleStart->getPlayer1(),
@@ -55,19 +57,17 @@ class BattleStartHandler
             (random_int(0,100)>50)?$battleStart->getPlayer1()->getKittyId() : $battleStart->getPlayer2()->getKittyId()
         );
 
-        $this->logger->debug('Starting Battle');
-
         $p1 = $this->kittyBattleService->fetchKitty($battleStart->getPlayer1()->getKittyId())
-            ->then(function (Kitty $kitty) use ($battle) {
-                $this->logger->debug('Setting Kitty 1');
+            ->then(function (Kitty $kitty) use (&$battle) {
+                $this->logger->debug('Setting Kitty 1', $battle->getPlayer1()->toArray());
                 $battle->setKitty1($kitty);
 
                 return $kitty;
             });
 
         $p2 = $this->kittyBattleService->fetchKitty($battleStart->getPlayer2()->getKittyId())
-            ->then(function (Kitty $kitty) use ($battle) {
-                $this->logger->debug('Setting Kitty 2');
+            ->then(function (Kitty $kitty) use (&$battle) {
+                $this->logger->debug('Setting Kitty 2', $battle->getPlayer2()->toArray());
                 $battle->setKitty2($kitty);
 
                 return $kitty;

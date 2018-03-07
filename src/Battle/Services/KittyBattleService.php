@@ -55,6 +55,8 @@ class KittyBattleService
      */
     public function fetchKitty($id): PromiseInterface
     {
+        $this->logger->debug('Fetching kitty'. $id);
+
         return $this->channel
             ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger)) //Ensure Queue Exists
             ->then(
