@@ -33,8 +33,7 @@ class KittyRepositories
 
         $payload = json_decode($message->content, true);
 
-        $statement = $this->pdo->prepare('select * from kitty_battle_kitty where id = ?');
-
+        $statement = $this->pdo->prepare('select * from kitty_battles_kitty where id = ?');
 
         $statement->execute([$payload['id']]);
 
