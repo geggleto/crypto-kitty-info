@@ -184,9 +184,7 @@ var app = new Vue({
                         app.battle_log.unshift("Battle Started!");
                         app.battle_log.unshift("Kitty #" + msg.turn + " has first move!");
 
-                        if (msg.turn === app.selectedKitty.id) {
-                            app.turn = true;
-                        }
+                        app.turn = msg.turn === app.selectedKitty.id;
                     }
                 }
 
@@ -229,11 +227,13 @@ var app = new Vue({
 
             this.conn.onerror = function (ev) {
                 app.service = false;
+                app.page = 'connection';
             };
 
             this.conn.onclose = function (ev) {
                 if (ev.code !== 3001) {
                     app.service = false;
+                    app.page = 'connection';
                 }
             };
         },
