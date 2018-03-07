@@ -229,10 +229,12 @@ var app = new Vue({
             this.conn.onerror = function (ev) {
                 app.service = false;
                 app.page = 'connection';
+                app.profile = '';
             };
 
             this.conn.onclose = function (ev) {
                 if (ev.code !== 3001) {
+                    app.profile = '';
                     app.service = false;
                     app.page = 'connection';
                 }
