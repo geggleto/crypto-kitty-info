@@ -16,7 +16,7 @@ $dotenv->load();
 //Monolog
 $log = new Monolog\Logger('crypto');
 
-$log->pushHandler(new StreamHandler(__DIR__.'/../../logs/kitty-service-logs.log', Logger::WARNING));
+$log->pushHandler(new StreamHandler(__DIR__.'/../../logs/kitty-service-logs.log', Logger::DEBUG));
 
 $pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATABASE'), getenv('MYSQL_USERNAME'), getenv('MYSQL_PASSWORD'));
 
