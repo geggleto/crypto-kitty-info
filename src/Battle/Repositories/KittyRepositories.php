@@ -9,6 +9,7 @@ use Bunny\Client;
 use Bunny\Message;
 use function json_decode;
 use PDO;
+use Psr\Log\LoggerInterface;
 
 class KittyRepositories
 {
@@ -16,13 +17,19 @@ class KittyRepositories
      * @var PDO
      */
     private $pdo;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-    public function __construct(PDO $PDO)
+    public function __construct(PDO $PDO, LoggerInterface $logger)
     {
         $this->pdo = $PDO;
+        $this->logger = $logger;
     }
 
     public function __invoke(Message $message, Channel $channel, Client $client) {
+        $this->logger->debug('Received Message');
         $payload = json_decode($message->content, true);
 
         $statement = $this->pdo->prepare('select * from kitty_battle_kitty where id = ?');

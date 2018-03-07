@@ -31,6 +31,6 @@ $channel = new CreateChannel($loop,[
 
 $channel()
     ->then(new DeclareQueue(KittyBattleService::FETCH_QUEUE))
-    ->then(new FetchKittyConsumer($pdo));
+    ->then(new FetchKittyConsumer($pdo, $log));
 
 $loop->run();
