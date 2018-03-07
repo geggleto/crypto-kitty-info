@@ -77,7 +77,7 @@ class BattleStartHandler
             $p1,
             $p2
         ])->done(function ($values) use ($battle) {
-                $this->logger->debug('Sending Battle Event');
+                $this->logger->debug('Sending Battle Event', $battle->toArray());
 
                 $this->eventDispatcher->dispatch(BattleHasBegun::EVENT_ROUTING_KEY, new BattleHasBegun($battle));
         });

@@ -57,12 +57,12 @@ class BattleService
 
         if ($battle->getKitty1()->getId() == $actionTaken->getKittyId())
         {
-            var_dump("Player 1 Attacking {$actionTaken->getKittyId()}");
+            //var_dump("Player 1 Attacking {$actionTaken->getKittyId()}");
             //Player 1 Attacker
             $attacker = $battle->getKitty1();
             $defender = $battle->getKitty2();
         } else {
-            var_dump("Player 2 Attacking {$actionTaken->getKittyId()}");
+            //var_dump("Player 2 Attacking {$actionTaken->getKittyId()}");
             //Player 2 Attacker
             $attacker = $battle->getKitty2();
             $defender = $battle->getKitty1();
