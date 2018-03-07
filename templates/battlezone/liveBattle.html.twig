@@ -108,7 +108,8 @@ var app = new Vue({
         },
         battle_log : [
 
-        ]
+        ],
+        last_msg : {}
     },
     methods: {
         skill1 : function () {
@@ -166,12 +167,16 @@ var app = new Vue({
 
             this.conn.onmessage = function (ev) {
                 var msg = JSON.parse(ev.data);
+                app.last_msg = msg;
 
                 if (app.page === 'queue') { // We are waiting in Queue
                     if (msg.event === 'battle.started') {
                         app.page = 'battle';
 
                         app.battleId = msg.uuid;
+
+                        console.log(msg.player1.address);
+                        console.log(app.profile);
 
                         if (msg.player1.address === app.profile) {
                             app.selectedKitty = msg.kitty1;
