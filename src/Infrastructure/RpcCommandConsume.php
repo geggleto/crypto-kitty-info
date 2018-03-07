@@ -33,7 +33,7 @@ class RpcCommandConsume
     }
 
     public function __invoke(Message $message, Channel $channel, Client $client) {
-        $this->logger->debug('Consuming Response');
+
         if ($message->getHeader('correlation_id') !== $this->corr_id) {
             return;
         }
