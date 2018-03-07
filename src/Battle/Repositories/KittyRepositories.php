@@ -35,10 +35,10 @@ class KittyRepositories
         $statement = $this->pdo->prepare('select * from kitty_battle_kitty where id = ?');
         $statement->execute([$payload['id']]);
 
-        $message = $statement->fetch(PDO::FETCH_ASSOC);
+        $kitty = $statement->fetch(PDO::FETCH_ASSOC);
 
         return $channel->publish(
-                json_encode($message),
+                json_encode($kitty),
                 [
                     'correlation_id' => $message->getHeader('correlation_id'),
                 ],
