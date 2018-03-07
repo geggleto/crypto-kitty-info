@@ -32,6 +32,8 @@ class CreateChannel
 
     public function __invoke()
     {
+        $this->logger->debug('Creating Channel');
+
         return (new Client($this->loop, $this->options, $this->logger))->connect()->then(function (Client $client) {
             return $client->channel();
         });

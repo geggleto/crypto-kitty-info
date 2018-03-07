@@ -22,14 +22,12 @@ $pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATAB
 
 $loop = Factory::create();
 
-$channel = new CreateChannel($loop,[
+$channel = (new CreateChannel($loop,[
     'host'      => 'localhost',
     'vhost'     => '/',    // The default vhost is /
     'user'      => getenv('RABBIT_USER'), // The default user is guest
     'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
-],$log);
-
-$channel()
+],$log))()
     ->then(new DeclareQueue(KittyBattleService::FETCH_QUEUE))
     ->then(new FetchKittyConsumer($pdo, $log));
 
