@@ -5,6 +5,7 @@ namespace Kitty\Infrastructure;
 
 
 use Bunny\Channel;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class DeclareFetchQueue
@@ -17,15 +18,20 @@ use Bunny\Channel;
 class DeclareQueue
 {
     private $queueName;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * DeclareKittyFetchQueue constructor.
      *
      * @param string $queueName
      */
-    public function __construct($queueName = '')
+    public function __construct($queueName = '', LoggerInterface $logger)
     {
         $this->queueName = $queueName;
+        $this->logger = $logger;
     }
 
     /**
@@ -35,6 +41,8 @@ class DeclareQueue
      */
     public function __invoke(Channel $channel)
     {
+        $this->logger->debug('Attempting Declare Queue');
+
         return \React\Promise\all([
             $channel->queueDeclare($this->queueName, false, true, false),
             \React\Promise\resolve($channel),

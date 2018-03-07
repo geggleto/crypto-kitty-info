@@ -26,9 +26,12 @@ class FetchKittyConsumer
         $this->logger = $logger;
     }
 
-    public function __invoke(Channel $channel)
+    public function __invoke(array $values)
     {
+        list ($responseQueue, $channel) = $values;
+
         $this->logger->debug('Starting Consumer');
+
         $channel->consume(new KittyRepositories($this->pdo, $this->logger), KittyBattleService::FETCH_QUEUE);
     }
 }

@@ -28,7 +28,7 @@ $channel = (new CreateChannel($loop,[
     'user'      => getenv('RABBIT_USER'), // The default user is guest
     'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
 ],$log))()
-    ->then(new DeclareQueue(KittyBattleService::FETCH_QUEUE))
+    ->then(new DeclareQueue(KittyBattleService::FETCH_QUEUE, $log))
     ->then(new FetchKittyConsumer($pdo, $log));
 
 $loop->run();
