@@ -24,6 +24,7 @@ use Kitty\Battle\Transformers\KittyHydrator;
 use Kitty\WebSockets\ConnectionManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
@@ -54,6 +55,10 @@ $dispatcher = new EventDispatcher();
 $battleStartHandler = new BattleStartHandler($dispatcher, $kittyBattleService);
 $enterQueueHandler = new EnterQueueHandler($dispatcher);
 $takeTurnHandler = new TakeTurnHandler($dispatcher);
+
+$dispatcher->addListener('*', function (Event $event) use ($log) {
+    $log->debug('Received ' . get_class($event));
+});
 
 $commandBus = League\Tactician\Setup\QuickStart::create(
     [
