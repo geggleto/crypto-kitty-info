@@ -46,12 +46,12 @@ class PlayerLoadKittyHandler
 
     public function handle(PlayerLoadKitty $command)
     {
-        $this->kittyBattleService->fetchKitty($command->getKittyId())
+        $this->logger->debug('Fetching Kitty for Player '. $command->getKittyId());
+        $this->kittyBattleService
+            ->fetchKitty($command->getKittyId())
             ->done(function (Kitty $kitty) use ($command) {
-
+                $this->logger->debug('Found Kitty! ' . $kitty->getId());
                 $this->eventDispatcher->dispatch(PlayerLoadedKitty::EVENT_ROUTING_KEY, new PlayerLoadedKitty($command->getConnection(), $kitty->toArray()));
-
-                return $kitty;
             });
     }
 }
