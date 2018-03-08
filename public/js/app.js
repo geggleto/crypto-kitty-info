@@ -216,10 +216,13 @@ var app = new Vue({
         loadNext : function () {
             this.selectionOffset += this.selectionLimit;
             this.selectionPage++;
+
+            this.loadingKitties();
         },
         loadBack : function () {
             this.selectionOffset -= this.selectionLimit;
             this.selectionPage--;
+            this.loadingKitties();
         },
         selectKitty : function (index) {
 
