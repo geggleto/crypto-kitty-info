@@ -14,12 +14,14 @@
                         <thead>
                         <tr>
                             <th>ID #</th>
+                            <th>Name</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(kitty, key)  in kitties">
                                 <td><% kitty.id %></td>
+                                <td><% kitty.name %></td>
                                 <td>
                                     <a class="button is-success is-small" v-if="selectedCat !== kitty.id" v-on:click="selectKitty(key)">
                                         <span class="icon is-small">
