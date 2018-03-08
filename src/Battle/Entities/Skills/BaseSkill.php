@@ -314,18 +314,95 @@ class BaseSkill
         return $this->evade_down;
     }
 
+    /**
+     * @param Kitty $friend
+     * @param Kitty $enemy
+     * @return string[]
+     */
     public function apply(Kitty $friend, Kitty $enemy)
     {
-        //TODO Apply skill
         $this->timeLeftOnCooldown = $this->cooldown;
 
+        $messages = [];
+
+        //Have to iterate over alllllllll of the things
+
+        if ($this->attack_up != 0) {
+
+        }
+        if ($this->attack_down != 0) {
+
+        }
+        if ($this->defense_up != 0) {
+
+        }
+        if ($this->defense_down != 0) {
+
+        }
+        if ($this->haste != 0) {
+
+        }
+        if ($this->slow != 0) {
+
+        }
+        if ($this->burning != 0) {
+
+        }
+        if ($this->poisoned != 0) {
+
+        }
+        if ($this->freezing != 0) {
+
+        }
+        if ($this->sleep != 0) {
+
+        }
+        if ($this->confused != 0) {
+
+        }
+        if ($this->stunned != 0) {
+
+        }
+        if ($this->accuracy_up != 0) {
+
+        }
+        if ($this->accuracy_down != 0) {
+
+        }
+        if ($this->crit_up != 0) {
+
+        }
+        if ($this->crit_down != 0) {
+
+        }
+        if ($this->heal_power != 0) {
+            $friend->takeDamage(-1 * $this->heal_power);
+            $messages[] = $friend->getId() . ' healed for ' . $this->heal_power;
+        }
+        if ($this->heal_over_time != 0) {
+
+        }
+        if ($this->blind != 0) {
+
+        }
+        if ($this->evade_up != 0) {
+
+        }
+        if ($this->evade_down != 0) {
+
+        }
+        if ($this->power != 0) {
+            $enemy->takeDamage($this->power);
+            $messages[] = $friend->getId() . ' attacked for ' . $this->power . ' damage';
+        }
+
+
+
+
+
+        return $messages;
     }
 
-    public function applyAll(array $friends, array $enemies)
-    {
-        //TODO Apply All skill
-        $this->timeLeftOnCooldown = $this->cooldown;
-    }
 
     public function decreaseCooldown()
     {

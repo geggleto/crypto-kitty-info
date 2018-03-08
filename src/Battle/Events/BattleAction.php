@@ -7,7 +7,7 @@ namespace Kitty\Battle\Events;
 use Kitty\Battle\Entities\BattleInstance;
 use Symfony\Component\EventDispatcher\Event;
 
-abstract class BattleAction extends Event
+class BattleAction extends Event
 {
     public const EVENT_ROUTING_KEY = 'battle.action';
 
@@ -15,10 +15,12 @@ abstract class BattleAction extends Event
      * @var BattleInstance
      */
     private $battleInstance;
+    private $string;
 
-    public function __construct(BattleInstance $battleInstance)
+    public function __construct(BattleInstance $battleInstance, $string)
     {
         $this->battleInstance = $battleInstance;
+        $this->string = $string;
     }
 
     /**
@@ -31,5 +33,8 @@ abstract class BattleAction extends Event
 
 
 
-    abstract public function __toString() : string;
+    public function __toString() : string
+    {
+        return $this->string;
+    }
 }

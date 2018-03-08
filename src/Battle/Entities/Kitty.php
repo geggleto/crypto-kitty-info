@@ -205,5 +205,10 @@ class Kitty
         $this->skill3 = $skill3;
     }
 
+    public function takeDamage($damage)
+    {
+        $this->health -= $damage;
+    }
+
 
 }

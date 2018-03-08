@@ -117,71 +117,11 @@ class BattleService
         Kitty $defender
     )
     {
-        if ($skill->getPower() !== 0) {
-            $def = null;
-            $atk = null;
-            if ($skill->getPower() > 0) {
-                //Attacks Defender
-                $def = $defender;
-                $atk = $attacker;
-            } else {
-                //Attacks Attacker
-                $def = $attacker;
-                $atk = $defender;
-            }
-            $damage = $skill->getPower() + ($atk->getAttack() - $def->getDefense());
-            $def->receiveAttack($damage);
+        $battleEvents = $skill->apply($attacker, $defender);
 
-            $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, new BattleAttackAction($battleInstance, $atk, $defender, $damage));
+        foreach ($battleEvents as $battleEvent) {
+            $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, new BattleAction($battleInstance, $battleEvent));
         }
 
-        if ($skill->getHeal() !== 0) {
-            $target = null;
-            if ($skill->getHeal() > 0) {
-                //Heals Attacker
-                $target = $attacker;
-
-            } else {
-                //Heals Defender
-                $target = $defender;
-            }
-
-            $heal = $skill->getHeal() + $defender->getHeal();
-            $target->receiveHeal($heal);
-
-            $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, new BattleHealAction($battleInstance, $target, $heal));
-        }
-
-        if ($skill->getAttackUp() !== 0) {
-            $target = null;
-            if ($skill->getAttackUp() > 0) {
-                //Heals Attacker
-                $target = $attacker;
-
-            } else {
-                //Heals Defender
-                $target = $defender;
-            }
-
-            $target->receiveAttackUp($skill->getAttackUp());
-
-            $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, new BattleAttackUpAction($battleInstance, $target, $skill->getAttackUp()));
-        }
-
-        if ($skill->getDefenseUp() !== 0) {
-            $target = null;
-            if ($skill->getDefenseUp() > 0) {
-                //Heals Attacker
-                $target = $attacker;
-
-            } else {
-                //Heals Defender
-                $target = $defender;
-            }
-
-            $target->receiveAttackUp($skill->getDefenseUp());
-
-            $this->eventDispatcher->dispatch(BattleAction::EVENT_ROUTING_KEY, new BattleDefenseUpAction($battleInstance, $target, $skill->getDefenseUp()));
-        }
     }
 }
