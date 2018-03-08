@@ -209,6 +209,12 @@ var app = new Vue({
             this.selectedCat = this.kitties[index].id;
         },
 
+        deselectKitty : function (index) {
+            this.selectedKitty.image = 'https://bulma.io/images/placeholders/128x128.png';
+            this.selectedKitty.id = 0;
+            this.selectedCat = 0;
+        },
+
         enterBattle : function () {
             this.page = 'queue';
             this.battle_log = [];

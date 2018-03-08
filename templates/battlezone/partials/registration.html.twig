@@ -29,11 +29,18 @@
                                 <td>10</td>
                                 <td>5</td>
                                 <td>
-                                    <a class="button is-success is-small" v-on:click="selectKitty(key)">
+                                    <a class="button is-success is-small" v-if="selectedCat !== kitty.id" v-on:click="selectKitty(key)">
                                         <span class="icon is-small">
                                           <i class="fas fa-quidditch"></i>
                                         </span>
                                         <span>Select</span>
+                                    </a>
+
+                                    <a class="button is-success is-small" v-if="selectedCat === kitty.id" v-on:click="deselectKitty(key)">
+                                        <span class="icon is-small">
+                                          <i class="fas fa-quidditch"></i>
+                                        </span>
+                                        <span>Deselect</span>
                                     </a>
                                 </td>
                             </tr>
