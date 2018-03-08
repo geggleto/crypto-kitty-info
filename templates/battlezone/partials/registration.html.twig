@@ -39,6 +39,11 @@
                     </table>
                 </div>
             </div>
+
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <a class="pagination-previous" v-if="selectionPage > 0" :click="loadBack">Previous</a>
+                <a class="pagination-next" :click="loadNext">Next page</a>
+            </nav>
         </div>
     </section>
 

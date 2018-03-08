@@ -10,7 +10,7 @@ var app = new Vue({
 
         kitties : [],
         selectionPage : 0,
-        selectionLimit : 10,
+        selectionLimit : 12,
         selectionOffset: 0,
         loadingRemoteAsset : false,
         battleId : '',
@@ -199,6 +199,8 @@ var app = new Vue({
 
             this.loadingRemoteAsset = true;
 
+            this.kitties = [];
+
             var kittiesUrl = 'https://api.cryptokitties.co/kitties?limit='+this.selectionLimit+'&owner_wallet_address='+this.profile+'&offset='+this.selectionOffset;
 
             $.get(kittiesUrl, function (res) {
@@ -210,6 +212,14 @@ var app = new Vue({
 
                 app.loadingRemoteAsset = false;
             });
+        },
+        loadNext : function () {
+            this.selectionOffset += this.selectionLimit;
+            this.selectionPage++;
+        },
+        loadBack : function () {
+            this.selectionOffset -= this.selectionLimit;
+            this.selectionPage--;
         },
         selectKitty : function (index) {
 
