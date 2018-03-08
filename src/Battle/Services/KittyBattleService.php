@@ -4,6 +4,7 @@
 namespace Kitty\Battle\Services;
 
 use Bunny\Async\Client;
+use Bunny\Channel;
 use function json_decode;
 use Kitty\Battle\Entities\Kitty;
 use Kitty\Battle\Transformers\KittyHydrator;
@@ -18,7 +19,7 @@ use React\Promise\PromiseInterface;
 
 class KittyBattleService
 {
-    /** @var PromiseInterface */
+    /** @var Channel */
     private $channel;
 
     /** @var KittyHydrator */
@@ -33,8 +34,10 @@ class KittyBattleService
     /**
      * KittyBattleService constructor.
      *
-     * @param LoopInterface $loop
-     * @param KittyHydrator $kittyHydrator
+     * @param LoopInterface   $loop
+     * @param KittyHydrator   $kittyHydrator
+     * @param LoggerInterface $logger
+     * @param array           $options
      */
     public function __construct(
         LoopInterface $loop,
@@ -46,9 +49,17 @@ class KittyBattleService
         $this->hydrator = $kittyHydrator;
         $this->logger = $logger;
 
-        $this->channel = (new CreateChannel($loop, $options, $logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger)); //Ensure Queue Exists
+        (new CreateChannel($loop, $options, $logger))()
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
+            ->done(function ($values) {
+                list (,$channel,) = $values;
+                $this->setChannel($channel);
+            });
+    }
 
+    private function setChannel(Channel $channel)
+    {
+        $this->channel = $channel;
     }
 
     /**
@@ -60,16 +71,15 @@ class KittyBattleService
     {
         $this->logger->debug('Fetching kitty'. $id);
 
-        return $this->channel
-            ->then(
-                new RpcCommand(
+        return (new RpcCommand(
+                    $this->channel,
                     self::FETCH_QUEUE,
                     new CommandPayload([
                         'id' => $id
                     ]),
                     $this->logger
                 )
-            )->then(function ($payload) {
+            )()->then(function ($payload) {
                 return $this->hydrator->hydrate($payload);
             });
     }

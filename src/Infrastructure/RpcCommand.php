@@ -18,43 +18,48 @@ use React\Promise\Deferred;
 class RpcCommand
 {
     private $payload;
+
     private $queue;
     /**
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var Channel
+     */
+    private $channel;
 
-    public function __construct($queueName, CommandPayload $payload, LoggerInterface $logger)
+    public function __construct(
+        Channel $channel,
+        $queueName,
+        CommandPayload $payload,
+        LoggerInterface $logger)
     {
         $this->queue   = $queueName;
         $this->payload = $payload;
         $this->logger = $logger;
+        $this->channel = $channel;
     }
 
     /**
-     * @param array $values
-     *
      * @return \React\Promise\Promise|\React\Promise\PromiseInterface
      */
-    public function __invoke(array $values)
+    public function __invoke()
     {
-        /** @var $channel Channel */
-        list ($responseQueue, $channel) = $values;
-
         $corr_id = uniqid($this->queue, true);
 
         $deferred = new Deferred();
 
-        $channel->consume(
+        $this->channel->consume(
             new RpcCommandConsume($deferred, $corr_id, $this->logger),
-            $responseQueue->queue.'.response'
+            $this->queue.'.response'
         );
 
-        $channel->publish(
+        $this->channel->publish(
             \json_encode($this->payload->jsonSerialize()),
             [
                 'correlation_id' => $corr_id,
-                'reply_to' => $responseQueue->queue.'.response',
+                'reply_to' => $this->queue.'.response',
             ],
             '',
             $this->queue
