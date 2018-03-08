@@ -115,6 +115,7 @@ var app = new Vue({
 
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
+                        console.log(msg);
                         app.selectedKitty = msg.kitty;
                         app.selectedCat = msg.kitty.id;
                         app.loadingRemoteAsset = false;
