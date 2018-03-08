@@ -95,8 +95,6 @@ $dispatcher->addListener(BattleUpdate::EVENT_ROUTING_KEY, [$communicationService
 $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$communicationService, 'onBattleHasEnded']);
 $dispatcher->addListener(PlayerLoadedKitty::EVENT_ROUTING_KEY, [$communicationService, 'onPlayerLoadedKitty']);
 
-
-
 //Battle Service
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasBegun']);
 $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasEnded']);

@@ -44,9 +44,11 @@ class KittyBattleService
     )
     {
         $this->hydrator = $kittyHydrator;
+        $this->logger = $logger;
+
         $this->channel = (new CreateChannel($loop, $options, $logger))()
             ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger)); //Ensure Queue Exists
-        $this->logger = $logger;
+
     }
 
     /**
