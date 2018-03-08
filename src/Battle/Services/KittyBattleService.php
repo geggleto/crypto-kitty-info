@@ -60,6 +60,7 @@ class KittyBattleService
 
     private function setChannel(Channel $channel)
     {
+        $this->logger->debug('Setting Channel in Kitty Battle Service');
         $this->channel = $channel;
     }
 
