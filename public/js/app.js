@@ -10,7 +10,7 @@ var app = new Vue({
 
         kitties : [],
         selectionPage : 0,
-        selectionLimit : 20,
+        selectionLimit : 10,
         selectionOffset: 0,
         loadingRemoteAsset : false,
         battleId : '',
