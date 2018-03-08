@@ -50,11 +50,10 @@ class KittyBattleService
         $this->logger = $logger;
 
         (new CreateChannel($loop, $options, $logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
-            ->done(function ($values) {
-                list (,$channel,) = $values;
+            ->then(function (Channel $channel) {
                 $this->setChannel($channel);
-            });
+            })
+            ->done(new DeclareQueue(self::FETCH_QUEUE, $this->logger));
     }
 
     private function setChannel(Channel $channel)
