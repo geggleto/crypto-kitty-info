@@ -14,20 +14,11 @@
                         <thead>
                         <tr>
                             <th>ID #</th>
-                            <th>Health</th>
-                            <th>Attack</th>
-                            <th>Defense</th>
-                            <th>Heal</th>
-                            <th>Cooldown</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(kitty, key)  in kitties">
                                 <td><% kitty.id %></td>
-                                <td>100</td>
-                                <td>10</td>
-                                <td>10</td>
-                                <td>5</td>
                                 <td>
                                     <a class="button is-success is-small" v-if="selectedCat !== kitty.id" v-on:click="selectKitty(key)">
                                         <span class="icon is-small">

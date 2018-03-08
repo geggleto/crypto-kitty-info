@@ -113,6 +113,13 @@ var app = new Vue({
                 var msg = JSON.parse(ev.data);
                 app.last_msg = msg;
 
+                if (app.page === 'registration') {
+                    if (msg.event === 'player.loaded.kitty') {
+                        this.selectedKitty = msg.kitty;
+                        this.selectedCat = msg.kitty.id;
+                    }
+                }
+
                 if (app.page === 'queue') { // We are waiting in Queue
                     if (msg.event === 'battle.started') {
                         app.page = 'battle';
@@ -204,9 +211,19 @@ var app = new Vue({
             });
         },
         selectKitty : function (index) {
-            this.selectedKitty.image = this.kitties[index].image_url_cdn;
-            this.selectedKitty.id = this.kitties[index].id;
-            this.selectedCat = this.kitties[index].id;
+
+            //make request
+
+            this.loadingRemoteAsset = true;
+
+            this.conn.send(JSON.stringify({
+                command : "player.load.kitty",
+                kittyId : app.kitties[index].id
+            }));
+
+            // this.selectedKitty.image = this.kitties[index].image_url_cdn;
+            // this.selectedKitty.id = this.kitties[index].id;
+            // this.selectedCat = this.kitties[index].id;
         },
 
         deselectKitty : function (index) {

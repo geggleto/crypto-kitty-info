@@ -11,6 +11,7 @@ use Kitty\Battle\Events\BattleHasEnded;
 use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerConnected;
 use Kitty\Battle\Events\PlayerEvent;
+use Kitty\Battle\Events\PlayerLoadedKitty;
 use Kitty\Battle\Events\PlayerQueued;
 use Kitty\Battle\Events\PlayerRemoved;
 
@@ -65,6 +66,14 @@ class CommunicationService
         $this->sendBattleEvent($battleEvent, $data);
     }
 
+    public function onPlayerLoadedKitty(PlayerLoadedKitty $loadedKitty)
+    {
+        $data = [];
+        $data['kitty'] = $loadedKitty->getKitty();
+        $data['event'] = PlayerLoadedKitty::EVENT_ROUTING_KEY;
+
+        $this->sendPlayerEvent($loadedKitty, $data);
+    }
 
     protected function sendPlayerEvent(PlayerEvent $playerQueued, array $data) : void
     {

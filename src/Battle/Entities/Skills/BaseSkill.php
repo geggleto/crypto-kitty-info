@@ -413,14 +413,24 @@ class BaseSkill
 
     public function toArray()
     {
-        //TODO Serialize Skill
+        $tags = [];
+
+        if ($this->power != 0) {
+            $tags['dmg'] = $this->power;
+        }
+
+        if ($this->heal_power != 0) {
+            $tags['heal'] = $this->heal_power;
+        }
+
 
         return [
             'name' => $this->name,
             'tier' => $this->tier,
             'cooldown' => $this->cooldown,
             'is_ready' => ($this->timeLeftOnCooldown === 0),
-            'countdown' => $this->timeLeftOnCooldown
+            'countdown' => $this->timeLeftOnCooldown,
+            'effects' => $tags
         ];
     }
 

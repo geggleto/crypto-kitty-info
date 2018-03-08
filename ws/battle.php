@@ -3,6 +3,7 @@
 use function DI\get;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Commands\EnterQueue;
+use Kitty\Battle\Commands\PlayerLoadKitty;
 use Kitty\Battle\Commands\TakeTurn;
 use Kitty\Battle\Entities\Skills\BaseSkill;
 use Kitty\Battle\Events\BattleAction;
@@ -11,10 +12,12 @@ use Kitty\Battle\Events\BattleHasEnded;
 use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerActionTaken;
 use Kitty\Battle\Events\PlayerConnected;
+use Kitty\Battle\Events\PlayerLoadedKitty;
 use Kitty\Battle\Events\PlayerQueued;
 use Kitty\Battle\Events\PlayerRemoved;
 use Kitty\Battle\Handlers\BattleStartHandler;
 use Kitty\Battle\Handlers\EnterQueueHandler;
+use Kitty\Battle\Handlers\PlayerLoadKittyHandler;
 use Kitty\Battle\Handlers\TakeTurnHandler;
 use Kitty\Battle\Services\BattleService;
 use Kitty\Battle\Services\CommunicationService;
@@ -59,12 +62,14 @@ $dispatcher = new EventDispatcher();
 $battleStartHandler = new BattleStartHandler($dispatcher, $kittyBattleService, $log);
 $enterQueueHandler = new EnterQueueHandler($dispatcher);
 $takeTurnHandler = new TakeTurnHandler($dispatcher);
+$playerLoadKittyHandler = new PlayerLoadKittyHandler($dispatcher, $kittyBattleService, $log);
 
 $commandBus = League\Tactician\Setup\QuickStart::create(
     [
         BattleStart::class => $battleStartHandler,
         EnterQueue::class => $enterQueueHandler,
-        TakeTurn::class => $takeTurnHandler
+        TakeTurn::class => $takeTurnHandler,
+        PlayerLoadKitty::class => $playerLoadKittyHandler
     ]
 );
 
@@ -88,6 +93,9 @@ $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationServi
 $dispatcher->addListener(BattleAction::EVENT_ROUTING_KEY, [$communicationService, 'onBattleAction']);
 $dispatcher->addListener(BattleUpdate::EVENT_ROUTING_KEY, [$communicationService, 'onBattleUpdate']);
 $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$communicationService, 'onBattleHasEnded']);
+$dispatcher->addListener(PlayerLoadedKitty::EVENT_ROUTING_KEY, [$communicationService, 'onPlayerLoadedKitty']);
+
+
 
 //Battle Service
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasBegun']);
