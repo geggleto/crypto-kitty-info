@@ -52,6 +52,8 @@ class KittyBattleService
         (new CreateChannel($loop, $options, $logger))()
             ->then(function (Channel $channel) {
                 $this->setChannel($channel);
+
+                return $channel;
             })
             ->done(new DeclareQueue(self::FETCH_QUEUE, $this->logger));
     }
