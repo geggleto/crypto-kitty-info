@@ -41,7 +41,7 @@
             </div>
 
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                <a class="button pagination-previous" :disabled="selectionPage > 0" v-on:click="loadBack">Previous</a>
+                <a class="button pagination-previous" :disabled="selectionPage == 0" v-on:click="loadBack">Previous</a>
                 <a class="button pagination-next" v-on:click="loadNext">Next page</a>
             </nav>
         </div>
