@@ -44,7 +44,8 @@ class KittyBattleService
     )
     {
         $this->hydrator = $kittyHydrator;
-        $this->channel = (new CreateChannel($loop, $options, $logger))();
+        $this->channel = (new CreateChannel($loop, $options, $logger))()
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger)); //Ensure Queue Exists
         $this->logger = $logger;
     }
 
@@ -58,7 +59,6 @@ class KittyBattleService
         $this->logger->debug('Fetching kitty'. $id);
 
         return $this->channel
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger)) //Ensure Queue Exists
             ->then(
                 new RpcCommand(
                     self::FETCH_QUEUE,
