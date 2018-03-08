@@ -49,6 +49,8 @@ class KittyBattleService
         $this->hydrator = $kittyHydrator;
         $this->logger = $logger;
 
+        $this->logger->debug('in constructor kittybattleservice');
+
         (new CreateChannel($loop, $options, $logger))()
             ->then(function (Channel $channel) {
                 $this->setChannel($channel);
@@ -71,7 +73,7 @@ class KittyBattleService
      */
     public function fetchKitty($id): PromiseInterface
     {
-        $this->logger->debug('Fetching kitty'. $id);
+        $this->logger->debug('Fetching kitty in kitty battle service'. $id);
 
         return (new RpcCommand(
                     $this->channel,
