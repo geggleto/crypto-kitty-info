@@ -1,5 +1,6 @@
 <?php
 
+use Bunny\Async\Client;
 use function DI\get;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Commands\EnterQueue;
@@ -39,7 +40,6 @@ $dotenv->load();
 $loop = React\EventLoop\Factory::create();
 
 $log = new Monolog\Logger('crypto');
-
 $log->pushHandler(new StreamHandler(__DIR__.'/../logs/websocket-logs.log', Logger::DEBUG));
 
 
@@ -48,12 +48,12 @@ $kittyBattleSkillService->addSkill(new BaseSkill(1, 'Claw', 1, 10, 0,0,0,0,0,0,0
 $kittyBattleSkillService->addSkill(new BaseSkill(2, 'Pounce', 1, 20, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3));
 $kittyBattleSkillService->addSkill(new BaseSkill(3, 'Lick Paws', 1, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,5));
 
-$kittyBattleService = new KittyBattleService($loop, new KittyHydrator($kittyBattleSkillService, $log), $log, [
+$kittyBattleService = new KittyBattleService($loop, new KittyHydrator($kittyBattleSkillService, $log), $log, new Client($loop, [
     'host'      => 'localhost',
     'vhost'     => '/',    // The default vhost is /
     'user'      => getenv('RABBIT_USER'), // The default user is guest
     'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
-]);
+]));
 
 $communicationService = new CommunicationService();
 

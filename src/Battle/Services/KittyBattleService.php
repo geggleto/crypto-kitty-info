@@ -43,7 +43,7 @@ class KittyBattleService
         LoopInterface $loop,
         KittyHydrator $kittyHydrator,
         LoggerInterface $logger,
-        array $options
+        Client $client
     )
     {
         $this->hydrator = $kittyHydrator;
@@ -51,7 +51,7 @@ class KittyBattleService
 
         $this->logger->debug('in constructor kittybattleservice');
 
-        (new CreateChannel($loop, $options, $logger))()
+        (new CreateChannel($loop, $client, $logger))()
             ->then(function (Channel $channel) {
                 $this->setChannel($channel);
 

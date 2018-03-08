@@ -22,19 +22,23 @@ class CreateChannel
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var Client
+     */
+    private $client;
 
-    public function __construct(LoopInterface $loop, array $options, LoggerInterface $logger)
+    public function __construct(LoopInterface $loop, Client $client, LoggerInterface $logger)
     {
         $this->loop = $loop;
-        $this->options = $options;
         $this->logger = $logger;
+        $this->client = $client;
     }
 
     public function __invoke()
     {
         $this->logger->debug('Creating Channel');
 
-        return (new Client($this->loop, $this->options, $this->logger))->connect()->then(function (Client $client) {
+        return $this->client->connect()->then(function (Client $client) {
 
             $this->logger->debug('Client/Channel Created');
 
