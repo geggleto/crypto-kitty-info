@@ -101,14 +101,19 @@ class BattleService
     {
         $battle = $playerRemoved->getPlayerConnection()->getBattle();
 
-        if ($battle->getPlayer1() === $playerRemoved->getPlayerConnection()) {
-            $battle->endGameWithWinner($battle->getPlayer2());
-        } else {
-            $battle->endGameWithWinner($battle->getPlayer2());
-        }
+        if ($battle !== null) {
 
-        $this->eventDispatcher->dispatch(BattleHasEnded::EVENT_ROUTING_KEY, new BattleHasEnded($battle));
+            if ($battle->getPlayer1() === $playerRemoved->getPlayerConnection()) {
+                $battle->endGameWithWinner($battle->getPlayer2());
+            } else {
+                $battle->endGameWithWinner($battle->getPlayer2());
+            }
+
+            $this->eventDispatcher->dispatch(BattleHasEnded::EVENT_ROUTING_KEY, new BattleHasEnded($battle));
+
+        }
     }
+
 
     protected function apply(
         BattleInstance $battleInstance,
