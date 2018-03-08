@@ -38,6 +38,11 @@ class KittyHydrator
 
         $kittyArray = json_decode($kittyString, true);
 
+        if ($kittyArray === false) {
+            $kitty = new Kitty('-1', 0, 0 ,0,0,0,0);
+
+            return $kitty;
+        }
         $kitty = Kitty::makeKittyFromArray($kittyArray);
 
         $kitty->setSkill1($this->kittyBattleSkillService->get($kittyArray['skill1']));
