@@ -52,7 +52,8 @@ class RpcCommand
 
         $this->channel->consume(
             new RpcCommandConsume($deferred, $corr_id, $this->logger),
-            $this->queue.'.response'
+            $this->queue.'.response',
+            $corr_id
         );
 
         $this->channel->publish(

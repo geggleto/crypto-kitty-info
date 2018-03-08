@@ -34,6 +34,9 @@ class CreateChannel
         $this->client = $client;
     }
 
+    /**
+     * @return \React\Promise\PromiseInterface
+     */
     public function __invoke()
     {
         $this->logger->debug('Creating Channel');
