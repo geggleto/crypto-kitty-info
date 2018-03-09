@@ -112,6 +112,8 @@ class KittyBattleService
     public function fetchKitty($id): PromiseInterface
     {
         $this->logger->debug('Fetching kitty in kitty battle service'. $id);
+        $this->logger->debug('publish queue' . $this->queue->queue);
+        $this->logger->debug('consume queue' . $this->replyTo->queue);
 
         return (new RpcCommand(
                     $this->channel,
