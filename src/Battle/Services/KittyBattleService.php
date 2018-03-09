@@ -31,13 +31,17 @@ class KittyBattleService
      */
     private $logger;
 
+    private $queue;
+
+    private $replyTo;
+
     /**
      * KittyBattleService constructor.
      *
      * @param LoopInterface   $loop
      * @param KittyHydrator   $kittyHydrator
      * @param LoggerInterface $logger
-     * @param array           $options
+     * @param Client          $client
      */
     public function __construct(
         LoopInterface $loop,
@@ -52,18 +56,52 @@ class KittyBattleService
         $this->logger->debug('in constructor kittybattleservice');
 
         (new CreateChannel($loop, $client, $logger))()
-            ->then(function (Channel $channel) {
-                $this->setChannel($channel);
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
+            ->done(function ($values) {
+                [$queue, $channel, $replyTo] = $values;
 
-                return $channel;
-            })
-            ->done(new DeclareQueue(self::FETCH_QUEUE, $this->logger));
+                $this->setQueue($queue);
+                $this->setChannel($channel);
+                $this->setReplyTo($replyTo);
+            });
     }
 
     private function setChannel(Channel $channel)
     {
         $this->logger->debug('Setting Channel in Kitty Battle Service');
         $this->channel = $channel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQueue()
+    {
+        return $this->queue;
+    }
+
+    /**
+     * @param mixed $queue
+     */
+    public function setQueue($queue): void
+    {
+        $this->queue = $queue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReplyTo()
+    {
+        return $this->replyTo;
+    }
+
+    /**
+     * @param mixed $replyTo
+     */
+    public function setReplyTo($replyTo): void
+    {
+        $this->replyTo = $replyTo;
     }
 
     /**
@@ -77,7 +115,8 @@ class KittyBattleService
 
         return (new RpcCommand(
                     $this->channel,
-                    self::FETCH_QUEUE,
+                    $this->queue->queue,
+                    $this->replyTo->queue,
                     new CommandPayload([
                         'id' => $id
                     ]),

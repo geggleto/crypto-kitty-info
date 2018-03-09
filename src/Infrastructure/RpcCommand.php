@@ -5,6 +5,7 @@ namespace Kitty\Infrastructure;
 
 use Bunny\Channel;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
 use React\Promise\Deferred;
 
 /**
@@ -28,10 +29,12 @@ class RpcCommand
      * @var Channel
      */
     private $channel;
+    private $replyTo;
 
     public function __construct(
         Channel $channel,
         $queueName,
+        $replyTo,
         CommandPayload $payload,
         LoggerInterface $logger)
     {
@@ -39,6 +42,7 @@ class RpcCommand
         $this->payload = $payload;
         $this->logger = $logger;
         $this->channel = $channel;
+        $this->replyTo = $replyTo;
     }
 
     /**
@@ -46,13 +50,13 @@ class RpcCommand
      */
     public function __invoke()
     {
-        $corr_id = uniqid($this->queue, true);
+        $corr_id = Uuid::uuid4();
 
         $deferred = new Deferred();
 
         $this->channel->consume(
             new RpcCommandConsume($deferred, $corr_id, $this->logger),
-            $this->queue.'.response',
+            $this->replyTo,
             $corr_id
         );
 
@@ -60,7 +64,7 @@ class RpcCommand
             \json_encode($this->payload->jsonSerialize()),
             [
                 'correlation_id' => $corr_id,
-                'reply_to' => $this->queue.'.response',
+                'reply_to' => $this->replyTo,
             ],
             '',
             $this->queue
