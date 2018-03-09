@@ -86,7 +86,7 @@ class PlayerConnection
     /**
      * @return BattleInstance
      */
-    public function getBattle(): BattleInstance
+    public function getBattle(): ?BattleInstance
     {
         return $this->battle;
     }
