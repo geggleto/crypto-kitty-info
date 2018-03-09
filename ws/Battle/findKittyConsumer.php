@@ -23,7 +23,7 @@ $pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATAB
 
 $loop = Factory::create();
 
-$channel = (new CreateChannel($loop,new Client($loop, [
+$channel = (new CreateChannel($loop, new Client($loop, [
     'host'      => 'localhost',
     'vhost'     => '/',    // The default vhost is /
     'user'      => getenv('RABBIT_USER'), // The default user is guest
