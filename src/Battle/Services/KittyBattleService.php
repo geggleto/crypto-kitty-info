@@ -14,6 +14,7 @@ use Kitty\Infrastructure\DeclareQueue;
 use Kitty\Infrastructure\RpcCommand;
 use Psr\Log\LoggerInterface;
 use React\EventLoop\LoopInterface;
+use React\Promise\ExtendedPromiseInterface;
 use React\Promise\Promise;
 use React\Promise\PromiseInterface;
 
@@ -34,6 +35,14 @@ class KittyBattleService
     private $queue;
 
     private $replyTo;
+    /**
+     * @var LoopInterface
+     */
+    private $loop;
+    /**
+     * @var Client
+     */
+    private $client;
 
     /**
      * KittyBattleService constructor.
@@ -52,18 +61,8 @@ class KittyBattleService
     {
         $this->hydrator = $kittyHydrator;
         $this->logger = $logger;
-
-        $this->logger->debug('in constructor kittybattleservice');
-
-        (new CreateChannel($loop, $client, $logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
-            ->done(function ($values) {
-                [$queue, $channel, $replyTo] = $values;
-
-                $this->setQueue($queue);
-                $this->setChannel($channel);
-                $this->setReplyTo($replyTo);
-            });
+        $this->loop = $loop;
+        $this->client = $client;
     }
 
     private function setChannel(Channel $channel)
@@ -105,26 +104,36 @@ class KittyBattleService
     }
 
     /**
+     * @return ExtendedPromiseInterface
+     */
+    private function connect()
+    {
+        return (new CreateChannel($this->loop, $this->client, $this->logger))()
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
+            ->then(function ($values) {
+                [$queue, $channel, $replyTo] = $values;
+
+                $this->setQueue($queue);
+                $this->setChannel($channel);
+                $this->setReplyTo($replyTo);
+            });
+    }
+
+    /**
      * @param $id
      *
      * @return Promise
      */
     public function fetchKitty($id): PromiseInterface
     {
-        $this->logger->debug('Fetching kitty in kitty battle service'. $id);
-        $this->logger->debug('publish queue' . $this->queue->queue);
-        $this->logger->debug('consume queue' . $this->replyTo->queue);
-
-        return (new RpcCommand(
-                    $this->channel,
-                    $this->queue->queue,
-                    $this->replyTo->queue,
+        return $this->connect()->then(
+                new RpcCommand(
                     new CommandPayload([
                         'id' => $id
                     ]),
                     $this->logger
                 )
-            )()->then(function ($payload) {
+            )->then(function ($payload) {
                 return $this->hydrator->hydrate($payload);
             });
     }
