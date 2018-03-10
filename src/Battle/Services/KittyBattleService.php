@@ -40,6 +40,9 @@ class KittyBattleService
      */
     private $client;
 
+    /** @var array */
+    private $values;
+
     /**
      * KittyBattleService constructor.
      *
@@ -59,6 +62,8 @@ class KittyBattleService
         $this->logger = $logger;
         $this->loop = $loop;
         $this->client = $client;
+
+        $this->connect();
     }
 
     /**
@@ -67,7 +72,10 @@ class KittyBattleService
     private function connect()
     {
         return (new CreateChannel($this->loop, $this->client, $this->logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger));
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
+            ->done(function (array $values) {
+                $this->values = $values;
+            });
     }
 
     /**
@@ -77,14 +85,14 @@ class KittyBattleService
      */
     public function fetchKitty($id): PromiseInterface
     {
-        return $this->connect()->then(
-                new RpcCommand(
-                    new CommandPayload([
-                        'id' => $id
-                    ]),
-                    $this->logger
-                )
-            )->then(function ($payload) {
+
+        return (new RpcCommand(
+                new CommandPayload([
+                    'id' => $id
+                ]),
+                $this->logger
+            ))($this->values)
+            ->then(function ($payload) {
                 return $this->hydrator->hydrate($payload);
             });
     }
