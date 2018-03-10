@@ -33,7 +33,11 @@ class GetCattributesForKitty
 
         $out = [];
 
+
         foreach ($all as $item) {
+            var_dump($item['cattributes']);
+
+            die();
             $out[$item['id']] = $item['cattributes'];
         }
 
