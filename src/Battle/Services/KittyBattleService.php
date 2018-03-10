@@ -9,6 +9,7 @@ use function json_decode;
 use Kitty\Battle\Entities\Kitty;
 use Kitty\Battle\Transformers\KittyHydrator;
 use Kitty\Infrastructure\CommandPayload;
+use Kitty\Infrastructure\CreateAsyncClient;
 use Kitty\Infrastructure\CreateChannel;
 use Kitty\Infrastructure\DeclareQueue;
 use Kitty\Infrastructure\RpcCommand;
@@ -20,9 +21,6 @@ use React\Promise\PromiseInterface;
 
 class KittyBattleService
 {
-    /** @var Channel */
-    private $channel;
-
     /** @var KittyHydrator */
     private $hydrator;
 
@@ -36,12 +34,9 @@ class KittyBattleService
      */
     private $loop;
     /**
-     * @var Client
+     * @var array
      */
-    private $client;
-
-    /** @var array */
-    private $values;
+    private $options;
 
     /**
      * KittyBattleService constructor.
@@ -49,19 +44,19 @@ class KittyBattleService
      * @param LoopInterface   $loop
      * @param KittyHydrator   $kittyHydrator
      * @param LoggerInterface $logger
-     * @param Client          $client
+     * @param array           $options
      */
     public function __construct(
         LoopInterface $loop,
         KittyHydrator $kittyHydrator,
         LoggerInterface $logger,
-        Client $client
+        array $options
     )
     {
         $this->hydrator = $kittyHydrator;
         $this->logger = $logger;
         $this->loop = $loop;
-        $this->client = $client;
+        $this->options = $options;
     }
 
     /**
@@ -72,15 +67,17 @@ class KittyBattleService
     public function fetchKitty($id): PromiseInterface
     {
 
-        return (new CreateChannel($this->loop, $this->client, $this->logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
-            ->then(new RpcCommand(
-                new CommandPayload([
-                    'id' => $id
-                ]),
-                $this->logger
-            ))->then(function ($payload) {
-                return $this->hydrator->hydrate($payload);
-            });
+        return
+            (new CreateAsyncClient($this->loop, $this->options))()
+                ->then(new CreateChannel($this->logger))
+                ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
+                ->then(new RpcCommand(
+                    new CommandPayload([
+                        'id' => $id
+                    ]),
+                    $this->logger
+                ))->then(function ($payload) {
+                    return $this->hydrator->hydrate($payload);
+                });
     }
 }

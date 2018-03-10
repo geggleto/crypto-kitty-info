@@ -3,6 +3,7 @@
 use Bunny\Async\Client;
 use Kitty\Battle\Consumers\FetchKittyConsumer;
 use Kitty\Battle\Services\KittyBattleService;
+use Kitty\Infrastructure\CreateAsyncClient;
 use Kitty\Infrastructure\CreateChannel;
 use Kitty\Infrastructure\DeclareQueue;
 use Monolog\Handler\StreamHandler;
@@ -23,12 +24,13 @@ $pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATAB
 
 $loop = Factory::create();
 
-$channel = (new CreateChannel($loop, new Client($loop, [
+$client = (new CreateAsyncClient($loop, [
     'host'      => 'localhost',
     'vhost'     => '/',    // The default vhost is /
     'user'      => getenv('RABBIT_USER'), // The default user is guest
     'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
-]),$log))()
+]))()
+    ->then(new CreateChannel($log))
     ->then(new DeclareQueue(KittyBattleService::FETCH_QUEUE, $log))
     ->then(new FetchKittyConsumer($pdo, $log));
 

@@ -11,45 +11,25 @@ use React\EventLoop\LoopInterface;
 class CreateChannel
 {
     /**
-     * @var LoopInterface
-     */
-    private $loop;
-    /**
-     * @var array
-     */
-    private $options;
-    /**
      * @var LoggerInterface
      */
     private $logger;
-    /**
-     * @var Client
-     */
-    private $client;
 
-    public function __construct(LoopInterface $loop, Client $client, LoggerInterface $logger)
+
+    public function __construct(LoggerInterface $logger)
     {
-        $this->loop = $loop;
         $this->logger = $logger;
-        $this->client = $client;
     }
 
     /**
+     * @param Client $client
+     *
      * @return \React\Promise\PromiseInterface
      */
-    public function __invoke()
+    public function __invoke(Client $client)
     {
         $this->logger->debug('Creating Channel');
 
-        if ($this->client->isConnected()) {
-            return $this->client->channel();
-        }
-
-        return $this->client->connect()->then(function (Client $client) {
-
-            $this->logger->debug('Client/Channel Created');
-
-            return $client->channel();
-        });
+        return $client->channel();
     }
 }
