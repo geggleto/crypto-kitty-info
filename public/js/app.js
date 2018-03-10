@@ -115,14 +115,14 @@ var app = new Vue({
 
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
-                        console.log(msg);
                         app.selectedKitty = msg.kitty;
-                        app.selectedCat = msg.kitty.id;
-                        app.loadingRemoteAsset = false;
 
-                        app.$nextTick(function () {
-                            $("#kittyCard").animateCss('slideInRight');
-                        });
+                        (function (id) {
+                            setTimeout(function () {
+                                $("#kittyCard").animateCss('slideInRight');
+                                app.selectedCat = id;
+                            }, 100);
+                        })(msg.kitty.id);
                     }
                 }
 
@@ -232,17 +232,11 @@ var app = new Vue({
         selectKitty : function (index) {
 
             //make request
-
-            this.loadingRemoteAsset = true;
-
             this.conn.send(JSON.stringify({
                 command : "player.load.kitty",
                 kittyId : app.kitties[index].id
             }));
 
-            // this.selectedKitty.image = this.kitties[index].image_url_cdn;
-            // this.selectedKitty.id = this.kitties[index].id;
-            // this.selectedCat = this.kitties[index].id;
         },
 
         deselectKitty : function (index) {
