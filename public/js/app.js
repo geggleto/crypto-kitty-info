@@ -115,11 +115,9 @@ var app = new Vue({
 
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
-                        setTimeout(function () {
-                            $("#kittyImage").animateCss("fadeIn");
-                            app.selectedKitty = msg.kitty;
-                            app.selectedCat = msg.kitty.id;
-                        }, 250);
+                        app.selectedKitty = msg.kitty;
+                        app.selectedCat = msg.kitty.id;
+                        $("#kittyImage").animateCss("fadeIn");
                     }
                 }
 
@@ -233,8 +231,6 @@ var app = new Vue({
                 command : "player.load.kitty",
                 kittyId : app.kitties[index].id
             }));
-
-            $("#kittyImage").animateCss("fadeOut");
 
         },
 
