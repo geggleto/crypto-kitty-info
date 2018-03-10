@@ -20,9 +20,8 @@ class FetchKittyConsumer
      */
     private $logger;
 
-    public function __construct(\PDO $pdo, LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger)
     {
-        $this->pdo = $pdo;
         $this->logger = $logger;
     }
 
@@ -32,6 +31,6 @@ class FetchKittyConsumer
 
         $this->logger->debug('Starting Consumer');
 
-        $channel->consume(new KittyRepositories($this->pdo, $this->logger), KittyBattleService::FETCH_QUEUE);
+        $channel->consume(new KittyRepositories($this->logger), KittyBattleService::FETCH_QUEUE);
     }
 }

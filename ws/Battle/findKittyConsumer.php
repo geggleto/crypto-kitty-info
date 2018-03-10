@@ -20,8 +20,6 @@ $log = new Monolog\Logger('crypto');
 
 $log->pushHandler(new StreamHandler(__DIR__.'/../../logs/kitty-service-logs.log', Logger::DEBUG));
 
-$pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATABASE'), getenv('MYSQL_USERNAME'), getenv('MYSQL_PASSWORD'));
-
 $loop = Factory::create();
 
 $client = (new CreateAsyncClient($loop, [
@@ -32,6 +30,6 @@ $client = (new CreateAsyncClient($loop, [
 ]))()
     ->then(new CreateChannel($log))
     ->then(new DeclareQueue(KittyBattleService::FETCH_QUEUE, $log))
-    ->then(new FetchKittyConsumer($pdo, $log));
+    ->then(new FetchKittyConsumer($log));
 
 $loop->run();

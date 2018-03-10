@@ -23,13 +23,21 @@ class KittyRepositories
      */
     private $logger;
 
-    public function __construct(PDO $PDO, LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger)
     {
-        $this->pdo = $PDO;
         $this->logger = $logger;
     }
 
+    public function ensurePdoIsConnected()
+    {
+        //Cause the consumer can be running for hours w/o a connection
+        //Then MYSQL goes away and boom the consumer dies and the whole system breaks :D
+        $this->pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATABASE'), getenv('MYSQL_USERNAME'), getenv('MYSQL_PASSWORD'));
+    }
+
     public function __invoke(Message $message, Channel $channel, Client $client) {
+        $this->ensurePdoIsConnected();
+
         $this->logger->debug('Received Message: ' . $message->content);
 
         $payload = json_decode($message->content, true);
