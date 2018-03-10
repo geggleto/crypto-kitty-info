@@ -42,6 +42,6 @@ class RpcCommandConsume
 
         $this->deferred->resolve($message->content);
 
-        $channel->ack($message);
+        $client->disconnect();
     }
 }

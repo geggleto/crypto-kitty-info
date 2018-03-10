@@ -62,20 +62,6 @@ class KittyBattleService
         $this->logger = $logger;
         $this->loop = $loop;
         $this->client = $client;
-
-        $this->connect();
-    }
-
-    /**
-     * @return ExtendedPromiseInterface
-     */
-    private function connect()
-    {
-        return (new CreateChannel($this->loop, $this->client, $this->logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
-            ->done(function (array $values) {
-                $this->values = $values;
-            });
     }
 
     /**
@@ -86,13 +72,14 @@ class KittyBattleService
     public function fetchKitty($id): PromiseInterface
     {
 
-        return (new RpcCommand(
+        return (new CreateChannel($this->loop, $this->client, $this->logger))()
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
+            ->then(new RpcCommand(
                 new CommandPayload([
                     'id' => $id
                 ]),
                 $this->logger
-            ))($this->values)
-            ->then(function ($payload) {
+            ))->then(function ($payload) {
                 return $this->hydrator->hydrate($payload);
             });
     }
