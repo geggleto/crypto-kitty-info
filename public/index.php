@@ -9,6 +9,7 @@ use Kitty\Http\ProfileController;
 use Kitty\Http\SearchDnaController;
 use Kitty\Http\SearchPage;
 use Kitty\KittyApp;
+use Slim\Http\Request;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
@@ -51,10 +52,10 @@ $app->options('/{name:.+}', function ($req, $res, $args) {
    return $res;
 });
 
-$app->add(function ($req, $res, $next) {
+$app->add(function (Request $req, $res, $next) {
     $response = $next($req, $res);
     return $response
-        ->withHeader('Access-Control-Allow-Origin', 'https://kittybook.co, http://www.kittybook.co')
+        ->withHeader('Access-Control-Allow-Origin', $req->getServerParam('HTTP_REFERER'))
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
 });
