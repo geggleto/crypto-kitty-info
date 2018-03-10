@@ -115,6 +115,7 @@ var app = new Vue({
 
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
+                        $("#kittyImage").animateCss("fadeIn");
                         app.selectedKitty = msg.kitty;
                         app.selectedCat = msg.kitty.id;
                     }
@@ -230,6 +231,8 @@ var app = new Vue({
                 command : "player.load.kitty",
                 kittyId : app.kitties[index].id
             }));
+
+            $("#kittyImage").animateCss("fadeOut");
 
         },
 
