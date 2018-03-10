@@ -31,10 +31,6 @@ class KittyBattleService
      * @var LoggerInterface
      */
     private $logger;
-
-    private $queue;
-
-    private $replyTo;
     /**
      * @var LoopInterface
      */
@@ -65,58 +61,13 @@ class KittyBattleService
         $this->client = $client;
     }
 
-    private function setChannel(Channel $channel)
-    {
-        $this->logger->debug('Setting Channel in Kitty Battle Service');
-        $this->channel = $channel;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getQueue()
-    {
-        return $this->queue;
-    }
-
-    /**
-     * @param mixed $queue
-     */
-    public function setQueue($queue): void
-    {
-        $this->queue = $queue;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getReplyTo()
-    {
-        return $this->replyTo;
-    }
-
-    /**
-     * @param mixed $replyTo
-     */
-    public function setReplyTo($replyTo): void
-    {
-        $this->replyTo = $replyTo;
-    }
-
     /**
      * @return ExtendedPromiseInterface
      */
     private function connect()
     {
         return (new CreateChannel($this->loop, $this->client, $this->logger))()
-            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger))
-            ->then(function ($values) {
-                [$queue, $channel, $replyTo] = $values;
-
-                $this->setQueue($queue);
-                $this->setChannel($channel);
-                $this->setReplyTo($replyTo);
-            });
+            ->then(new DeclareQueue(self::FETCH_QUEUE, $this->logger));
     }
 
     /**

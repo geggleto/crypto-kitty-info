@@ -51,6 +51,11 @@ class RpcCommand
 
         $deferred = new Deferred();
 
+        $this->logger->debug('Consuming and publishing ', [
+            'queue' => $queue->queue,
+            'replyTo' => $replyTo->queue
+        ]);
+
         $channel->consume(
             new RpcCommandConsume($deferred, $corr_id, $this->logger),
             $replyTo->queue,
