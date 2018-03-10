@@ -35,10 +35,7 @@ class GetCattributesForKitty
 
 
         foreach ($all as $item) {
-            var_dump($item['cattributes']);
-
-            die();
-            $out[$item['id']] = $item['cattributes'];
+            $out[$item['id']] = json_decode($item['cattributes'], true);
         }
 
         if ($result) {
