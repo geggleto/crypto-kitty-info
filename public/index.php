@@ -2,6 +2,7 @@
 
 use Kitty\Http\BattleZone\BattlePage;
 use Kitty\Http\DnaController;
+use Kitty\Http\GetCattributesForKitty;
 use Kitty\Http\HomePage;
 use Kitty\Http\MyProfile;
 use Kitty\Http\ProfileController;
@@ -43,5 +44,7 @@ $app->get('/search', SearchDnaController::class);
 $app->get('/page', SearchPage::class);
 
 $app->get('/battle', BattlePage::class);
+
+$app->get('/kitty/{id}', GetCattributesForKitty::class);
 
 $app->run();

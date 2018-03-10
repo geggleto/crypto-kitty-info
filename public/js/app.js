@@ -87,7 +87,7 @@ var app = new Vue({
             }));
         },
         login : function () {
-            var signer = web3.eth.defaultAccount || web3.eth.accounts[0];
+            var signer = this.profile;
             var original_message = "Crypto Kitty Battles!";
             var message = web3.toHex(original_message);
             var message_hash = web3.sha3(
