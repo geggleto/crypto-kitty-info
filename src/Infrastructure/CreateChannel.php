@@ -41,6 +41,10 @@ class CreateChannel
     {
         $this->logger->debug('Creating Channel');
 
+        if ($this->client->isConnected()) {
+            return $this->client->channel();
+        }
+
         return $this->client->connect()->then(function (Client $client) {
 
             $this->logger->debug('Client/Channel Created');

@@ -42,8 +42,8 @@ class RpcCommandConsume
 
         $this->deferred->resolve($message->content);
 
-        $channel->ack($message)->done(function () use ($channel) {
-            $channel->cancel($this->corr_id);
+        $channel->ack($message)->done(function () use (&$channel) {
+            $channel->close();
         });
     }
 }
