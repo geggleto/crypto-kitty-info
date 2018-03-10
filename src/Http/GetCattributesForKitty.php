@@ -8,6 +8,7 @@ use function explode;
 use PDO;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use function stripslashes;
 
 class GetCattributesForKitty
 {
@@ -26,10 +27,22 @@ class GetCattributesForKitty
         $statment = $this->pdo->prepare('select id, json_extract(kitty, \'$.enhanced_cattributes\') as `cattributes` from kitties where id IN (?);');
         $result = $statment->execute([$id]);
 
-        if ($result) {
-            return $response->withJson($statment->fetchAll(PDO::FETCH_ASSOC));
-        } else {
-            return $response->write("Error running sql statement");
+        $all = $statment->fetchAll(PDO::FETCH_ASSOC);
+
+        $out = [];
+
+        foreach ($all as $item) {
+            $out[] = [
+                'id' => $item['id'],
+                'cattributes' => stripslashes($item['cattributes'])
+            ];
         }
+
+        if ($result) {
+            return $response->withJson($out);
+        }
+
+        return $response->write("Error running sql statement");
+
     }
 }
