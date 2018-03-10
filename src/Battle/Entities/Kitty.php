@@ -176,8 +176,8 @@ class Kitty
             'skill1' => $this->skill1->toArray(),
             'skill2' => $this->skill2->toArray(),
             'skill3' => $this->skill3->toArray(),
-            'wins' => $this->wins,
-            'losses' => $this->losses
+            'wins' => 0,
+            'losses' => 0
         ];
     }
 
@@ -210,5 +210,18 @@ class Kitty
         $this->health -= $damage;
     }
 
+    /**
+     * @return BaseSkill[]
+     */
+    public function getSkills()
+    {
+        $out = [];
+
+        $out[] = $this->skill1;
+        $out[] = $this->skill2;
+        $out[] = $this->skill3;
+
+        return $out;
+    }
 
 }

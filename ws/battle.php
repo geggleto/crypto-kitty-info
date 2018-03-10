@@ -44,9 +44,6 @@ $log->pushHandler(new StreamHandler(__DIR__.'/../logs/websocket-logs.log', Logge
 
 
 $kittyBattleSkillService = new KittyBattleSkillService();
-$kittyBattleSkillService->addSkill(new BaseSkill(1, 'Claw', 1, 10, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0));
-$kittyBattleSkillService->addSkill(new BaseSkill(2, 'Pounce', 1, 20, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3));
-$kittyBattleSkillService->addSkill(new BaseSkill(3, 'Lick Paws', 1, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,5));
 
 $kittyHydrator = new KittyHydrator($kittyBattleSkillService, $log);
 

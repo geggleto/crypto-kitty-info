@@ -3,6 +3,7 @@
 namespace Kitty\Battle\Entities\Skills;
 
 use Kitty\Battle\Entities\Kitty;
+use function random_int;
 
 class BaseSkill
 {
@@ -119,6 +120,38 @@ class BaseSkill
         $this->evade_down     = $evade_down;
         $this->power = $power;
         $this->cooldown = $cooldown;
+    }
+
+    public static function makeFromRow($s)
+    {
+        return new self(
+            $s['id'],
+            $s['name'],
+            $s['tier'],
+            $s['power'],
+            $s['attack_up'],
+            $s['attack_down'],
+            $s['defense_up'],
+            $s['defense_down'],
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            $s['heal_power'],
+            0,
+            0,
+            0,
+            0,
+            $s['cooldown']
+        );
     }
 
 
@@ -327,18 +360,27 @@ class BaseSkill
 
         //Have to iterate over alllllllll of the things
 
-        if ($this->attack_up != 0) {
+        if ($this->attack_up !== 0) {
 
-        }
-        if ($this->attack_down != 0) {
+            $atkUp = random_int($this->attack_up-2,$this->attack_up+2);
 
-        }
-        if ($this->defense_up != 0) {
+            $skills = $friend->getSkills();
+            $skill = random_int(0,count($skills)-1);
+            $skills[$skill]->power += $atkUp;
 
+            $messages[] = $friend->getId() . ' ' . $skills[$skill]->getName() . ' power by ' . $atkUp;
         }
-        if ($this->defense_down != 0) {
+        if ($this->attack_down !== 0) {
 
+            $atkDown = random_int($this->attack_up-2,$this->attack_up+2);
+
+            $skills = $enemy->getSkills();
+            $skill = random_int(0,count($skills)-1);
+            $skills[$skill]->power -= $atkDown;
+
+            $messages[] = $friend->getId() . ' lowered enemies ' . $skills[$skill]->getName() . ' power by ' . $atkDown;
         }
+
         if ($this->haste != 0) {
 
         }
@@ -376,8 +418,11 @@ class BaseSkill
 
         }
         if ($this->heal_power != 0) {
-            $friend->takeDamage(-1 * $this->heal_power);
-            $messages[] = $friend->getId() . ' healed for ' . $this->heal_power;
+
+            $hp = random_int($this->heal_power-3,$this->heal_power+3);
+
+            $friend->takeDamage(-1 * $hp);
+            $messages[] = $friend->getId() . ' healed for ' . $hp;
         }
         if ($this->heal_over_time != 0) {
 
@@ -392,13 +437,12 @@ class BaseSkill
 
         }
         if ($this->power != 0) {
-            $enemy->takeDamage($this->power);
-            $messages[] = $friend->getId() . ' attacked for ' . $this->power . ' damage';
+
+            $damage = random_int($this->power-2,$this->power+2);
+
+            $enemy->takeDamage($damage);
+            $messages[] = $friend->getId() . ' attacked for ' . $damage . ' damage';
         }
-
-
-
-
 
         return $messages;
     }
