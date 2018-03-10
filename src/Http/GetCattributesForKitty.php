@@ -51,6 +51,5 @@ class GetCattributesForKitty
         }
 
         return $response->write("Error running sql statement");
-
     }
 }

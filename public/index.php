@@ -47,4 +47,16 @@ $app->get('/battle', BattlePage::class);
 
 $app->get('/kitty/{id}', GetCattributesForKitty::class);
 
+$app->options('/{name:.+}', function ($req, $res, $args) {
+   return $res;
+});
+
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', 'https://kittybook.co, http://www.kittybook.co')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+});
+
 $app->run();
