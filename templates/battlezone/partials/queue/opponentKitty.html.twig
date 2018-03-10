@@ -1,66 +1,35 @@
-<div class="card">
-    <div class="card-image">
-        <figure class="image is-4by3">
-            <img v-bind:src="opponentKitty.image">
+<div class="card kitty-card">
+
+    <div class="card-image" style="padding-left: 10px; padding-right: 10px;">
+        <nav class="level is-marginless" style="padding-bottom: 5px;padding-top: 5px">
+            <!-- Left side -->
+            <div class="level-left">
+                <div class="level-item">
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <span class="has-text-blueydark has-text-weight-bold">Kitty #<span><% selectedKitty.id %></span></span>
+                </div>
+            </div>
+        </nav>
+        <figure class="image" style="border: #0a0a0a solid 1px; background-color: white;">
+            <img v-bind:src="opponentKitty.image" id="kittyImage">
         </figure>
-    </div>
-    <div class="card-content">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-            <thead>
-                <tr class="is-primary">
-                    <th colspan="4">
-                        <span class="tag is-link is-medium">
-                            Kitty #<span><% opponentKitty.id %></span>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Health</td>
-                <td colspan="2"><% opponentKitty.health %></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Attack</td>
-                <td colspan="2"><% opponentKitty.attack %></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Defense</td>
-                <td colspan="2"><% opponentKitty.defense %></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Heal</td>
-                <td colspan="2"><% opponentKitty.heal %></td>
-            </tr>
-            <tr>
-                <td colspan="3" class="has-text-weight-bold">Skill Name</td>
-
-                <td class="has-text-weight-bold">Tier</td>
-            </tr>
-            <tr>
-                <td colspan="3"><% opponentKitty.skill1 %></td>
-                <td><span class="tag is-dark"><% opponentKitty.skill1tier %></span></td>
-
-            </tr>
-
-            <tr>
-                <td colspan="3"><% selectedKitty.skill2 %></td>
-                <td><span class="tag is-dark"><% opponentKitty.skill2tier %></span></td>
-            </tr>
-
-            <tr>
-                <td colspan="3"><% selectedKitty.skill3 %></td>
-                <td><span class="tag is-dark"><% opponentKitty.skill3tier %></span></td>
-            </tr>
-
-            <tr>
-                <td class="has-text-weight-bold">W:</td>
-                <td><% opponentKitty.wins %></td>
-                <td class="has-text-weight-bold">L:</td>
-                <td><% opponentKitty.losses %></td>
-            </tr>
-
-            </tbody>
-        </table>
     </div>
 </div>
