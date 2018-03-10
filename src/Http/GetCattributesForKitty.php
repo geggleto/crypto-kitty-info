@@ -38,7 +38,7 @@ class GetCattributesForKitty
         }
 
         if ($result) {
-            return $response->withJson($out, 200, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+            return $response->withJson($out, 200,  JSON_PRETTY_PRINT);
         }
 
         return $response->write("Error running sql statement");
