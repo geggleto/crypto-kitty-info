@@ -121,7 +121,7 @@ var app = new Vue({
                             setTimeout(function () {
                                 $("#kittyCard").animateCss('slideInRight');
                                 app.selectedCat = id;
-                            }, 100);
+                            }, 250);
                         })(msg.kitty.id);
                     }
                 }
