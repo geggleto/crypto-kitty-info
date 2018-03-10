@@ -8,11 +8,18 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="stylesheet" href="css/animate.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <script src="js/jquery.animation.js"></script>
 </head>
 <body>
 <div class="columns">
     <div class="column is-4">
-        <div class="card kitty-card">
+        <div class="card kitty-card" id="card">
 
             <div class="card-image" style="padding-left: 10px; padding-right: 10px;">
                 <nav class="level is-marginless" style="padding-bottom: 5px;padding-top: 5px">
@@ -97,6 +104,14 @@
     </div>
 </div>
 
+<a class="button" id="button">Bouncy</a>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $("#button").click(function () {
+            $("#card").animateCss('bounce');
+        })
+    })
+</script>
 
 </body>
 </html>

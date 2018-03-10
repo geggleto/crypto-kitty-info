@@ -119,6 +119,8 @@ var app = new Vue({
                         app.selectedKitty = msg.kitty;
                         app.selectedCat = msg.kitty.id;
                         app.loadingRemoteAsset = false;
+
+                        $("#kittyCard").animateCss('slideInRight');
                     }
                 }
 
