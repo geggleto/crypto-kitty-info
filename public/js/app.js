@@ -115,14 +115,8 @@ var app = new Vue({
 
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
-
-                        (function (id) {
-                            setTimeout(function () {
-                                app.selectedKitty = msg.kitty;
-                                $("#kittyCard").animateCss('slideInRight');
-                                app.selectedCat = id;
-                            }, 250);
-                        })(msg.kitty.id);
+                        app.selectedKitty = msg.kitty;
+                        app.selectedCat = id;
                     }
                 }
 
