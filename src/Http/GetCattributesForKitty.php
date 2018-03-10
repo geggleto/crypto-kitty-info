@@ -35,7 +35,7 @@ class GetCattributesForKitty
         foreach ($all as $item) {
             $out[] = [
                 'id' => $item['id'],
-                'cattributes' => stripslashes($item['cattributes'])
+                'cattributes' => str_replace('\\', '', $item['cattributes'])
             ];
         }
 
