@@ -35,79 +35,75 @@
     </div>
     <div style="margin: 10px; border: #0a0a0a solid 1px;">
         <div class="box is-paddingless">
-            <table class="table is-fullwidth is-small is-marginless">
-                <tbody>
-                <tr>
-                    <td class="is-marginless is-paddingless">
-                        <span class="has-text-blueydark"><% selectedKitty.skill1.name %></span>
-                    </td>
-                    <td class="is-marginless is-paddingless">
-                        <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill1.effects">
-                            <span class="tag is-blueydark"><% label %></span>
-                            <span class="tag is-info"><% value %></span>
-                        </div>
-                    </td>
-                    <td class="is-marginless is-paddingless">
-                        <div class="tags has-addons">
+            <div class="columns is-multiline">
+                <div class="column is-4">
+                    <span class="has-text-blueydark"><% selectedKitty.skill1.name %></span>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill1.effects">
+                        <span class="tag is-blueydark"><% label %></span>
+                        <span class="tag is-info"><% value %></span>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons">
                             <span class="tag is-blueydark">
                                 <span class="icon">
                                     <i class="far fa-clock"></i>
                                 </span>
                             </span>
-                            <span class="tag is-warning">
+                        <span class="tag is-warning">
                                 <% selectedKitty.skill1.cooldown %>
                             </span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="is-marginless is-paddingless">
-                        <span class="has-text-blueydark"><% selectedKitty.skill2.name %></span>
-                    </td>
-                    <td class="is-marginless is-paddingless">
-                        <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill2.effects">
-                            <span class="tag is-blueydark"><% label %></span>
-                            <span class="tag is-info"><% value %></span>
-                        </div>
-                    </td>
-                    <td class="is-marginless is-paddingless">
-                        <div class="tags has-addons">
+                    </div>
+                </div>
+
+
+                <div class="column is-4">
+                    <span class="has-text-blueydark"><% selectedKitty.skill2.name %></span>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill2.effects">
+                        <span class="tag is-blueydark"><% label %></span>
+                        <span class="tag is-info"><% value %></span>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons">
                             <span class="tag is-blueydark">
                                 <span class="icon">
                                     <i class="far fa-clock"></i>
                                 </span>
                             </span>
-                            <span class="tag is-warning">
+                        <span class="tag is-warning">
                                 <% selectedKitty.skill2.cooldown %>
                             </span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="is-marginless is-paddingless">
-                        <span class="has-text-blueydark"><% selectedKitty.skill3.name %></span>
-                    </td>
-                    <td class="is-marginless is-paddingless">
-                        <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill3.effects">
-                            <span class="tag is-blueydark"><% label %></span>
-                            <span class="tag is-info"><% value %></span>
-                        </div>
-                    </td>
-                    <td class="is-marginless is-paddingless">
-                        <div class="tags has-addons">
+                    </div>
+                </div>
+
+
+                <div class="column is-4">
+                    <span class="has-text-blueydark"><% selectedKitty.skill3.name %></span>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill3.effects">
+                        <span class="tag is-blueydark"><% label %></span>
+                        <span class="tag is-info"><% value %></span>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons">
                             <span class="tag is-blueydark">
                                 <span class="icon">
                                     <i class="far fa-clock"></i>
                                 </span>
                             </span>
-                            <span class="tag is-warning">
-                                <% selectedKitty.skill3.cooldown%>
+                        <span class="tag is-warning">
+                                <% selectedKitty.skill3.cooldown %>
                             </span>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
