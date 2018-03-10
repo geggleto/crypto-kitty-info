@@ -49,6 +49,10 @@ class KittyRepositories
         $kitty = $statement->fetch(PDO::FETCH_ASSOC);
 
         $this->logger->debug('Returning value ' . json_encode($kitty));
+        $this->logger->debug($statement->errorCode());
+        $this->logger->debug('',$statement->errorInfo());
+
+        $statement->closeCursor();
 
         $channel->publish(
                 json_encode($kitty),
