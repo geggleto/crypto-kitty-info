@@ -31,17 +31,10 @@ class GetCattributesForKitty
 
         $all = $statment->fetchAll(PDO::FETCH_ASSOC);
 
-        var_dump($id);
-
-        die();
-
         $out = [];
 
         foreach ($all as $item) {
-            $out[] = [
-                'id' => $item['id'],
-                'cattributes' => str_replace('\\', '', $item['cattributes'])
-            ];
+            $out[$item['id']] = $item['cattributes'];
         }
 
         if ($result) {
