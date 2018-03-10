@@ -116,7 +116,7 @@ var app = new Vue({
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
                         app.selectedKitty = msg.kitty;
-                        app.selectedCat = id;
+                        app.selectedCat = msg.kitty.id;
                     }
                 }
 
