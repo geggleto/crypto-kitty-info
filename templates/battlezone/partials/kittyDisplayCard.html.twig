@@ -46,6 +46,16 @@
                             <span class="tag is-blueydark"><% label %></span>
                             <span class="tag is-info"><% value %></span>
                         </div>
+                        <div class="tags has-addons">
+                            <span class="tag is-blueydark">
+                                <span class="icon">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </span>
+                            <span class="tag is-warning">
+                                <% selectedKitty.skill1.cooldown
+                            </span>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -57,6 +67,16 @@
                             <span class="tag is-blueydark"><% label %></span>
                             <span class="tag is-info"><% value %></span>
                         </div>
+                        <div class="tags has-addons">
+                            <span class="tag is-blueydark">
+                                <span class="icon">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </span>
+                            <span class="tag is-warning">
+                                <% selectedKitty.skill2.cooldown
+                            </span>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -67,6 +87,16 @@
                         <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill3.effects">
                             <span class="tag is-blueydark"><% label %></span>
                             <span class="tag is-info"><% value %></span>
+                        </div>
+                        <div class="tags has-addons">
+                            <span class="tag is-blueydark">
+                                <span class="icon">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </span>
+                            <span class="tag is-warning">
+                                <% selectedKitty.skill3.cooldown
+                            </span>
                         </div>
                     </td>
                 </tr>
