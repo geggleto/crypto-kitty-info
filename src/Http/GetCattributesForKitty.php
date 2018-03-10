@@ -10,6 +10,7 @@ use PDO;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use function stripslashes;
+use function var_dump;
 
 class GetCattributesForKitty
 {
@@ -29,6 +30,10 @@ class GetCattributesForKitty
         $result = $statment->execute([$id]);
 
         $all = $statment->fetchAll(PDO::FETCH_ASSOC);
+
+        var_dump($all);
+
+        die();
 
         $out = [];
 
