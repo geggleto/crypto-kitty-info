@@ -42,8 +42,6 @@ class RpcCommandConsume
 
         $this->deferred->resolve($message->content);
 
-        $channel->ack($message)->done(function () use (&$channel) {
-            $channel->close();
-        });
+        $channel->ack($message);
     }
 }
