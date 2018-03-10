@@ -7,6 +7,7 @@ namespace Kitty\Battle\Repositories;
 use Bunny\Channel;
 use Bunny\Async\Client;
 use Bunny\Message;
+use Exception;
 use function json_decode;
 use function json_encode;
 use PDO;
@@ -33,6 +34,7 @@ class KittyRepositories
         //Cause the consumer can be running for hours w/o a connection
         //Then MYSQL goes away and boom the consumer dies and the whole system breaks :D
         $this->pdo = new PDO('mysql:host='.getenv('MYSQL_HOST').';dbname='.getenv('MYSQL_DATABASE'), getenv('MYSQL_USERNAME'), getenv('MYSQL_PASSWORD'));
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function __invoke(Message $message, Channel $channel, Client $client) {
@@ -42,27 +44,39 @@ class KittyRepositories
 
         $payload = json_decode($message->content, true);
 
-        $statement = $this->pdo->prepare('select * from kitty_battles_kitty where id = ?');
+        try {
+            $statement = $this->pdo->prepare('select * from kitty_battles_kitty where id = ?');
 
-        $statement->execute([$payload['id']]);
+            $statement->execute([$payload['id']]);
 
-        $kitty = $statement->fetch(PDO::FETCH_ASSOC);
 
-        $this->logger->debug('Returning value ' . json_encode($kitty));
-        $this->logger->debug($statement->errorCode());
-        $this->logger->debug('',$statement->errorInfo());
+            $kitty = $statement->fetch(PDO::FETCH_ASSOC);
 
-        $statement->closeCursor();
+            $this->logger->debug('Returning value ' . json_encode($kitty));
+            $this->logger->debug($statement->errorCode());
+            $this->logger->debug('',$statement->errorInfo());
 
-        $channel->publish(
-                json_encode($kitty),
-                [
-                    'correlation_id' => $message->getHeader('correlation_id'),
-                ],
-                '',
-                $message->getHeader('reply_to')
-        )->then(function () use ($channel, $message) {
-            $channel->ack($message);
-        });
+            $statement->closeCursor();
+
+            $channel->publish(
+                    json_encode($kitty),
+                    [
+                        'correlation_id' => $message->getHeader('correlation_id'),
+                    ],
+                    '',
+                    $message->getHeader('reply_to')
+            )->then(function () use ($channel, $message) {
+                $channel->ack($message);
+            });
+
+        } catch (Exception $exception)
+        {
+            $this->logger->debug('NACKing message cause SQL Error');
+            $this->logger->debug($exception->getFile());
+            $this->logger->debug($exception->getMessage());
+            $this->logger->debug($exception->getTraceAsString());
+
+            $channel->nack($message);
+        }
     }
 }
