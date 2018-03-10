@@ -31,7 +31,7 @@ class GetCattributesForKitty
 
         $all = $statment->fetchAll(PDO::FETCH_ASSOC);
 
-        var_dump($all);
+        var_dump($id);
 
         die();
 
