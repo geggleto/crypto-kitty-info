@@ -23,11 +23,10 @@ class GetCattributesForKitty
 
     public function __invoke($id, Request $request, Response $response)
     {
-        $statment = $this->pdo->prepare('select id, json_extract(kitty, \'$.enhanced_cattributes\') as `cattributes` from kitties where id IN ?;');
-        $result = $statment->execute(['('.$id.')']);
+        $statment = $this->pdo->prepare('select id, json_extract(kitty, \'$.enhanced_cattributes\') as `cattributes` from kitties where id IN (?);');
+        $result = $statment->execute([$id]);
 
         if ($result) {
-
             return $response->withJson($statment->fetchAll(PDO::FETCH_ASSOC));
         } else {
             return $response->write("Error running sql statement");
