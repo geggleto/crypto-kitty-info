@@ -5,6 +5,7 @@ namespace Kitty\Http;
 
 
 use function explode;
+use const JSON_PRETTY_PRINT;
 use PDO;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -39,7 +40,7 @@ class GetCattributesForKitty
         }
 
         if ($result) {
-            return $response->withJson($out);
+            return $response->withJson($out, 200, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
 
         return $response->write("Error running sql statement");
