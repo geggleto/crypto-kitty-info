@@ -8,6 +8,7 @@ use Bunny\Channel;
 use Bunny\Async\Client;
 use Bunny\Message;
 use function json_decode;
+use function json_encode;
 use PDO;
 use Psr\Log\LoggerInterface;
 
@@ -38,6 +39,8 @@ class KittyRepositories
         $statement->execute([$payload['id']]);
 
         $kitty = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $this->logger->debug('Returning value ' . json_encode($kitty));
 
         $channel->publish(
                 json_encode($kitty),
