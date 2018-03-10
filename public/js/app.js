@@ -120,7 +120,9 @@ var app = new Vue({
                         app.selectedCat = msg.kitty.id;
                         app.loadingRemoteAsset = false;
 
-                        $("#kittyCard").animateCss('slideInRight');
+                        this.$nextTick(function () {
+                            $("#kittyCard").animateCss('slideInRight');
+                        });
                     }
                 }
 
