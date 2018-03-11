@@ -1,59 +1,108 @@
-<div class="card">
-    <div class="card-image">
-        <figure class="image is-4by3">
-            <img v-bind:src="opponentKitty.image">
+<div class="card kitty-card">
+
+    <div class="card-image" style="padding-left: 10px; padding-right: 10px;">
+        <nav class="level is-marginless" style="padding-bottom: 5px;padding-top: 5px">
+            <!-- Left side -->
+            <div class="level-left">
+                <div class="level-item">
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                    <span class="icon has-text-orangeyred">
+                        <i class="ion-android-star"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <span class="has-text-blueydark has-text-weight-bold">Kitty #<span><% opponentKitty.id %></span></span>
+                </div>
+            </div>
+        </nav>
+        <figure class="image" style="border: #0a0a0a solid 1px; background-color: white;">
+            <img v-bind:src="opponentKitty.image" id="kittyImage">
         </figure>
-
-        <progress class="progress is-success" v-if="opponentKitty.health >= 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">60%</progress>
-        <progress class="progress is-warning" v-if="opponentKitty.health >= 30 && opponentKitty.health < 60" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">75%</progress>
-        <progress class="progress is-danger" v-if="opponentKitty.health < 30" v-bind:value="opponentKitty.health" v-bind:max="opponentKitty.maxhealth">90%</progress>
-
     </div>
-    <div class="card-content">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-            <thead>
-                <tr class="is-primary">
-                    <th colspan="4">
-                        <a class="button is-primary is-medium is-fullwidth">
-                            Kitty #<span><% opponentKitty.id %></span>
-                        </a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Attack</td>
-                <td colspan="2"><% opponentKitty.attack %></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Defense</td>
-                <td colspan="2"><% opponentKitty.defense %></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="has-text-weight-bold">Heal</td>
-                <td colspan="2"><% opponentKitty.heal %></td>
-            </tr>
-            <tr>
-                <td colspan="3" class="has-text-weight-bold">Skill Name</td>
+    <div style="margin: 10px; border: #0a0a0a solid 1px;">
+        <div class="box">
+            <div class="columns is-multiline">
+                <div class="column is-4">
+                    <span class="has-text-blueydark"><% opponentKitty.skill1.name %></span>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons" v-for="(value, label) in opponentKitty.skill1.effects">
+                        <span class="tag is-blueydark"><% label %></span>
+                        <span class="tag is-info"><% value %></span>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons">
+                            <span class="tag is-blueydark">
+                                <span class="icon">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </span>
+                        <span class="tag is-warning">
+                                <% opponentKitty.skill1.cooldown %>
+                            </span>
+                    </div>
+                </div>
 
-                <td class="has-text-weight-bold">Tier</td>
-            </tr>
-            <tr>
-                <td colspan="3"><% opponentKitty.skill1.name %></td>
-                <td><span class="tag is-light"><% opponentKitty.skill1.tier %></span></td>
-            </tr>
 
-            <tr>
-                <td colspan="3"><% opponentKitty.skill2.name %></td>
-                <td><span class="tag is-light"><% opponentKitty.skill2.tier %></span></td>
-            </tr>
+                <div class="column is-4">
+                    <span class="has-text-blueydark"><% opponentKitty.skill2.name %></span>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons" v-for="(value, label) in opponentKitty.skill2.effects">
+                        <span class="tag is-blueydark"><% label %></span>
+                        <span class="tag is-info"><% value %></span>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons">
+                            <span class="tag is-blueydark">
+                                <span class="icon">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </span>
+                        <span class="tag is-warning">
+                                <% opponentKitty.skill2.cooldown %>
+                            </span>
+                    </div>
+                </div>
 
-            <tr>
-                <td colspan="3"><% opponentKitty.skill3.name %></td>
-                <td><span class="tag is-light"><% opponentKitty.skill3.tier %></span></td>
-            </tr>
 
-            </tbody>
-        </table>
+                <div class="column is-4">
+                    <span class="has-text-blueydark"><% opponentKitty.skill3.name %></span>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons" v-for="(value, label) in opponentKitty.skill3.effects">
+                        <span class="tag is-blueydark"><% label %></span>
+                        <span class="tag is-info"><% value %></span>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="tags has-addons">
+                            <span class="tag is-blueydark">
+                                <span class="icon">
+                                    <i class="far fa-clock"></i>
+                                </span>
+                            </span>
+                        <span class="tag is-warning">
+                                <% opponentKitty.skill3.cooldown %>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
