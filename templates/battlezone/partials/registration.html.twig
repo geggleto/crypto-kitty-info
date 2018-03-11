@@ -2,52 +2,48 @@
 <div class="container" v-if="page == 'registration'">
 
     <section class="section">
-        <div class="container">
+        {% include "battlezone/partials/_nav.html.twig" %}
+        <br />
+        <div class="columns">
+            <div class="column is-4">
+                {% include "battlezone/partials/kittyDisplayCard.html.twig" %}
+            </div>
+            <div class="column is-6">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                    <tr>
+                        <th>ID #</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(kitty, key)  in kitties">
+                            <td><% kitty.id %></td>
+                            <td><% kitty.name %></td>
+                            <td>
+                                <a class="button is-success is-small" v-if="selectedCat != kitty.id" v-on:click="selectKitty(key)">
+                                    <span class="icon is-small">
+                                      <i class="fas fa-quidditch"></i>
+                                    </span>
+                                    <span>Select</span>
+                                </a>
 
-            {% include "battlezone/partials/_nav.html.twig" %}
-
-
-            <div class="columns">
-                <div class="column is-4">
-                    {% include "battlezone/partials/kittyDisplayCard.html.twig" %}
-                </div>
-                <div class="column is-6">
-                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-                        <thead>
-                        <tr>
-                            <th>ID #</th>
-                            <th>Name</th>
-                            <th></th>
+                                <a class="button is-warning is-small" v-if="selectedCat == kitty.id" v-on:click="deselectKitty(key)">
+                                    <span class="icon is-small">
+                                      <i class="fas fa-quidditch"></i>
+                                    </span>
+                                    <span>Deselect</span>
+                                </a>
+                            </td>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(kitty, key)  in kitties">
-                                <td><% kitty.id %></td>
-                                <td><% kitty.name %></td>
-                                <td>
-                                    <a class="button is-success is-small" v-if="selectedCat != kitty.id" v-on:click="selectKitty(key)">
-                                        <span class="icon is-small">
-                                          <i class="fas fa-quidditch"></i>
-                                        </span>
-                                        <span>Select</span>
-                                    </a>
+                    </tbody>
+                </table>
 
-                                    <a class="button is-warning is-small" v-if="selectedCat == kitty.id" v-on:click="deselectKitty(key)">
-                                        <span class="icon is-small">
-                                          <i class="fas fa-quidditch"></i>
-                                        </span>
-                                        <span>Deselect</span>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                        <a class="button pagination-previous" :disabled="selectionPage == 0" v-on:click="loadBack">Previous</a>
-                        <a class="button pagination-next" v-on:click="loadNext">Next page</a>
-                    </nav>
-                </div>
+                <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                    <a class="button pagination-previous" :disabled="selectionPage == 0" v-on:click="loadBack">Previous</a>
+                    <a class="button pagination-next" v-on:click="loadNext">Next page</a>
+                </nav>
             </div>
         </div>
     </section>
