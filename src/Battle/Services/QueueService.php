@@ -4,9 +4,11 @@
 namespace Kitty\Battle\Services;
 
 
+use function array_filter;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Entities\PlayerConnection;
 use Kitty\Battle\Events\PlayerQueued;
+use Kitty\Battle\Events\PlayerRemoved;
 use League\Tactician\CommandBus;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
@@ -39,12 +41,25 @@ class QueueService
         $this->logger = $logger;
     }
 
+
     /**
      * @param PlayerQueued    $playerQueued
      */
     public function onPlayerWasQueued(PlayerQueued $playerQueued)
     {
         $this->addPlayer($playerQueued->getPlayerConnection());
+    }
+
+    public function onPlayerRemoved(PlayerRemoved $playerRemoved)
+    {
+        $this->removePlayer($playerRemoved->getPlayerConnection());
+    }
+
+    protected function removePlayer(PlayerConnection $playerConnection)
+    {
+        $this->queue = array_filter($this->queue, function (PlayerConnection $connection) use ($playerConnection) {
+            return $connection !== $playerConnection;
+        });
     }
 
     protected function addPlayer(PlayerConnection $playerConnection) {

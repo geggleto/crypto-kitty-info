@@ -9,6 +9,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class BattleStart
 {
+    const COMMAND_ROUTING_KEY = 'battle.start';
+
     /**
      * @var UuidInterface
      */

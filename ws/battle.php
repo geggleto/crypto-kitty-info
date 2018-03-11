@@ -91,6 +91,8 @@ $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$communicationService
 $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPlayerWasQueued']);
 
 $dispatcher->addListener(PlayerRemoved::EVENT_ROUTING_KEY, [$battleService, 'onPlayerRemoved']);
+$dispatcher->addListener(PlayerRemoved::EVENT_ROUTING_KEY, [$queueService, 'onPlayerRemoved']);
+
 
 //When a battle is started!
 $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$communicationService, 'onBattleStart']);
