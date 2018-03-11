@@ -43,7 +43,7 @@ class KittyBattleSkillService
      */
     public function get($id)
     {
-        return $this->skills[$id];
+        return clone $this->skills[$id];
     }
 
     /**
