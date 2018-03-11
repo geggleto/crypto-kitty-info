@@ -94,32 +94,32 @@ class BaseSkill
      */
     public function __construct($id, $name, $tier, $power, $attack_up, $attack_down, $defense_up, $defense_down, $haste, $slow, $burning, $poisoned, $freezing, $sleep, $confused, $stunned, $accuracy_up, $accuracy_down, $crit_up, $crit_down, $heal_power, $heal_over_time, $blind, $evade_up, $evade_down, $cooldown)
     {
-        $this->id             = $id;
+        $this->id             = (int)$id;
         $this->name           = $name;
-        $this->tier           = $tier;
-        $this->attack_up      = $attack_up;
-        $this->attack_down    = $attack_down;
-        $this->defense_up     = $defense_up;
-        $this->defense_down   = $defense_down;
-        $this->haste          = $haste;
-        $this->slow           = $slow;
-        $this->burning        = $burning;
-        $this->poisoned       = $poisoned;
-        $this->freezing       = $freezing;
-        $this->sleep          = $sleep;
-        $this->confused       = $confused;
-        $this->stunned        = $stunned;
-        $this->accuracy_up    = $accuracy_up;
-        $this->accuracy_down  = $accuracy_down;
-        $this->crit_up        = $crit_up;
-        $this->crit_down      = $crit_down;
-        $this->heal_power     = $heal_power;
-        $this->heal_over_time = $heal_over_time;
-        $this->blind          = $blind;
-        $this->evade_up       = $evade_up;
-        $this->evade_down     = $evade_down;
-        $this->power = $power;
-        $this->cooldown = $cooldown;
+        $this->tier           = (int)$tier;
+        $this->attack_up      = (int)$attack_up;
+        $this->attack_down    = (int)$attack_down;
+        $this->defense_up     = (int)$defense_up;
+        $this->defense_down   = (int)$defense_down;
+        $this->haste          = (int)$haste;
+        $this->slow           = (int)$slow;
+        $this->burning        = (int)$burning;
+        $this->poisoned       = (int)$poisoned;
+        $this->freezing       = (int)$freezing;
+        $this->sleep          = (int)$sleep;
+        $this->confused       = (int)$confused;
+        $this->stunned        = (int)$stunned;
+        $this->accuracy_up    = (int)$accuracy_up;
+        $this->accuracy_down  = (int)$accuracy_down;
+        $this->crit_up        = (int)$crit_up;
+        $this->crit_down      = (int)$crit_down;
+        $this->heal_power     = (int)$heal_power;
+        $this->heal_over_time = (int)$heal_over_time;
+        $this->blind          = (int)$blind;
+        $this->evade_up       = (int)$evade_up;
+        $this->evade_down     = (int)$evade_down;
+        $this->power          = (int)$power;
+        $this->cooldown       = (int)$cooldown;
     }
 
     public static function makeFromRow($s)
@@ -360,7 +360,7 @@ class BaseSkill
 
         //Have to iterate over alllllllll of the things
 
-        if ($this->attack_up !== 0) {
+        if ($this->attack_up != 0) {
 
             $atkUp = random_int($this->attack_up-2,$this->attack_up+2);
 
@@ -370,7 +370,7 @@ class BaseSkill
 
             $messages[] = $friend->getId() . ' ' . $skills[$skill]->getName() . ' power by ' . $atkUp;
         }
-        if ($this->attack_down !== 0) {
+        if ($this->attack_down != 0) {
 
             $atkDown = random_int($this->attack_up-2,$this->attack_up+2);
 
