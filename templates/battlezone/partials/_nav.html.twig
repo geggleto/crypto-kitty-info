@@ -1,8 +1,12 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-menu">
         <div class="navbar-start">
+            <a class="navbar-item" v-on:click="changePage('profile')">Profile</a>
             <a class="navbar-item" v-on:click="changePage('registration')">Battle Select</a>
             <a class="navbar-item" v-on:click="changePage('dojo')">Dojo</a>
+            <a class="navbar-item" v-on:click="changePage('trophy')">Trophy Room</a>
+            <a class="navbar-item" v-on:click="changePage('tournaments')">Tournaments</a>
+            <a class="navbar-item" v-on:click="changePage('season')">Season Battle</a>
         </div>
 
         <div class="navbar-end">
