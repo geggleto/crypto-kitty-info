@@ -17,7 +17,7 @@ var app = new Vue({
         winner : '',
         selectedCat : 0,
         selectedKitty : {
-            image   : 'https://bulma.io/images/placeholders/128x128.png',
+            image   : '/img/yourkittyhere.png',
             health  : 100,
             attack  : 10,
             defense : 10,
@@ -34,7 +34,7 @@ var app = new Vue({
             maxhealth : 100
         },
         opponentKitty : {
-            image   : 'https://bulma.io/images/placeholders/128x128.png',
+            image   : '/img/yourkittyhere.png',
             health  : '???',
             attack  : '???',
             defense : '???',
@@ -235,7 +235,7 @@ var app = new Vue({
         },
 
         deselectKitty : function (index) {
-            this.selectedKitty.image = 'https://bulma.io/images/placeholders/128x128.png';
+            this.selectedKitty.image = '/img/yourkittyhere.png';
             this.selectedKitty.id = 0;
             this.selectedCat = 0;
         },
@@ -256,7 +256,7 @@ var app = new Vue({
             this.winner = '';
             this.selectedCat = 0;
             this.selectedKitty = {
-                image   : 'https://bulma.io/images/placeholders/128x128.png',
+                image   : '/img/yourkittyhere.png',
                 health  : 100,
                 attack  : 10,
                 defense : 10,
@@ -273,7 +273,7 @@ var app = new Vue({
                 maxhealth : 100
             };
             this.opponentKitty = {
-                image   : 'https://bulma.io/images/placeholders/128x128.png',
+                image   : '/img/yourkittyhere.png',
                 health  : '???',
                 attack  : '???',
                 defense : '???',
