@@ -56,6 +56,9 @@ var app = new Vue({
         last_msg : {}
     },
     methods: {
+        changePage : function (page) {
+            this.page = page;
+        },
         getSelectedKittyHealthBar : function () {
             var classes = {
                 'is-success' : false,
@@ -123,7 +126,7 @@ var app = new Vue({
             }));
 
             app.signedIn = true;
-            app.page = 'registration';
+            app.changePage('registration');
         },
         login : function () {
             var signer = this.profile;
@@ -164,7 +167,7 @@ var app = new Vue({
 
                 if (app.page === 'queue') { // We are waiting in Queue
                     if (msg.event === 'battle.started') {
-                        app.page = 'battle';
+                        app.changePage('battle');
 
                         app.battleId = msg.uuid;
 
@@ -214,8 +217,7 @@ var app = new Vue({
 
                     if (msg.event === 'battle.ended') {
                         app.winner = msg.winner;
-
-                        app.page = 'results';
+                        app.changePage('results');
                     }
                 }
             };
@@ -226,7 +228,7 @@ var app = new Vue({
 
             this.conn.onerror = function (ev) {
                 app.service = false;
-                app.page = 'connection';
+                app.changePage('connection');
                 app.profile = '';
                 app.signedIn = false;
             };
@@ -235,7 +237,7 @@ var app = new Vue({
                 if (ev.code !== 3001) {
                     app.profile = '';
                     app.service = false;
-                    app.page = 'connection';
+                    app.changePage('connection');
                     app.signedIn = false;
                 }
             };
@@ -286,7 +288,7 @@ var app = new Vue({
         },
 
         enterBattle : function () {
-            this.page = 'queue';
+            this.changePage('queue');
             this.battle_log = [];
 
             this.conn.send(JSON.stringify({
@@ -296,7 +298,7 @@ var app = new Vue({
             }));
         },
         resetBattle : function () {
-            this.page = 'registration';
+            this.pagechangePage('registration');
             this.battleId = '';
             this.winner = '';
             this.selectedCat = 0;
