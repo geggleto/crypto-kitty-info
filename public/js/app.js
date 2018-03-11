@@ -137,7 +137,7 @@ var app = new Vue({
 
                         app.battleId = msg.uuid;
 
-                        if (msg.player1.kittyId === app.selectedCat) {
+                        if (msg.kitty1.id === app.selectedKitty.id)
                             app.selectedKitty = msg.kitty1;
                             app.opponentKitty = msg.kitty2;
                         } else {
