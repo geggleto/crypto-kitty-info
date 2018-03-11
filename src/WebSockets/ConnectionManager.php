@@ -6,6 +6,7 @@ use Kitty\Battle\Commands\PlayerLoadKitty;
 use Kitty\Battle\Commands\TakeTurn;
 use Kitty\Battle\Entities\PlayerConnection;
 use Kitty\Battle\Events\PlayerConnected;
+use Kitty\Battle\Events\PlayerDequeue;
 use Kitty\Battle\Events\PlayerRemoved;
 use League\Tactician\CommandBus;
 use Ratchet\ConnectionInterface;
@@ -82,6 +83,9 @@ class ConnectionManager implements MessageComponentInterface
                         (int)$decoded['kittyId']
                     )
                 );
+            } else if ($decoded['command'] === 'player.leave.queue') {
+                //Player wishes to enter the queue with a cat
+                $this->dispatcher->dispatch(PlayerDequeue::EVENT_ROUTING_KEY, new PlayerDequeue($player));
             }
         }
     }

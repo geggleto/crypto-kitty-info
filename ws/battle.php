@@ -13,6 +13,7 @@ use Kitty\Battle\Events\BattleHasEnded;
 use Kitty\Battle\Events\BattleUpdate;
 use Kitty\Battle\Events\PlayerActionTaken;
 use Kitty\Battle\Events\PlayerConnected;
+use Kitty\Battle\Events\PlayerDequeue;
 use Kitty\Battle\Events\PlayerLoadedKitty;
 use Kitty\Battle\Events\PlayerQueued;
 use Kitty\Battle\Events\PlayerRemoved;
@@ -92,6 +93,8 @@ $dispatcher->addListener(PlayerQueued::EVENT_ROUTING_KEY, [$queueService, 'onPla
 
 $dispatcher->addListener(PlayerRemoved::EVENT_ROUTING_KEY, [$battleService, 'onPlayerRemoved']);
 $dispatcher->addListener(PlayerRemoved::EVENT_ROUTING_KEY, [$queueService, 'onPlayerRemoved']);
+
+$dispatcher->addListener(PlayerDequeue::EVENT_ROUTING_KEY, [$queueService, 'onPlayerDequeue']);
 
 
 //When a battle is started!

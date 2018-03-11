@@ -7,6 +7,7 @@ namespace Kitty\Battle\Services;
 use function array_filter;
 use Kitty\Battle\Commands\BattleStart;
 use Kitty\Battle\Entities\PlayerConnection;
+use Kitty\Battle\Events\PlayerDequeue;
 use Kitty\Battle\Events\PlayerQueued;
 use Kitty\Battle\Events\PlayerRemoved;
 use League\Tactician\CommandBus;
@@ -51,6 +52,11 @@ class QueueService
     }
 
     public function onPlayerRemoved(PlayerRemoved $playerRemoved)
+    {
+        $this->removePlayer($playerRemoved->getPlayerConnection());
+    }
+
+    public function onPlayerDequeue(PlayerDequeue $playerRemoved)
     {
         $this->removePlayer($playerRemoved->getPlayerConnection());
     }

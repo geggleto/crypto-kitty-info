@@ -86,6 +86,11 @@ var app = new Vue({
                 kittyId : app.selectedKitty.id
             }));
         },
+        leaveQueue : function () {
+            this.conn.send(JSON.stringify({
+                command : "player.leave.queue"
+            }));
+        },
         login : function () {
             var signer = this.profile;
             var original_message = "Crypto Kitty Battles!";
