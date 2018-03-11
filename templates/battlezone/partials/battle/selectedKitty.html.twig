@@ -36,7 +36,11 @@
         <div class="box">
             <div class="columns is-multiline">
                 <div class="column is-4">
-                    <span class="has-text-blueydark"><% selectedKitty.skill1.name %></span>
+                    <span class="has-text-blueydark">
+                        <a class="button" v-on:click="skill1" :disabled="!turn || selectedKitty.skill1.countdown > 0">
+                            <% selectedKitty.skill1.name %>
+                        </a>
+                    </span>
                 </div>
                 <div class="column is-4">
                     <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill1.effects">
@@ -59,7 +63,11 @@
 
 
                 <div class="column is-4">
-                    <span class="has-text-blueydark"><% selectedKitty.skill2.name %></span>
+                    <span class="has-text-blueydark">
+                        <a class="button" v-on:click="skill2" :disabled="!turn || selectedKitty.skill2.countdown > 0">
+                            <% selectedKitty.skill2.name %>
+                        </a>
+                    </span>
                 </div>
                 <div class="column is-4">
                     <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill2.effects">
@@ -82,7 +90,11 @@
 
 
                 <div class="column is-4">
-                    <span class="has-text-blueydark"><% selectedKitty.skill3.name %></span>
+                    <span class="has-text-blueydark">
+                        <a class="button" v-on:click="skill3" :disabled="!turn || selectedKitty.skill3.countdown > 0">
+                            <% selectedKitty.skill3.name %>
+                        </a>
+                    </span>
                 </div>
                 <div class="column is-4">
                     <div class="tags has-addons" v-for="(value, label) in selectedKitty.skill3.effects">
