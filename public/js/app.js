@@ -90,6 +90,9 @@ var app = new Vue({
             this.conn.send(JSON.stringify({
                 command : "player.leave.queue"
             }));
+
+            app.signedIn = true;
+            app.page = 'registration';
         },
         login : function () {
             var signer = this.profile;
