@@ -148,7 +148,7 @@ var app = new Vue({
                         app.battle_log.unshift("Battle Started!");
                         app.battle_log.unshift("Kitty #" + msg.turn + " has first move!");
 
-                        app.turn = (msg.turn === app.selectedCat);
+                        app.turn = (msg.turn == app);
                     }
                 }
 
@@ -169,7 +169,7 @@ var app = new Vue({
 
                         app.battle_log.unshift("Kitty #" + msg.turn + "'s move");
 
-                        if (msg.turn === app.selectedKitty.id) {
+                        if (msg.turn == app.selectedKitty.id) {
                             app.turn = true;
                         } else {
                             app.turn = false;
