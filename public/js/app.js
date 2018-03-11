@@ -121,6 +121,8 @@ var app = new Vue({
                 var msg = JSON.parse(ev.data);
                 app.last_msg = msg;
 
+                console.log(msg);
+
                 if (app.page === 'registration') {
                     if (msg.event === 'player.loaded.kitty') {
                         app.selectedKitty = msg.kitty;
