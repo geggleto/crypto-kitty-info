@@ -31,6 +31,9 @@
         <figure class="image" style="border: #0a0a0a solid 1px; background-color: white;">
             <img v-bind:src="selectedKitty.image" id="kittyImage">
         </figure>
+
+        <progress class="progress is-radiusless" v-bind:class="getSelectedKittyHealthBar"  :value="selectedKitty.health" :max="selectedKitty.maxhealth"></progress>
+
     </div>
     <div style="margin: 10px; border: #0a0a0a solid 1px;">
         <div class="box">

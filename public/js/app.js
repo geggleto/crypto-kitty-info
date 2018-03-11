@@ -56,6 +56,37 @@ var app = new Vue({
         last_msg : {}
     },
     methods: {
+        getSelectedKittyHealthBar : function () {
+            var classes = {
+                'is-success' : false,
+                'is-warning' : false,
+                'is-danger' : false
+            };
+            if (selectedKitty.health > 65) {
+                classes["is-success"] = true;
+            } else if (selectedKitty.health > 35) {
+                classes["is-warning"] = true;
+            } else {
+                classes["is-danger"] = true;
+            }
+
+            return classes;
+        },
+        getOpponentKittyHealthBar : function () {
+            var classes = {
+                'is-success' : false,
+                'is-warning' : false,
+                'is-danger' : false
+            };
+
+            if (opponentKitty.health > 65) {
+                classes["is-success"] = true;
+            } else if (opponentKitty.health > 35) {
+                classes["is-warning"] = true;
+            } else {
+                classes["is-danger"] = true;
+            }
+        },
         skill1 : function () {
             //console.log("Using Skill 1");
             this.conn.send(JSON.stringify({
