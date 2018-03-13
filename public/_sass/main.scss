@@ -27,3 +27,22 @@ $primary-invert: $pink-invert;
 */
 
 @import "../node_modules/bulma/bulma";
+
+.kitty-card {
+  background-color: #F4F1E0;
+  padding-bottom: 10px;
+}
+.has-text-orangeyred {
+  color: #F14C38;
+}
+.has-text-blueydark {
+  color: #144955;
+}
+.is-blueydark {
+  background-color: #144955 !important;
+  color: whitesmoke !important;
+}
+
+.is-winner {
+  background-color: $success;
+}
