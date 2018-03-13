@@ -871,7 +871,7 @@ class KittyService
                 $filters[] = $this->getGenDownFilter();
             } else if ($param=='body') {
                 $filters[] = $this->getBodyFilter();
-            } else if ($param=='bodyColor') {
+            } else if ($param=='bodycolor') {
                 $filters[] = $this->getBodyColorFilter();
             } else if ($param=='pattern') {
                 $filters[] = $this->getPatternFilter();
