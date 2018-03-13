@@ -1043,4 +1043,14 @@ class KittyService
 
         return '00000';
     }
+
+    /**
+     * @return array
+     */
+    public function getKai(): array
+    {
+        return $this->kai;
+    }
+
+
 }
