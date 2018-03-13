@@ -191,7 +191,7 @@ class KittyService
                 ]
             ],
             7 => [
-                'ui_label' => 'patterncolor',
+                'ui_label' => 'highlightColor',
                 'label' => 'Highlight Color',
                 'codes' => [
                     '1' => '1',
@@ -267,8 +267,8 @@ class KittyService
                 ]
             ],
             9 => [
-                'ui_label' => 'eyetype',
-                'label' => 'Eye Type',
+                'ui_label' => 'eyeShape',
+                'label' => 'Eye Shape',
                 'codes' => [
                     '1' => '1',
                     '2' => 'wonky',
@@ -305,7 +305,7 @@ class KittyService
                 ]
             ],
             10 => [
-                'ui_label' => 'eyecolor',
+                'ui_label' => 'eyeColor',
                 'label' => 'Eye Color',
                 'codes' => [
                     '1' => 'thundergrey',
