@@ -186,3 +186,11 @@ $rainbow_colors : ("rainbow-green" : $rainbow_green, "rainbow-red" : $rainbow_re
 .mg10 {
   margin-bottom: 10px;
 }
+
+.winner-border {
+  border: $success 2px solid !important;
+}
+
+.loser-border {
+  border: $danger 2px solid !important;
+}
