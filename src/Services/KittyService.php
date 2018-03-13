@@ -77,6 +77,7 @@ class KittyService
 
         $this->kai = [
             4 => [
+                'ui_label' => 'mouth',
                 'label' => 'Mouth',
                 'codes' => [
                     '1' => 'whixtensions',
@@ -114,6 +115,7 @@ class KittyService
                 ]
             ],
             5 => [
+                'ui_label' => 'wild',
                 'label' => 'Wild',
                 'codes' => [
                     '1' => '1',
@@ -151,7 +153,8 @@ class KittyService
                 ]
             ],
             6 => [
-                'label' => 'Sec Color',
+                'ui_label' => 'secondarycolor',
+                'label' => 'Accent Color',
                 'codes' => [
                     '1' => 'belleblue',
                     '2' => 'sandalwood',
@@ -188,7 +191,8 @@ class KittyService
                 ]
             ],
             7 => [
-                'label' => 'Pattern Color',
+                'ui_label' => 'patterncolor',
+                'label' => 'Highlight Color',
                 'codes' => [
                     '1' => '1',
                     '2' => '2',
@@ -225,7 +229,8 @@ class KittyService
                 ]
             ],
             8 => [
-                'label' => 'Body Color',
+                'ui_label' => 'bodycolor',
+                'label' => 'Base Color',
                 'codes' => [
                     '1' => 'shadowgrey',
                     '2' => 'salmon',
@@ -262,6 +267,7 @@ class KittyService
                 ]
             ],
             9 => [
+                'ui_label' => 'eyetype',
                 'label' => 'Eye Type',
                 'codes' => [
                     '1' => '1',
@@ -299,6 +305,7 @@ class KittyService
                 ]
             ],
             10 => [
+                'ui_label' => 'eyecolor',
                 'label' => 'Eye Color',
                 'codes' => [
                     '1' => 'thundergrey',
@@ -336,6 +343,7 @@ class KittyService
                 ]
             ],
             11 => [
+                'ui_label' => 'pattern',
                 'label' => 'Pattern',
                 'codes' => [
                     '1' => '1',
@@ -373,6 +381,7 @@ class KittyService
                 ]
             ],
             12 => [
+                'ui_label' => 'body',
                 'label' => 'Body',
                 'codes' => [
                     '1' => 'savannah',
