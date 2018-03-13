@@ -34,12 +34,12 @@ class SearchPage
 
         foreach ($categoriesRaw as $x => $value)
         {
-            $categories[$value['label']] = $value['codes'];
+            $categories[strtolower($value['label'])] = $value['codes'];
         }
 
-        var_dump($categories);
-        die();
-//
+//        var_dump($categories);
+//        die();
+////
 //        $categories = [
 //            'mouth' => [
 //                '1' => 'whixtensions',
