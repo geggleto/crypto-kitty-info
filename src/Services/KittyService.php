@@ -881,7 +881,7 @@ class KittyService
                 $filters[] = $this->getEyeShapeFilter();
             } else if ($param=='highlightColor') {
                 $filters[] = $this->getHighlightColorFilter();
-            } else if ($param=='accentColor') {
+            } else if ($param=='secondarycolor') {
                 $filters[] = $this->getAccentColorFilter();
             } else if ($param=='wild') {
                 $filters[] = $this->getWildFilter();
