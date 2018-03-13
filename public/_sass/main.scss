@@ -188,9 +188,9 @@ $rainbow_colors : ("rainbow-green" : $rainbow_green, "rainbow-red" : $rainbow_re
 }
 
 .winner-border {
-  border: $success 2px solid !important;
+  border: $success 4px solid !important;
 }
 
 .loser-border {
-  border: $danger 2px solid !important;
+  border: $danger 4px solid !important;
 }
