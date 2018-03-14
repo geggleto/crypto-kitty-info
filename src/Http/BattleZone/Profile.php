@@ -22,7 +22,7 @@ class Profile
 
     public function __invoke($player_id, Request $request, Response $response)
     {
-        $statement = $this->pdo->prepare('select *, CONCAT(\'https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/\',kittyId , \'.svg\') as `image` from kitty_usage where player_id = ? order by `timestamp` LIMIT 5');
+        $statement = $this->pdo->prepare('select CONCAT(\'https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/\',kittyId , \'.svg\') as `image` from kitty_usage where player_id = ? order by `timestamp` LIMIT 5');
 
         $statement->execute([ strtolower($player_id)]);
 
