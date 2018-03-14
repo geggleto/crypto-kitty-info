@@ -4,7 +4,7 @@
 namespace Kitty\Battle\Consumers;
 
 
-use Bunny\Async\Client;
+use Bunny\Client;
 use Bunny\Channel;
 use Bunny\Message;
 use DateTimeImmutable;
