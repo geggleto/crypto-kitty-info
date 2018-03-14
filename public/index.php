@@ -1,6 +1,7 @@
 <?php
 
 use Kitty\Http\BattleZone\BattlePage;
+use Kitty\Http\BattleZone\Profile;
 use Kitty\Http\DnaController;
 use Kitty\Http\GetCattributesForKitty;
 use Kitty\Http\HomePage;
@@ -47,6 +48,8 @@ $app->get('/page', SearchPage::class);
 $app->get('/battle', BattlePage::class);
 
 $app->get('/kitty/{id}', GetCattributesForKitty::class);
+
+$app->get('/battle/profile/{player_id}', Profile::class);
 
 $app->options('/{name:.+}', function ($req, $res, $args) {
    return $res;
