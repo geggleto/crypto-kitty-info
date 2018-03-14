@@ -24,7 +24,7 @@ class Profile
     {
         $statement = $this->pdo->prepare('select * from kitty_usage where player_id = ? order by `timestamp` LIMIT 5');
 
-        $statement->execute([$player_id]);
+        $statement->execute([ strtolower($player_id)]);
 
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
