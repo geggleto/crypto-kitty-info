@@ -10,6 +10,9 @@ set_time_limit(0);
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = new \Dotenv\Dotenv(__DIR__.'/../');
+$dotenv->load();
+
 $log = new Monolog\Logger('crypto');
 $log->pushHandler(new StreamHandler(__DIR__.'/../logs/battlestats.log', Logger::DEBUG));
 
