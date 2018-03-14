@@ -7,7 +7,9 @@ var app = new Vue({
         profile : '',
         turn : false,
         signedIn : false,
+        profilePage : {
 
+        },
         kitties : [],
         selectionPage : 0,
         selectionLimit : 12,
@@ -57,6 +59,11 @@ var app = new Vue({
     },
     methods: {
         changePage : function (page) {
+
+            if (page === 'profile') {
+                this.loadProfile();
+            }
+
             this.page = page;
         },
         getSelectedKittyHealthBar : function () {
@@ -338,6 +345,11 @@ var app = new Vue({
             };
             this.battle_log = [];
             this.last_msg = {};
+        },
+        loadProfile : function () {
+            $.get('/battle/profile/'+this.profile, function (response) {
+                app.profilePage = response;
+            });
         }
     },
     mounted : function () {
