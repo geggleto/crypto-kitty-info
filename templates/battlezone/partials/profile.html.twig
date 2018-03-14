@@ -23,15 +23,7 @@
                     <table class="table has-text-centered">
                         <tr>
                             <td>Overall Record</td>
-                            <td>32 W | 16 L</td>
-                        </tr>
-                        <tr>
-                            <td>Kitties used in Battle</td>
-                            <td>32</td>
-                        </tr>
-                        <tr>
-                            <td>Unique Players Battled</td>
-                            <td>19</td>
+                            <td><span><% profilePage.wins</span> W | <span><% profilePage.losses</span> L</td>
                         </tr>
                     </table>
                 </div>
@@ -48,10 +40,10 @@
                 <div class="box">
                     <h1 class="is-size-3 has-text-weight-semibold">Battle Log</h1>
                     <table class="table">
-                        <tr>
+                        <tr v-for="battle in profilePage.battles">
                             <td>
-                                <div class="">
-                                    <figure class="image is-128x128 background-rainbow-purple winner-border">
+                                <div>
+                                    <figure class="image is-128x128">
                                         <img src="/img/yourkittyhere.png">
                                     </figure>
                                     <span>Kitty #?????</span>
