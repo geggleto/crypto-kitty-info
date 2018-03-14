@@ -21,6 +21,7 @@ use Kitty\Battle\Handlers\BattleStartHandler;
 use Kitty\Battle\Handlers\EnterQueueHandler;
 use Kitty\Battle\Handlers\PlayerLoadKittyHandler;
 use Kitty\Battle\Handlers\TakeTurnHandler;
+use Kitty\Battle\Producer\BattleUsageProducer;
 use Kitty\Battle\Services\BattleService;
 use Kitty\Battle\Services\CommunicationService;
 use Kitty\Battle\Services\KittyBattleService;
@@ -58,6 +59,17 @@ $kittyBattleService = new KittyBattleService(
         'user'      => getenv('RABBIT_USER'), // The default user is guest
         'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
     ]
+);
+
+$battleUsageProducer = new BattleUsageProducer(
+    $loop,
+    [
+        'host'      => 'localhost',
+        'vhost'     => '/',    // The default vhost is /
+        'user'      => getenv('RABBIT_USER'), // The default user is guest
+        'password'  => getenv('RABBIT_PASSWORD'), // The default password is guest
+    ],
+    $log
 );
 
 $communicationService = new CommunicationService();
@@ -109,6 +121,8 @@ $dispatcher->addListener(BattleHasBegun::EVENT_ROUTING_KEY, [$battleService, 'on
 $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleService, 'onBattleHasEnded']);
 $dispatcher->addListener(PlayerActionTaken::EVENT_ROUTING_KEY, [$battleService, 'onPlayerActionTaken']);
 
+//Publish to bunny
+$dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, []);
 
 
 // Run the server application through the WebSocket protocol on port 8080
