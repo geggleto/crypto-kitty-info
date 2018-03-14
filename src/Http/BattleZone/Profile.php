@@ -28,6 +28,24 @@ class Profile
 
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        return $response->withJson($rows);
+        $out = ['battles' => $rows];
+
+
+        $statsStatement = $this->pdo->prepare("select 
+SUM(if (result = 0, 1, 0)) as losses,
+SUM(if (result = 1, 1, 0)) as wins
+from 
+kitty_usage
+where
+player_id = ?");
+
+        $statsStatement->execute([$player_id]);
+
+        $stats = $statsStatement->fetch(PDO::FETCH_ASSOC);
+
+        $out['wins'] = $stats['wins'];
+        $out['losses'] = $stats['losses'];
+
+        return $response->withJson($out);
     }
 }
