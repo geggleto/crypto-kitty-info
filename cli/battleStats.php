@@ -3,6 +3,7 @@
 use Bunny\Client;
 use Kitty\Battle\Consumers\BattleStatsConsumer;
 use Kitty\Battle\Producer\BattleUsageProducer;
+use Monolog\Handler\StreamHandler;
 
 set_time_limit(0);
 
