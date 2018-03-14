@@ -26,6 +26,8 @@ $bunny = new Client(
     ]
 );
 
+$bunny->connect();
+
 $channel = $bunny->channel();
 
 $channel->run(new BattleStatsConsumer($log), BattleUsageProducer::FETCH_QUEUE);
