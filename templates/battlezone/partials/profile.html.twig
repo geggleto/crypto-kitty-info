@@ -43,7 +43,7 @@
                         <tr v-for="battle in profilePage.battles">
                             <td>
                                 <div>
-                                    <figure class="image is-128x128 background-rainbow-grey " v-bind:class="{ winner-border : battle.result == '1', loser-border : battle.result == '0' }">
+                                    <figure class="image is-128x128 background-rainbow-grey " v-bind:class="{ winner-border : (battle.result == '1'), loser-border : (battle.result == '0') }">
                                         <img :src="battle.image">
                                     </figure>
                                     <span>Kitty #<span><% battle.kitty_id %></span></span>
@@ -55,7 +55,7 @@
                                 </figure>
                             </td>
                             <td>
-                                <figure class="image is-128x128 background-rainbow-grey" v-bind:class="{ winner-border : battle.result == '0', loser-border : battle.result == '1' }">
+                                <figure class="image is-128x128 background-rainbow-grey" v-bind:class="{ winner-border : (battle.result == '0'), loser-border : (battle.result == '1') }">
                                     <img :src="battle.image2">
                                 </figure>
                                 <span>Kitty #<span><% battle.kitty2 %></span></span>
