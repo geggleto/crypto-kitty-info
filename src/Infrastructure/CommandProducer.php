@@ -49,8 +49,6 @@ class CommandProducer
 
         $corr_id = Uuid::uuid4()->toString();
 
-        $deferred = new Deferred();
-
         $this->logger->debug('Publishing ', [
             'queue' => $queue->queue
         ]);
