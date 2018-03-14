@@ -122,7 +122,7 @@ $dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleService, 'on
 $dispatcher->addListener(PlayerActionTaken::EVENT_ROUTING_KEY, [$battleService, 'onPlayerActionTaken']);
 
 //Publish to bunny
-$dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, []);
+$dispatcher->addListener(BattleHasEnded::EVENT_ROUTING_KEY, [$battleUsageProducer, 'onBattleHasEnded']);
 
 
 // Run the server application through the WebSocket protocol on port 8080
