@@ -191,7 +191,7 @@ class KittyService
                 ]
             ],
             7 => [
-                'ui_label' => 'highlightColor',
+                'ui_label' => 'highlightcolor',
                 'label' => 'Highlight Color',
                 'codes' => [
                     '1' => '1',
@@ -267,7 +267,7 @@ class KittyService
                 ]
             ],
             9 => [
-                'ui_label' => 'eyeShape',
+                'ui_label' => 'eyeshape',
                 'label' => 'Eye Shape',
                 'codes' => [
                     '1' => '1',
@@ -305,7 +305,7 @@ class KittyService
                 ]
             ],
             10 => [
-                'ui_label' => 'eyeColor',
+                'ui_label' => 'eyecolor',
                 'label' => 'Eye Color',
                 'codes' => [
                     '1' => 'thundergrey',
@@ -875,11 +875,11 @@ class KittyService
                 $filters[] = $this->getBodyColorFilter();
             } else if ($param=='pattern') {
                 $filters[] = $this->getPatternFilter();
-            } else if ($param=='eyeColor') {
+            } else if ($param=='eyecolor') {
                 $filters[] = $this->getEyeColorFilter();
-            } else if ($param=='eyeShape') {
+            } else if ($param=='eyeshape') {
                 $filters[] = $this->getEyeShapeFilter();
-            } else if ($param=='highlightColor') {
+            } else if ($param=='highlightcolor') {
                 $filters[] = $this->getHighlightColorFilter();
             } else if ($param=='secondarycolor') {
                 $filters[] = $this->getAccentColorFilter();
