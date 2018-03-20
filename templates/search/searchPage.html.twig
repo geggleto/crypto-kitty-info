@@ -28,7 +28,7 @@
     <div class="container is-fullhd" id="app">
         <h1 class="has-text-weight-bold is-size-1">Search DNA</h1>
 
-
+            
 
     </div>
 </section>
@@ -49,7 +49,10 @@
                 this.query = this.query + '&'+thing+'='+value;
             }
         },
-        delimiters : ['<%', '%>']
+        delimiters : ['<%', '%>'],
+        mounted : function () {
+
+        }
     })
 </script>
 </body>
