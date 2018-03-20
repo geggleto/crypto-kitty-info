@@ -869,19 +869,19 @@ class KittyService
                 $filters[] = $this->getGenUpFilter();
             } else if ($param=='genD') {
                 $filters[] = $this->getGenDownFilter();
-            } else if ($param=='body') {
+            } else if ($param=='fur') {
                 $filters[] = $this->getBodyFilter();
-            } else if ($param=='bodycolor') {
+            } else if ($param=='baseColor') {
                 $filters[] = $this->getBodyColorFilter();
             } else if ($param=='pattern') {
                 $filters[] = $this->getPatternFilter();
-            } else if ($param=='eyecolor') {
+            } else if ($param=='eyeColor') {
                 $filters[] = $this->getEyeColorFilter();
-            } else if ($param=='eyeshape') {
+            } else if ($param=='eyeShape') {
                 $filters[] = $this->getEyeShapeFilter();
-            } else if ($param=='highlightcolor') {
+            } else if ($param=='highlightColor') {
                 $filters[] = $this->getHighlightColorFilter();
-            } else if ($param=='secondarycolor') {
+            } else if ($param=='accentColor') {
                 $filters[] = $this->getAccentColorFilter();
             } else if ($param=='wild') {
                 $filters[] = $this->getWildFilter();
