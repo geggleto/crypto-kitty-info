@@ -7,6 +7,7 @@ use Kitty\Http\GetCattributesForKitty;
 use Kitty\Http\HomePage;
 use Kitty\Http\MyProfile;
 use Kitty\Http\ProfileController;
+use Kitty\Http\Search\SearchController;
 use Kitty\Http\SearchDnaController;
 use Kitty\Http\SearchPage;
 use Kitty\KittyApp;
@@ -54,6 +55,8 @@ $app->get('/battle/profile/{player_id}', Profile::class);
 $app->options('/{name:.+}', function ($req, $res, $args) {
    return $res;
 });
+
+$app->get('/v2/search', SearchController::class);
 
 $app->add(function (Request $req, $res, $next) {
     $response = $next($req, $res);
