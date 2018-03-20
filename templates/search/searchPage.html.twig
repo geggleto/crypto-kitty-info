@@ -104,7 +104,6 @@
                     if (category_name !== 'cattributes') {
 
                         for (cattribute in this.data[category_name]) {
-                            console.log(cattribute);
 
                             if (cattribute === this.cattribute) {
                                 this.appendRaw(category_name, this.getDNAValue(this.data[category_name][cattribute]));
