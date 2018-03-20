@@ -34,30 +34,30 @@
         <div class="field">
             <label class="label">Cattribute</label>
             <div class="control">
-                <input class="input" id="cattribute" type="text">
+                <input class="input" id="cattribute" type="text" v-model="cattribute">
             </div>
         </div>
         <div class="field">
             <label class="checkbox">
-                <input type="checkbox">
+                <input type="checkbox" v-model="d0">
                 D0
             </label>
             <label class="checkbox">
-                <input type="checkbox">
+                <input type="checkbox" v-model="r1">
                 R1
             </label>
             <label class="checkbox">
-                <input type="checkbox">
+                <input type="checkbox" v-model="r2">
                 R2
             </label>
             <label class="checkbox">
-                <input type="checkbox">
+                <input type="checkbox" v-model="r3">
                 R3
             </label>
         </div>
         <div class="field is-grouped">
             <div class="control">
-                <a class="button">Add Search Parameter</a>
+                <a class="button is-link" >Add Search Parameter</a>
             </div>
         </div>
 
@@ -84,7 +84,12 @@
         el: '#app',
         data: {
             query : '',
-            data : {{ data|raw }}
+            data : {{ data|raw }},
+            cattribute : '',
+            d0 : true,
+            r1 : false,
+            r2 : false,
+            r3 : false
         },
         methods : {
             getUrl : function () {
@@ -92,6 +97,9 @@
             },
             appendRaw : function (thing, value) {
                 this.query = this.query + '&'+thing+'='+value;
+            },
+            addParam : function () {
+
             }
         },
         delimiters : ['<%', '%>'],
