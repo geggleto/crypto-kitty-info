@@ -119,7 +119,10 @@
         delimiters : ['<%', '%>'],
         mounted : function () {
             $( "#cattribute" ).autocomplete({
-                source: this.data.cattributes
+                source: this.data.cattributes,
+                select: function( event, ui ) {
+                    app.cattribute = ui.item.value;
+                }
             });
         }
     })
