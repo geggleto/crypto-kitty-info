@@ -102,7 +102,14 @@
                 //need to find what category the cattribute belongs too
                 for (category_name in this.data) {
                     if (category_name !== 'cattributes') {
-                        console.log(category_name);
+
+                        for (cattribute in this.data[category_name]) {
+
+                            if (cattribute === this.cattribute) {
+                                console.log(this.data[category_name][cattribute]);
+                            }
+
+                        }
                     }
                 }
 
