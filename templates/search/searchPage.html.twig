@@ -107,13 +107,43 @@
                             console.log(cattribute);
 
                             if (cattribute === this.cattribute) {
-                                console.log("found" + this.data[category_name][cattribute]);
+                                this.appendRaw(category_name, this.getDNAValue(this.data[category_name][cattribute]));
+                                return;
                             }
 
                         }
                     }
                 }
 
+            },
+            getDNAValue : function (kaiCode) {
+                var out = '';
+
+                if (this.r3) {
+                    out = kaiCode
+                } else {
+                    out = '_';
+                }
+
+                if (this.r2) {
+                    out = out + kaiCode
+                } else {
+                    out = out + '_';
+                }
+
+                if (this.r1) {
+                    out = out + kaiCode
+                } else {
+                    out = out + '_';
+                }
+
+                if (this.d0) {
+                    out = out + kaiCode
+                } else {
+                    out = out + '_';
+                }
+
+                return out;
             }
         },
         delimiters : ['<%', '%>'],
