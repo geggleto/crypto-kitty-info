@@ -57,7 +57,7 @@
         </div>
         <div class="field is-grouped">
             <div class="control">
-                <a class="button is-link" >Add Search Parameter</a>
+                <a class="button is-link" v-on:click="addParam">Add Search Parameter</a>
             </div>
         </div>
 
@@ -99,6 +99,12 @@
                 this.query = this.query + '&'+thing+'='+value;
             },
             addParam : function () {
+                //need to find what category the cattribute belongs too
+                for (category_name in this.data) {
+                    if (category_name !== 'cattributes') {
+                        console.log(category_name);
+                    }
+                }
 
             }
         },
