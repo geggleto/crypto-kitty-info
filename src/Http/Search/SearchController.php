@@ -4,6 +4,7 @@
 namespace Kitty\Http\Search;
 
 
+use const JSON_PRETTY_PRINT;
 use Kitty\Search\KittySearch;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -29,7 +30,7 @@ class SearchController
     public function __invoke(Request $request, Response $response)
     {
         return $this->twig->render($response, "search/searchPage.html.twig", [
-           $this->kittySearch->getMegaArray()
+           'data' => json_encode($this->kittySearch->getMegaArray(), JSON_PRETTY_PRINT)
         ]);
     }
 }
