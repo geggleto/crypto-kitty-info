@@ -44,7 +44,7 @@ $app->get('/', HomePage::class);
 
 $app->get('/search', SearchDnaController::class);
 
-$app->get('/page', SearchPage::class);
+$app->get('/page', SearchController::class);
 
 $app->get('/battle', BattlePage::class);
 
