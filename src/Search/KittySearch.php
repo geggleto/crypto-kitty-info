@@ -39,6 +39,15 @@ class KittySearch
     private $accentColor;
     private $wild;
     private $mouth;
+    private $RfurKai;
+    private $RpatternKai;
+    private $ReyeColorKai;
+    private $ReyeShapeKai;
+    private $RbaseColorKai;
+    private $RhighlightColorKai;
+    private $RaccentColorKai;
+    private $RwildKai;
+    private $RmouthKai;
 
     public function __construct()
     {
@@ -403,6 +412,21 @@ x';
             $this->accentColorKai[$this->accentColor[$x]] = $kai;
             $this->wildKai[$this->wild[$x]] = $kai;
             $this->mouthKai[$this->mouth[$x]] = $kai;
+
+
+
+            $this->RfurKai[$kai] = $this->fur[$x];
+            $this->RpatternKai[$kai] = $this->pattern[$x];
+            $this->ReyeColorKai[$kai] = $this->eyeColor[$x];
+            $this->ReyeShapeKai[$kai] = $this->eyeShape[$x];
+            $this->RbaseColorKai[$kai] = $this->baseColor[$x];
+            $this->RhighlightColorKai[$kai] = $this->highlightColor[$x];
+            $this->RaccentColorKai[$kai] = $this->accentColor[$x];
+            $this->RwildKai[$kai] = $this->wild[$x];
+            $this->RmouthKai[$kai] = $this->mouth[$x];
+
+
+
         }
     }
 
@@ -491,4 +515,129 @@ x';
             'cattributes' => $cattributes
         ];
     }
+
+    public function getFormatedMegaArray()
+    {
+        return [
+            4 => [
+                'ui_label' => 'mouth',
+                'label' => 'Mouth',
+                'codes' => $this->getRmouthKai()
+            ],
+            5 => [
+                'ui_label' => 'wild',
+                'label' => 'Wild',
+                'codes' => $this->getRwildKai()
+            ],
+            6 => [
+                'ui_label' => 'secondarycolor',
+                'label' => 'Accent Color',
+                'codes' => $this->getRaccentColorKai()
+            ],
+            7 => [
+                'ui_label' => 'highlightcolor',
+                'label' => 'Highlight Color',
+                'codes' => $this->getRhighlightColorKai()
+            ],
+            8 => [
+                'ui_label' => 'bodycolor',
+                'label' => 'Base Color',
+                'codes' => $this->getRbaseColorKai()
+            ],
+            9 => [
+                'ui_label' => 'eyeshape',
+                'label' => 'Eye Shape',
+                'codes' => $this->getReyeShapeKai()
+            ],
+            10 => [
+                'ui_label' => 'eyecolor',
+                'label' => 'Eye Color',
+                'codes' => $this->getReyeColorKai()
+            ],
+            11 => [
+                'ui_label' => 'pattern',
+                'label' => 'Pattern',
+                'codes' => $this->getRpatternKai()
+            ],
+            12 => [
+                'ui_label' => 'body',
+                'label' => 'Body',
+                'codes' => $this->getRfurKai()
+            ]
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRfurKai()
+    {
+        return $this->RfurKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRpatternKai()
+    {
+        return $this->RpatternKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReyeColorKai()
+    {
+        return $this->ReyeColorKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReyeShapeKai()
+    {
+        return $this->ReyeShapeKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRbaseColorKai()
+    {
+        return $this->RbaseColorKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRhighlightColorKai()
+    {
+        return $this->RhighlightColorKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRaccentColorKai()
+    {
+        return $this->RaccentColorKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRwildKai()
+    {
+        return $this->RwildKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRmouthKai()
+    {
+        return $this->RmouthKai;
+    }
+
+
 }
