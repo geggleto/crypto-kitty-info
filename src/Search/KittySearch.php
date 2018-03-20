@@ -465,15 +465,17 @@ x';
     public function getMegaArray()
     {
         $cattributes =
-            array_keys($this->getFurKai()) +
-            array_keys($this->getPatternKai()) +
-            array_keys($this->getEyeColorKai()) +
-            array_keys($this->getEyeShapeKai()) +
-            array_keys($this->getBaseColorKai()) +
-            array_keys($this->getHighlightColorKai()) +
-            array_keys($this->getAccentColorKai()) +
-            array_keys($this->getWildKai()) +
-            array_keys($this->getMouthKai())
+            array_merge(
+                array_keys($this->getFurKai()),
+                array_keys($this->getPatternKai()),
+                array_keys($this->getEyeColorKai()),
+                array_keys($this->getEyeShapeKai()),
+                array_keys($this->getBaseColorKai()),
+                array_keys($this->getHighlightColorKai()),
+                array_keys($this->getAccentColorKai()),
+                array_keys($this->getWildKai()),
+                array_keys($this->getMouthKai())
+            )
         ;
 
         return [
