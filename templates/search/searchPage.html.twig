@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
     {% include "_ga.html.twig" %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 {% include "nav.html.twig" %}
@@ -26,9 +28,28 @@
 </section>
 <section class="section">
     <div class="container is-fullhd" id="app">
-        <h1 class="has-text-weight-bold is-size-1">Search DNA</h1>
+        <h1 class="has-text-weight-bold is-size-1">DNA Search</h1>
 
-            
+        <div class="field">
+            <label class="label">Cattribute</label>
+            <div class="control">
+                <input class="input" id="cattribute" type="text">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label class="label">Query</label>
+            <div class="control">
+                <input class="input" type="text" v-model="query">
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-link" v-bind:href="getUrl()" target="_blank">Search</a>
+            </div>
+        </div>
 
     </div>
 </section>
@@ -51,7 +72,9 @@
         },
         delimiters : ['<%', '%>'],
         mounted : function () {
-
+            $( "#cattribute" ).autocomplete({
+                source: this.data.cattributes
+            });
         }
     })
 </script>
