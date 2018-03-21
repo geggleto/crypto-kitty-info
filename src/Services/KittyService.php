@@ -532,6 +532,8 @@ class KittyService
         $filters = [];
         $values = [];
 
+        $ordering = 'order by id asc';
+
         foreach ($params as $param => $value) {
             if ($param=='gen') {
                 $filters[] = $this->getGenFilter();
@@ -563,7 +565,9 @@ class KittyService
                 continue;
             }
 
-            if ($param === 'gen' || $param === 'genD' || $param === 'genU') {
+            if ($param === 'orderingDown') {
+                $ordering = 'order by id desc';
+            } else if ($param === 'gen' || $param === 'genD' || $param === 'genU') {
                 $values[] = $value;
             } else if (strlen($value) === 4) {
                 $values[] = str_replace('*','_', $value);
@@ -572,7 +576,7 @@ class KittyService
             }
         }
 
-        $query = $queryString . implode(' AND ', $filters) . ' LIMIT 500';
+        $query = $queryString . implode(' AND ', $filters) . ' ' . $ordering . ' LIMIT 500';
 
         //$this->logger->addDebug('Searching DB');
         //$this->logger->addDebug($query);
