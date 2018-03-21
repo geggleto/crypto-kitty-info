@@ -681,7 +681,7 @@ class KittyService
             $isItForSale = $forSale ? 'Yes' : 'No';
 
             //If we want on-sale and it is for sale... or we don't want sale
-            if ( ($onsale && $forSale && (!$price || $forSale <= $price)) || !$onsale) {
+            if ( ($onsale && $forSale) || !$onsale) {
 
 
                 $result[$id] = $this->getPrettyDnaKitten($id);
