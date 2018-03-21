@@ -11,4 +11,4 @@ $container = $app->getContainer();
 
 $kittyService = $container->get(KittyService::class);
 
-var_dump($kittyService->getKittyTable([635272], true, 0.01));
+var_dump($kittyService->getKittyTable([635272], true, 1));
