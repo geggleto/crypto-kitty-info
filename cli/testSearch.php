@@ -9,4 +9,6 @@ $app = new KittyApp();
 
 $container = $app->getContainer();
 
-var_dump(KittyService::getSaleInfo('546937'));
+$kittyService = $container->get(KittyService::class);
+
+var_dump($kittyService->getKittyTable([635272], true, 0.01));

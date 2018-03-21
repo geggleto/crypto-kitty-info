@@ -41,7 +41,9 @@ class SearchDnaController
 
         $onsale = isset($params['onsale']);
 
-        $kittyArray = $this->kittyService->getKittyTable($kitties, $onsale);
+        $price = isset($params['price'])?$params:false;
+
+        $kittyArray = $this->kittyService->getKittyTable($kitties, $onsale, $price);
 
         $categories = [
             'mouth',

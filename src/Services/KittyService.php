@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use Kitty\Search\KittySearch;
 use Monolog\Logger;
 use PDO;
+use function pow;
 use function sleep;
 use Slim\Http\Response;
 use function substr;
@@ -489,7 +490,13 @@ class KittyService
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    //Get Sale Info
+    /**
+     * @param $kittenId
+     *
+     * Returns the ETH amount if there is a sale
+     *
+     * @return bool|float|int
+     */
     public static function getSaleInfo($kittenId)
     {
         $hexId = dechex($kittenId);
@@ -500,11 +507,10 @@ class KittyService
 
         $client = new Client();
 
-        $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0x78bd793500000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
-
+        $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0xc55d0f5600000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
         $json = json_decode($response->getBody()->__toString(), true);
 
-        return (strlen($json['result']) > 8);
+        return ($json['result'] !== '0x')? hexdec(substr($json['result'],2+16*3)) / 10 ** 18 :false;
     }
 
     //Get Sale Info
@@ -661,7 +667,7 @@ class KittyService
 
     }
 
-    public function getKittyTable(array $ids, $onsale = false) {
+    public function getKittyTable(array $ids, $onsale = false, $price = false) {
         $result = [];
 
         foreach ($ids as $idResult) {
@@ -674,7 +680,9 @@ class KittyService
 
             $isItForSale = $forSale ? 'Yes' : 'No';
 
-            if ( ($onsale && $forSale) || !$onsale) {
+            //If we want on-sale and it is for sale... or we don't want sale
+            if ( ($onsale && $forSale && (!$price || $forSale <= $price)) || !$onsale) {
+
 
                 $result[$id] = $this->getPrettyDnaKitten($id);
                 $result[$id]['id'] = $id;
