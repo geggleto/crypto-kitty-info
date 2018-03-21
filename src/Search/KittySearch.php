@@ -400,7 +400,7 @@ x';
     {
         $this->makeKaiTranslation();
 
-        for ($x=0; $x<count($this->kaiTranslation); $x++) {
+        for ($x=0; $x<count($this->kaiTranslation)-1; $x++) {
             $kai = $this->kaiTranslation[$x];
 
             $this->furKai[$this->fur[$x]] = $kai;
