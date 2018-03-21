@@ -561,6 +561,8 @@ class KittyService
                 $filters[] = $this->getMouthFilter();
             } else if ($param=='no_fancy') {
                 $filters[] = $this->getNoFancyFilter();
+            } else if ($param === 'orderingDown') {
+                $ordering = 'order by id desc';
             } else {
                 continue;
             }
