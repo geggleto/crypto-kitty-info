@@ -691,7 +691,7 @@ class KittyService
                 $result[$id]['price'] = $forSale;
             }
 
-            if (count($result) === 100) {
+            if (count($result) === 200) {
                 break;
             }
         }
