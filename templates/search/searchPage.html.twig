@@ -61,6 +61,24 @@
             </div>
         </div>
 
+        <div class="field">
+            <label class="label">Generation</label>
+            <div class="control">
+                <input class="input" type="text" v-model="gen">
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-link" v-on:click="addGen(gen)">Add Generation</a>
+            </div>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <a class="button is-link" v-on:click="addReverseOrder">Reverse Order</a>
+            </div>
+        </div>
+
 
         <div class="field">
             <label class="label">Query</label>
@@ -89,7 +107,9 @@
             d0 : true,
             r1 : false,
             r2 : false,
-            r3 : false
+            r3 : false,
+            gen : 0,
+            reverseOrder : false
         },
         methods : {
             getUrl : function () {
@@ -143,6 +163,12 @@
                 }
 
                 return out;
+            },
+            addGen : function (gen) {
+                this.query = this.query+"&gen="+gen;
+            },
+            addReverseOrder : function (gen) {
+                this.query = this.query+"orderingDown=yes";
             }
         },
         delimiters : ['<%', '%>'],
