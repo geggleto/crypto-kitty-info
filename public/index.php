@@ -45,7 +45,7 @@ $app->get('/', HomePage::class);
 
 $app->get('/search', SearchDnaController::class);
 
-$app->get('/page', function (Response $res, $args) {
+$app->get('/page', function (Response $res) {
     return $res->write('Contact geggleto on discord');
 });
 
