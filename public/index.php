@@ -12,6 +12,7 @@ use Kitty\Http\SearchDnaController;
 use Kitty\Http\SearchPage;
 use Kitty\KittyApp;
 use Slim\Http\Request;
+use Slim\Http\Response;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
@@ -54,7 +55,7 @@ $app->get('/kitty/{id}', GetCattributesForKitty::class);
 
 $app->get('/battle/profile/{player_id}', Profile::class);
 
-$app->options('/{name:.+}', function ($req, $res, $args) {
+$app->options('/{name:.+}', function (Request $req, Response $res, $args) {
    return $res;
 });
 
