@@ -59,7 +59,7 @@ class SearchDnaController
 
         $categories = array_reverse($categories);
 
-        return $this->twig->render($response, 'search2.html.twig', [
+        return $this->twig->render($response, 'search.html.twig', [
             'kitties' => json_encode($kittyArray, JSON_PRETTY_PRINT),
             'categories' => $categories
         ]);

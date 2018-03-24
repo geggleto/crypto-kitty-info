@@ -1,34 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crypto Kitty Data</title>
-    <link rel="stylesheet" href="css/main.css">
-    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{% extends "layout.html.twig" %}
 
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-    {% include "_ga.html.twig" %}
-
-</head>
-<body>
-{% include "nav.html.twig" %}
-<section class="hero is-primary">
-    <div class="hero-body">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-8-desktop is-offset-2-desktop">
-                    <h1 class="subtitle is-4">
-                        We are working our dogs hard to get you data reports
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{% block content %}
 <section class="section">
     <div class="container is-fullhd" id="app">
         <h1 class="has-text-weight-bold is-size-1">Download Kitty DNA Profile</h1>
@@ -46,7 +18,7 @@
         </div>
     </div>
 </section>
-<script type="text/javascript" src="lib/main.js"></script>
+<script type="text/javascript" src="/lib/main.js"></script>
 <script type="application/javascript">
     var app = new Vue({
         el: '#app',
@@ -62,6 +34,4 @@
     })
 </script>
 
-{% include "_footer.html.twig" %}
-</body>
-</html>
+{% endblock %}
