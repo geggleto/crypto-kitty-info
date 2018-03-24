@@ -3,17 +3,9 @@
         "slim/slim": "^3.9",
         "php-di/slim-bridge": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
-        "chrisboulton/php-resque": "^1.2",
         "vlucas/phpdotenv": "^2.4",
         "monolog/monolog": "^1.23",
-        "bunny/bunny": "@dev",
-        "bitwasp/buffertools": "^0.5.0",
-        "slim/twig-view": "^2.3",
-        "cboden/ratchet": "^0.4.1",
-        "react/mysql" : "dev-master",
-        "league/tactician": "^1.0",
-        "symfony/event-dispatcher": "^4.0",
-        "ramsey/uuid": "^3.7"
+        "slim/twig-view": "^2.3"
     },
     "autoload" : {
         "psr-4" : {
