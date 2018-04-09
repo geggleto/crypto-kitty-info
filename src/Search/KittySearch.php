@@ -128,7 +128,7 @@ forgetmenot
 
 coralsunrise
 
-
+doridnudibranch
 
 cyan
 pumpkin
@@ -212,7 +212,7 @@ onyx
 ');
 
         $this->highlightColor = explode("\n", '
-
+springcrocus
 egyptiankohl
 poisonberry
 lilac
@@ -258,7 +258,7 @@ purplehaze
 azaleablush
 missmuffet
 morningglory
-
+frosting
 daffodil
 flamingo
 
@@ -270,7 +270,7 @@ periwinkle
 seafoam
 
 
-
+mintmacaron
 
 
 ');
