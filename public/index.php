@@ -55,7 +55,7 @@ $app->get('/kitty/{id}', GetCattributesForKitty::class);
 
 $app->get('/battle/profile/{player_id}', Profile::class);
 
-$app->options('/{name:.+}', function (Request $req, Response $res, $args) {
+$app->options('/{name:.+}', function (Request $req, Response $res) {
    return $res;
 });
 
