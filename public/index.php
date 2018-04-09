@@ -56,20 +56,28 @@ $app->get('/kitty/{id}', GetCattributesForKitty::class);
 $app->get('/battle/profile/{player_id}', Profile::class);
 
 $app->options('/{name:.+}', function (Request $req, Response $res) {
-   return $res;
+    return $res
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+
 });
 
 $app->post('/fetch/dna', [ProfileController::class, 'fetchDnaForKitties']);
 
 $app->get('/v2/search', SearchController::class);
 
-$app->add(function (Request $req, $res, $next) {
+$app->add(function (Request $req, Response $res, $next) {
+    /** @var  $response Response */
     $response = $next($req, $res);
+
     return $response
-        //->withHeader('Access-Control-Allow-Origin', substr($req->getServerParam('HTTP_REFERER'),0, -1))
         ->withHeader('Access-Control-Allow-Origin', '*')
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+
+//->withHeader('Access-Control-Allow-Origin', substr($req->getServerParam('HTTP_REFERER'),0, -1))
+
 });
 
 
