@@ -2,6 +2,7 @@
 
 use Kitty\Http\BattleZone\BattlePage;
 use Kitty\Http\BattleZone\Profile;
+use Kitty\Http\CorsBullshit;
 use Kitty\Http\DnaController;
 use Kitty\Http\GetCattributesForKitty;
 use Kitty\Http\HomePage;
@@ -55,16 +56,7 @@ $app->get('/kitty/{id}', GetCattributesForKitty::class);
 
 $app->get('/battle/profile/{player_id}', Profile::class);
 
-$app->options('/{name:.+}', function (Request $req, Response $res) {
-    var_dump("thing");
-    die();
-
-    return $res
-        ->withHeader('Access-Control-Allow-Origin', '*')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-
-});
+$app->options('{name:.+}', CorsBullshit::class);
 
 $app->post('/fetch/dna', [ProfileController::class, 'fetchDnaForKitties']);
 
