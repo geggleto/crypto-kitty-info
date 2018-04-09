@@ -415,6 +415,7 @@ class KittyService
     {
         $list = [];
         $offset = 0;
+        $total = 0;
 
         $client = new Client();
 
