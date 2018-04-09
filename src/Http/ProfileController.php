@@ -51,14 +51,11 @@ class ProfileController
     public function fetchDnaForKitties(Request $request, Response $response)
     {
         $body = $request->getParsedBody();
-
-        var_dump($body);
-        die();
-
         $result = [];
 
         if (isset($body['kitties'])) {
             foreach ($body['kitties'] as $kitty) {
+
                 $id = $kitty['id'];
 
                 $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
