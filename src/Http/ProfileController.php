@@ -11,6 +11,7 @@ use Kitty\Services\KittyService;
 use function set_time_limit;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use function var_dump;
 
 class ProfileController
 {
@@ -49,14 +50,19 @@ class ProfileController
 
     public function fetchDnaForKitties(Request $request, Response $response)
     {
-        $kitties = $request->getParsedBodyParam('kitties');
+        $body = $request->getParsedBody();
+
+        var_dump($body);
+        die();
 
         $result = [];
 
-        foreach ($kitties as $kitty) {
-            $id = $kitty['id'];
+        if (isset($body['kitties'])) {
+            foreach ($body['kitties'] as $kitty) {
+                $id = $kitty['id'];
 
-            $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
+                $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
+            }
         }
 
         return $response->withJson($result, 200, JSON_PRETTY_PRINT);
