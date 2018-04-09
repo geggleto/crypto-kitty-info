@@ -59,6 +59,8 @@ $app->options('/{name:.+}', function (Request $req, Response $res, $args) {
    return $res;
 });
 
+$app->post('/fetch/dna', [ProfileController::class, 'fetchDnaForKitties']);
+
 $app->get('/v2/search', SearchController::class);
 
 $app->add(function (Request $req, $res, $next) {

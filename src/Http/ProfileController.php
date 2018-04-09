@@ -45,6 +45,20 @@ class ProfileController
         $ids = KittyService::getAllKittiesOnProfile(strtolower($profile));
 
         return $this->kittyService->writeCsv($ids, $response);
+    }
 
+    public function fetchDnaForKitties(Request $request, Response $response)
+    {
+        $kitties = $request->getParsedBodyParam('kitties');
+
+        $result = [];
+
+        foreach ($kitties as $kitty) {
+            $id = $kitty['id'];
+
+            $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
+        }
+
+        return $response->withJson($result, 200, JSON_PRETTY_PRINT);
     }
 }
