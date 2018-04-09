@@ -66,9 +66,10 @@ $app->get('/v2/search', SearchController::class);
 $app->add(function (Request $req, $res, $next) {
     $response = $next($req, $res);
     return $response
-        ->withHeader('Access-Control-Allow-Origin', substr($req->getServerParam('HTTP_REFERER'),0, -1))
+        //->withHeader('Access-Control-Allow-Origin', substr($req->getServerParam('HTTP_REFERER'),0, -1))
+        ->withHeader('Access-Control-Allow-Origin', '*')
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 });
 
 
