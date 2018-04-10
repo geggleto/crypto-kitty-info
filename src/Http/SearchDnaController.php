@@ -69,6 +69,22 @@ class SearchDnaController
     {
         $kitties = $this->kittyService->findKittiesFromArray($request->getParsedBody());
 
+        /**
+         * if (isset($body['kitties'])) {
+        foreach ($body['kitties'] as $kitty) {
+
+        $id = $kitty['id'];
+
+        $result[$id] = $this->kittyService->getPrettyDnaKitten($id);
+        }
+        }
+         */
+        $result = [];
+
+        foreach ($kitties as $kitty) {
+            $result[$kitty['id']] = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+        }
+
         return $response->withJson($kitties, 200, JSON_PRETTY_PRINT);
     }
 }
