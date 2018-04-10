@@ -534,7 +534,7 @@ class KittyService
         $values = [];
 
         $ordering = 'order by id asc';
-        $limiting = 'LIMIT 100';
+        $limiting = 'LIMIT 500';
 
         foreach ($params as $param => $value) {
             if ($param=='gen') {
@@ -564,7 +564,7 @@ class KittyService
             } else if ($param=='no_fancy') {
                 $filters[] = $this->getNoFancyFilter();
             } else if ($param=='offset') {
-                $limiting = 'LIMIT 100 OFFSET ' . $value;
+                $limiting = 'LIMIT 500 OFFSET ' . $value;
             } else if ($param === 'orderingDown') {
                 $ordering = 'order by id desc';
             } else {
