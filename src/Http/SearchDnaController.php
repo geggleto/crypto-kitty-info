@@ -69,6 +69,6 @@ class SearchDnaController
     {
         $kitties = $this->kittyService->findKittiesFromArray($request->getParsedBody());
 
-        return $response->withJson($kitties, JSON_PRETTY_PRINT);
+        return $response->withJson($kitties, 200, JSON_PRETTY_PRINT);
     }
 }
