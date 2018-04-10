@@ -22,6 +22,7 @@ class MyProfile
 
     public function __invoke(Request $request, Response $response)
     {
-        return $this->twig->render($response, 'profile.html.twig');
+        return $response->withRedirect('http://cryptokittydata.info');
+        //return $this->twig->render($response, 'profile.html.twig');
     }
 }

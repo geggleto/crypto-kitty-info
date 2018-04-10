@@ -67,7 +67,7 @@ class SearchDnaController
 
     public function query(Request $request, Response $response)
     {
-        $kitties = $this->kittyService->findKittiesFromArray($request->getQueryParams());
+        $kitties = $this->kittyService->findKittiesFromArray($request->getParsedBody());
 
         return $response->withJson($kitties, JSON_PRETTY_PRINT);
     }
