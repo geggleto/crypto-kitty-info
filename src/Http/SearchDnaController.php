@@ -85,6 +85,6 @@ class SearchDnaController
             $result[$kitty['id']] = $this->kittyService->getPrettyDnaKitten($kitty['id']);
         }
 
-        return $response->withJson($kitties, 200, JSON_PRETTY_PRINT);
+        return $response->withJson($result, 200, JSON_PRETTY_PRINT);
     }
 }
