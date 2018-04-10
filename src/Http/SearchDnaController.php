@@ -72,7 +72,16 @@ class SearchDnaController
         $result = [];
 
         foreach ($kitties as $kitty) {
-            $result[$kitty['id']] = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+
+            $forSale = KittyService::getSaleInfo($kitty['id']);
+
+            if ($forSale) {
+                $cat = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+                $cat['sale'] = $forSale;
+
+                $result[$kitty['id']] = $cat;
+            }
+
         }
 
         return $response->withJson($result, 200, JSON_PRETTY_PRINT);
