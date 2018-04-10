@@ -534,6 +534,7 @@ class KittyService
         $values = [];
 
         $ordering = 'order by id asc';
+        $limiting = 'LIMIT 100';
 
         foreach ($params as $param => $value) {
             if ($param=='gen') {
@@ -562,6 +563,8 @@ class KittyService
                 $filters[] = $this->getMouthFilter();
             } else if ($param=='no_fancy') {
                 $filters[] = $this->getNoFancyFilter();
+            } else if ($param=='offset') {
+                $limiting = 'LIMIT 100 OFFSET ' . $value;
             } else if ($param === 'orderingDown') {
                 $ordering = 'order by id desc';
             } else {
@@ -570,6 +573,8 @@ class KittyService
 
             if ($param === 'orderingDown') {
                 $ordering = 'order by id desc';
+            } else if ($param === 'offset') {
+
             } else if ($param === 'gen' || $param === 'genD' || $param === 'genU') {
                 $values[] = $value;
             } else if (strlen($value) === 4) {
@@ -579,19 +584,10 @@ class KittyService
             }
         }
 
-        $query = $queryString . implode(' AND ', $filters) . ' ' . $ordering . ' LIMIT 500';
-
-        //$this->logger->addDebug('Searching DB');
-        //$this->logger->addDebug($query);
-        //$this->logger->addDebug($values);
-
-//        var_dump($query);
-//        var_dump($values);
+        $query = $queryString . implode(' AND ', $filters) . ' ' . $ordering . ' ' . $limiting;
 
         $statement = $this->PDO->prepare($query);
         $statement->execute($values);
-
-        //$this->logger->addDebug('Done Search');
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }

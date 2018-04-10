@@ -64,4 +64,11 @@ class SearchDnaController
             'categories' => $categories
         ]);
     }
+
+    public function query(Request $request, Response $response)
+    {
+        $kitties = $this->kittyService->findKittiesFromArray($request->getQueryParams());
+
+        return $response->withJson($kitties, JSON_PRETTY_PRINT);
+    }
 }
