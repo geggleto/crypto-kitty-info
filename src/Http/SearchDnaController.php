@@ -67,9 +67,14 @@ class SearchDnaController
 
     public function query(Request $request, Response $response)
     {
+        $count = $this->kittyService->getCountKittiesFromArray($request->getParsedBody());
+
         $kitties = $this->kittyService->findKittiesFromArray($request->getParsedBody());
 
-        $result = [];
+        $result = [
+            'count' => $count['count'],
+            'results' => []
+        ];
 
         foreach ($kitties as $kitty) {
 
@@ -79,7 +84,7 @@ class SearchDnaController
                 $cat = $this->kittyService->getPrettyDnaKitten($kitty['id']);
                 $cat['sale'] = $forSale;
 
-                $result[$kitty['id']] = $cat;
+                $result['results'][$kitty['id']] = $cat;
             }
 
         }

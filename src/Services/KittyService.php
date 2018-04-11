@@ -526,6 +526,73 @@ class KittyService
         return $out;
     }
 
+    public function getCountKittiesFromArray(array $params) {
+        //Query Builder
+        $queryString = "select count(*) as `count` from kitties where ";
+
+        $filters = [];
+        $values = [];
+
+        $ordering = 'order by id asc';
+        $limiting = 'LIMIT 500';
+
+        foreach ($params as $param => $value) {
+            if ($param=='gen') {
+                $filters[] = $this->getGenFilter();
+            } else if ($param=='genU') {
+                $filters[] = $this->getGenUpFilter();
+            } else if ($param=='genD') {
+                $filters[] = $this->getGenDownFilter();
+            } else if ($param=='fur') {
+                $filters[] = $this->getBodyFilter();
+            } else if ($param=='baseColor') {
+                $filters[] = $this->getBodyColorFilter();
+            } else if ($param=='pattern') {
+                $filters[] = $this->getPatternFilter();
+            } else if ($param=='eyeColor') {
+                $filters[] = $this->getEyeColorFilter();
+            } else if ($param=='eyeShape') {
+                $filters[] = $this->getEyeShapeFilter();
+            } else if ($param=='highlightColor') {
+                $filters[] = $this->getHighlightColorFilter();
+            } else if ($param=='accentColor') {
+                $filters[] = $this->getAccentColorFilter();
+            } else if ($param=='wild') {
+                $filters[] = $this->getWildFilter();
+            } else if ($param=='mouth') {
+                $filters[] = $this->getMouthFilter();
+            } else if ($param=='no_fancy') {
+                $filters[] = $this->getNoFancyFilter();
+            } else if ($param=='offset') {
+                $limiting = 'LIMIT 500 OFFSET ' . $value;
+            } else if ($param === 'orderingDown') {
+                $ordering = 'order by id desc';
+            } else {
+                continue;
+            }
+
+            if ($param === 'orderingDown') {
+                $ordering = 'order by id desc';
+            } else if ($param === 'offset') {
+
+            } else if ($param === 'gen' || $param === 'genD' || $param === 'genU') {
+                $values[] = $value;
+            } else if (strlen($value) === 4) {
+                $values[] = str_replace('*','_', $value);
+            } else {
+                throw new \InvalidArgumentException('Values must be 4 kai codes');
+            }
+        }
+
+        $query = $queryString . implode(' AND ', $filters) . ' ' . $ordering . ' ' . $limiting;
+
+        $statement = $this->PDO->prepare($query);
+        $statement->execute($values);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+
+    }
+
     public function findKittiesFromArray(array $params) {
         //Query Builder
         $queryString = "select id, gen, json_extract(kitty, '$.is_fancy') as `fancy` from kitties where ";
