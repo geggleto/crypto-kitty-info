@@ -95,3 +95,5 @@ foreach ($buckets as $cattributeType => $cattributes)
         $out['colortertiary'] = array_diff($cattributes, $accentColor);
     }
 }
+
+print json_encode($out, JSON_PRETTY_PRINT);
