@@ -29,15 +29,19 @@ $buckets = [];
 
 foreach ($rows as $row)
 {
-    $bucket = $row['type'];
-    $cattribute = $row['description'];
+    $cattributes = json_decode($row['cattributes'], true);
 
-    if (!isset($buckets[$bucket])) {
-        $buckets[$bucket] = [];
-    }
+    foreach ($cattributes as $cattribute) {
+        $bucket     = $cattribute['type'];
+        $cattribute = $cattribute['description'];
 
-    if (!in_array($cattribute, $buckets[$bucket])) {
-        $buckets[$bucket][] = $cattribute;
+        if (!isset($buckets[$bucket])) {
+            $buckets[$bucket] = [];
+        }
+
+        if (!in_array($cattribute, $buckets[$bucket])) {
+            $buckets[$bucket][] = $cattribute;
+        }
     }
 }
 
