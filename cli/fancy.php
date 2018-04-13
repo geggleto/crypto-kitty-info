@@ -61,7 +61,9 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['body'] = array_diff($cattributes, $body);
+        $out['body'] = array_diff($body, $cattributes);
+
+        var_dump($out);
     }
     //mouth
     if ($cattributeType === 'mouth') {
@@ -69,7 +71,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['mouth'] = array_diff($cattributes, $mouth);
+        $out['mouth'] = array_diff($mouth, $cattributes);
     }
     //coloreyes
     if ($cattributeType === 'coloreyes') {
@@ -77,7 +79,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['coloreyes'] = array_diff($cattributes, $eyeColor);
+        $out['coloreyes'] = array_diff($eyeColor, $cattributes);
     }
     //colorprimary
     if ($cattributeType === 'colorprimary') {
@@ -85,7 +87,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['colorprimary'] = array_diff($cattributes, $baseColor);
+        $out['colorprimary'] = array_diff($baseColor, $cattributes);
     }
     //colortertiary
     if ($cattributeType === 'colortertiary') {
@@ -93,7 +95,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['colortertiary'] = array_diff($cattributes, $accentColor);
+        $out['colortertiary'] = array_diff($accentColor, $cattributes);
     }
 }
 
