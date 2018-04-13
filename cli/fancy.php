@@ -12,7 +12,7 @@ $container = $app->getContainer();
 
 $pdo = $container->get(\PDO::class);
 
-$query = 'select id, JSON_EXTRACT(kitty, \'$.is_fancy\'), JSON_EXTRACT(kitty, \'$.enhanced_cattributes\') from kitties
+$query = 'select id, JSON_EXTRACT(kitty, \'$.is_fancy\') as fancy, JSON_EXTRACT(kitty, \'$.enhanced_cattributes\') as cattributes from kitties
 where
 id > 680000
 and JSON_EXTRACT(kitty, \'$.enhanced_cattributes\') LIKE \'%springcrocus%\'
