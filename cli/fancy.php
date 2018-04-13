@@ -60,7 +60,8 @@ foreach ($buckets as $cattributeType => $cattributes)
         $body = array_filter($kittySearch->getFur(), function ($row) {
             return !empty($row);
         });
-        $out['body'] = array_diff($body, $cattributes);
+
+        $out['body'] = array_diff($cattributes, $body);
     }
     //mouth
     if ($cattributeType === 'mouth') {
@@ -68,7 +69,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['mouth'] = array_diff($mouth, $cattributes);
+        $out['mouth'] = array_diff($cattributes, $mouth);
     }
     //coloreyes
     if ($cattributeType === 'coloreyes') {
@@ -76,7 +77,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['coloreyes'] = array_diff($eyeColor, $cattributes);
+        $out['coloreyes'] = array_diff($cattributes, $eyeColor);
     }
     //colorprimary
     if ($cattributeType === 'colorprimary') {
@@ -84,7 +85,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['colorprimary'] = array_diff($baseColor, $cattributes);
+        $out['colorprimary'] = array_diff($cattributes, $baseColor);
     }
     //colortertiary
     if ($cattributeType === 'colortertiary') {
@@ -92,7 +93,7 @@ foreach ($buckets as $cattributeType => $cattributes)
             return !empty($row);
         });
 
-        $out['colortertiary'] = array_diff($accentColor, $cattributes);
+        $out['colortertiary'] = array_diff($cattributes, $accentColor);
     }
 }
 
