@@ -155,7 +155,7 @@ otaku
 simple
 crazy
 thicccbrowz
-
+caffeine
 
 baddate
 
@@ -266,7 +266,7 @@ bloodred
 
 
 periwinkle
-
+patrickstarfish
 seafoam
 
 
@@ -295,7 +295,7 @@ wild_h
 elk
 wild_j
 trioculus
-wild_m
+daemonwings
 wild_n
 wild_o
 wild_p
