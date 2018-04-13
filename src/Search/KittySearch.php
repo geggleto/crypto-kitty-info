@@ -639,5 +639,78 @@ x';
         return $this->RmouthKai;
     }
 
+    /**
+     * @return array
+     */
+    public function getFur(): array
+    {
+        return $this->fur;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPattern(): array
+    {
+        return $this->pattern;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEyeColor(): array
+    {
+        return $this->eyeColor;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEyeShape(): array
+    {
+        return $this->eyeShape;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBaseColor(): array
+    {
+        return $this->baseColor;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHighlightColor(): array
+    {
+        return $this->highlightColor;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAccentColor(): array
+    {
+        return $this->accentColor;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWild(): array
+    {
+        return $this->wild;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMouth(): array
+    {
+        return $this->mouth;
+    }
+
+
 
 }
