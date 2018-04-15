@@ -60,9 +60,9 @@ $app->post('/fetch/dna', [ProfileController::class, 'fetchDnaForKitties']);
 $app->get('/dna/profile/{profile}/csv', [ProfileController::class, 'exportToCsv']);
 
 //Search Things
-$app->get('/v2/search', SearchController::class);
-$app->get('/search', SearchDnaController::class);
-$app->post('/search', [SearchDnaController::class, 'query']);
+//$app->get('/v2/search', SearchController::class);
+//$app->get('/search', SearchDnaController::class);
+$app->post('/{profile}/search', [SearchDnaController::class, 'query']);
 
 $app->post('/authorizations', Authorization::class);
 
