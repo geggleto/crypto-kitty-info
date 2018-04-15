@@ -29,6 +29,7 @@ $app->post('/authorizations', Authorization::class);
 
 
 $app->add(function (Request $req, Response $res, $next) {
+
     /** @var  $response Response */
     $response = $next($req, $res);
 

@@ -25,9 +25,9 @@ class AuthService
      */
     public function authorize($profile)
     {
-        $statement = $this->pdo->prepare('select * from authorizations where playerId = ?');
+        $statement = $this->pdo->prepare('select * from authorizations where UPPER(playerId) = ?');
 
-        $statement->execute([$profile]);
+        $statement->execute([strtoupper($profile)]);
 
         return $statement->rowCount() >= 1;
     }
