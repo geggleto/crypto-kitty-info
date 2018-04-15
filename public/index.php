@@ -12,6 +12,7 @@ use Kitty\Http\Search\SearchController;
 use Kitty\Http\SearchDnaController;
 use Kitty\Http\SearchPage;
 use Kitty\KittyApp;
+use Kitty\Security\Authorization;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -63,6 +64,7 @@ $app->get('/v2/search', SearchController::class);
 $app->get('/search', SearchDnaController::class);
 $app->post('/search', [SearchDnaController::class, 'query']);
 
+$app->post('/authorizations', Authorization::class);
 
 
 $app->add(function (Request $req, Response $res, $next) {
