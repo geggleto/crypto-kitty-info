@@ -222,6 +222,14 @@ class KittyService
         return $result['max'];
     }
 
+    public function getMaxMewInDb()
+    {
+        $statement = $this->PDO->query('select Coalesce(max(id), 0) as `max` from kitty_mewtations;');
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['max'];
+    }
+
     public function findBody($kai = '')
     {
         $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 45) = ?');
