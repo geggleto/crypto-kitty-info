@@ -24,16 +24,14 @@ $insert = $pdo->prepare('insert into `kitty_mewtation_sales` (kitty_id, cattribu
 foreach ($cattributes as $cattribute) {
     $cat = $cattribute['description'];
 
-    $kitties = array_filter($kittyService->getMewtations($cat), function (array $kitty) {
-        return (bool)$kitty['price'];
-    });
+    $kitties = $kittyService->getMewtations($cat);
 
     foreach ($kitties as $kitty) {
         $insert->execute([
-         $kitty['id'],
-         $cat,
-         $kitty['position'],
-         $kitty['price']
+             $kitty['id'],
+             $cat,
+             $kitty['position'],
+             $kitty['price']
          ]);
     }
 

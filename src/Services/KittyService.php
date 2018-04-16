@@ -830,11 +830,15 @@ order by position asc LIMIT 100;');
         $out = [];
 
         foreach ($kitties as $kitty) {
-            $out[] = [
-                'id' => $kitty['id'],
-                'position' => $kitty['position'],
-                'price' => KittyService::getSaleInfo($kitty['id'])
-            ];
+            $price = KittyService::getSaleInfo($kitty['id']);
+
+            if ($price) {
+                $out[] = [
+                    'id'       => $kitty['id'],
+                    'position' => $kitty['position'],
+                    'price'    => $price
+                ];
+            }
         }
 
         return $out;
