@@ -28,12 +28,15 @@ foreach ($cattributes as $cattribute) {
         return (bool)$kitty['price'];
     });
 
-    $insert->execute([
-        $kitties['id'],
-        $cat,
-        $kitties['position'],
-        $kitties['price']
-    ]);
+    foreach ($kitties as $kitty) {
+        $insert->execute([
+         $kitty['id'],
+         $cat,
+         $kitty['position'],
+         $kitty['price']
+         ]);
+    }
+
 }
 
 print "done\n";
