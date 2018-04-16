@@ -12,42 +12,20 @@ use Slim\Http\Response;
 class MewtationSearch
 {
     /**
-     * @var PDO
+     * @var KittyService
      */
-    private $pdo;
+    private $kittyService;
 
-    public function __construct(PDO $pdo)
+    public function __construct(KittyService $kittyService)
     {
-        $this->pdo = $pdo;
+        $this->kittyService = $kittyService;
     }
 
     public function __invoke(Request $request, Response $response)
     {
         $body = $request->getParsedBody();
 
-        $statement = $this->pdo->prepare('select
-kitty_jewel_id as `id`,
-`position`
-from
-kitty_mewtations
-where 
-description LIKE ?
-and kitty_id = kitty_jewel_id
-order by position asc LIMIT 100;');
-
-        $statement->execute(['%'.$body['cattribute'] . '%']);
-
-        $kitties = $statement->fetchAll();
-
-        $out = [];
-
-        foreach ($kitties as $kitty) {
-            $out[] = [
-                'id' => $kitty['id'],
-                'position' => $kitty['position'],
-                'price' => KittyService::getSaleInfo($kitty['id'])
-            ];
-        }
+        $out = $this->kittyService->getMewtations($body['cattribute']);
 
         return $response->withJson($out);
     }

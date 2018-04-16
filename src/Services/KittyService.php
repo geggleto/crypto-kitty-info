@@ -811,5 +811,33 @@ class KittyService
         return $this->kai;
     }
 
+    public function getMewtations($cattribute)
+    {
+        $statement = $this->PDO->prepare('select
+kitty_jewel_id as `id`,
+`position`
+from
+kitty_mewtations
+where 
+description LIKE ?
+and kitty_id = kitty_jewel_id
+order by position asc LIMIT 100;');
+
+        $statement->execute(['%'.$cattribute . '%']);
+
+        $kitties = $statement->fetchAll();
+
+        $out = [];
+
+        foreach ($kitties as $kitty) {
+            $out[] = [
+                'id' => $kitty['id'],
+                'position' => $kitty['position'],
+                'price' => KittyService::getSaleInfo($kitty['id'])
+            ];
+        }
+
+        return $out;
+    }
 
 }
