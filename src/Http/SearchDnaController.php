@@ -103,9 +103,8 @@ class SearchDnaController
         foreach ($kitties as $kitty) {
 
             $forSale = '';
-            if ($onsale) {
-                $forSale = KittyService::getSaleInfo($kitty['id']);
-            }
+
+            $forSale = KittyService::getSaleInfo($kitty['id']);
 
             if (($onsale && $forSale) || !$onsale) {
 
