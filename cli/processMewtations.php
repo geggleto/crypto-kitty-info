@@ -1,5 +1,6 @@
 <?php
 
+set_time_limit(0);
 
 use GuzzleHttp\Client;
 use Kitty\KittyApp;
@@ -11,16 +12,20 @@ $app = new KittyApp();
 
 $container = $app->getContainer();
 
-/** @var $kittyService KittyService */
-$kittyService = $container->get(KittyService::class);
+$pdo = $container->get(PDO::class);
 
+for ($x = 0; $x<=8; $x++) {
+    print "Processing Position {$x}\n";
 
-$dbAt = $kittyService->getMaxInDb();
-
-//print "Contract At {$contractMax} and Database At : {$dbAt}\n";
-
-for ($x=$dbAt+1; $x<=$contractMax; $x++) {
-    //print "Loading Kitty: $x\n";
-
-    $kittyService->insertKitty($x);
+    $pdo->query("insert ignore into kitty_mewtations
+SELECT
+NULL,
+kitties.id,
+kitty->\"$.enhanced_cattributes[{$x}].kittyId\",
+kitty->\"$.enhanced_cattributes[{$x}].type\",
+kitty->\"$.enhanced_cattributes[{$x}].position\",
+kitty->\"$.enhanced_cattributes[{$x}].description\"
+from
+kitties
+where kitty->\"$.enhanced_cattributes[{$x}].position\" > 0 AND kitty->\"$.enhanced_cattributes[{$x}].position\" <= 500;");
 }
