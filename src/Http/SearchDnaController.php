@@ -82,25 +82,35 @@ class SearchDnaController
             return $response->withStatus(401);
         }
 
-        $count = $this->kittyService->getCountKittiesFromArray($request->getParsedBody());
+        $body = $request->getParsedBody();
 
-        $kitties = $this->kittyService->findKittiesFromArray($request->getParsedBody());
+        $count = $this->kittyService->getCountKittiesFromArray($body);
+
+        $kitties = $this->kittyService->findKittiesFromArray($body);
 
         $result = [
             'count' => $count['count'],
             'results' => []
         ];
 
+        $onsale = false;
+
+        if (isset($body['onsale']) && $body['onsale'] === 'true')
+        {
+            $onsale = true;
+        }
+
         foreach ($kitties as $kitty) {
 
-            $forSale = KittyService::getSaleInfo($kitty['id']);
-
-            if ($forSale) {
-                $cat = $this->kittyService->getPrettyDnaKitten($kitty['id']);
-                $cat['sale'] = $forSale;
-
-                $result['results'][$kitty['id']] = $cat;
+            $forSale = '';
+            if ($onsale) {
+                $forSale = KittyService::getSaleInfo($kitty['id']);
             }
+
+            $cat = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+            $cat['sale'] = $forSale;
+
+            $result['results'][$kitty['id']] = $cat;
 
         }
 
