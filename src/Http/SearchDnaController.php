@@ -107,10 +107,13 @@ class SearchDnaController
                 $forSale = KittyService::getSaleInfo($kitty['id']);
             }
 
-            $cat = $this->kittyService->getPrettyDnaKitten($kitty['id']);
-            $cat['sale'] = $forSale;
+            if (($onsale && $forSale) || !$onsale) {
 
-            $result['results'][$kitty['id']] = $cat;
+                $cat         = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+                $cat['sale'] = $forSale;
+
+                $result['results'][$kitty['id']] = $cat;
+            }
 
         }
 
