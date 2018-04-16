@@ -35,7 +35,7 @@ description LIKE ?
 and kitty_id = kitty_jewel_id
 order by position asc LIMIT 100;');
 
-        $statement->execute([$body['cattribute']]);
+        $statement->execute(['%'.$body['cattribute'] . '%']);
 
         $kitties = $statement->fetchAll();
 
