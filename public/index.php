@@ -5,6 +5,7 @@ use Kitty\Http\CorsBullshit;
 use Kitty\Http\ProfileController;
 use Kitty\Http\SearchDnaController;
 use Kitty\KittyApp;
+use Kitty\Search\MewtationSearch;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -26,6 +27,8 @@ $app->get('/dna/profile/{profile}/csv', [ProfileController::class, 'exportToCsv'
 $app->post('/{profile}/search', [SearchDnaController::class, 'query']);
 
 $app->post('/authorizations', Authorization::class);
+
+$app->post('/search/mewtation', MewtationSearch::class);
 
 
 $app->add(function (Request $req, Response $res, $next) {
