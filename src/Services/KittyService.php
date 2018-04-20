@@ -821,7 +821,7 @@ kitty_mewtations
 where 
 description LIKE ?
 and kitty_id = kitty_jewel_id
-order by position asc LIMIT 100;');
+order by position asc LIMIT 500;');
 
         $statement->execute(['%'.$cattribute . '%']);
 
