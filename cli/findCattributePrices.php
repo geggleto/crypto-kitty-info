@@ -16,7 +16,7 @@ $genMax = 5;
 
 $pdo = $container->get(PDO::class);
 
-$pdo->query('truncate table `kitty_attribute_prices`');
+//$pdo->query('truncate table `kitty_attribute_prices`');
 
 $statement = $pdo->prepare('insert into `kitty_attribute_prices` (generation, cattribute,price,`date`) VALUES(?,?,?,?)');
 
