@@ -28,7 +28,7 @@ foreach ($cattributes as $cattribute) {
     if ($attribute !== 'totesbasic') {
 
         for ($gen = 0; $gen <= 5; $gen++) {
-            $result = json_decode(file_get_contents('https://api.cryptokitties.co/v2/kitties?offset=0&limit=12&search=sphynx+gen:1&parents=false&authenticated=true&include=sale&orderBy=current_price&orderDirection=asc'), true);
+            $result = json_decode(file_get_contents('https://api.cryptokitties.co/v2/kitties?offset=0&limit=12&search='.$attribute.'+gen:'.$gen.'&parents=false&authenticated=true&include=sale&orderBy=current_price&orderDirection=asc'), true);
 
             $price = (int)substr($result['kitties'][0]['auction']['current_price'], 0, 6) / 10 ** 7;
 
