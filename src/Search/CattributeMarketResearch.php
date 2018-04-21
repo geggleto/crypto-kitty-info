@@ -29,6 +29,6 @@ class CattributeMarketResearch
     {
         $result = $this->pdo->query('select generation, cattribute, price from `kitty_attribute_prices`');
 
-        return $response->withJson($result->fetchAll());
+        return $response->withJson($result->fetchAll(PDO::FETCH_ASSOC));
     }
 }
