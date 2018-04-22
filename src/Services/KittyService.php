@@ -483,7 +483,8 @@ class KittyService
                 'D0' => $d0,
                 'R1' => $r1,
                 'R2' => $r2,
-                'R3' => $r3
+                'R3' => $r3,
+                'kai' => $dna
             ];
         }
 
