@@ -27,7 +27,7 @@ class CattributeMarketResearch
 
     public function __invoke(Request $request, Response $response)
     {
-        $result = $this->pdo->query('select generation, cattribute, price from `kitty_attribute_prices`');
+        $result = $this->pdo->query('select generation, cattribute, price from `kitty_attribute_prices` where `date` = date(NOW())');
 
         return $response->withJson($result->fetchAll(PDO::FETCH_ASSOC));
     }
