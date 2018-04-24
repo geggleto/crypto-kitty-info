@@ -637,6 +637,12 @@ class KittyService
                 $filters[] = $this->getWildFilter();
             } else if ($param=='mouth') {
                 $filters[] = $this->getMouthFilter();
+            } else if ($param=='unknown') {
+                $filters[] = $this->getUnknownFilter();
+            } else if ($param=='secret') {
+                $filters[] = $this->getSecretFilter();
+            } else if ($param=='mystery') {
+                $filters[] = $this->getMysteryFilter();
             } else if ($param=='no_fancy') {
                 $filters[] = $this->getNoFancyFilter();
             } else if ($param=='offset') {
@@ -717,6 +723,18 @@ class KittyService
 
     protected function getMouthFilter() {
         return 'substr(genes_kai, 13,4) LIKE ?';
+    }
+
+    protected function getMysteryFilter() {
+        return 'substr(genes_kai, 9,4) LIKE ?';
+    }
+
+    protected function getSecretFilter() {
+        return 'substr(genes_kai, 5,4) LIKE ?';
+    }
+
+    protected function getUnknownFilter() {
+        return 'substr(genes_kai, 1,4) LIKE ?';
     }
 
     public function writeCsv(array $ids, Response $response, $filename = 'profile.csv') {
