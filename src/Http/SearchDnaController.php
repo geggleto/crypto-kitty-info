@@ -8,6 +8,7 @@ use function array_reverse;
 use function implode;
 use InvalidArgumentException;
 use const JSON_PRETTY_PRINT;
+use Kitty\Search\KittySearch;
 use Kitty\Security\AuthService;
 use Kitty\Services\KittyService;
 use PDO;
@@ -29,6 +30,10 @@ class SearchDnaController
      * @var AuthService
      */
     private $authService;
+    /**
+     * @var KittySearch
+     */
+    private $kittySearch;
 
     /**
      * SearchDnaController constructor.
@@ -36,10 +41,11 @@ class SearchDnaController
      * @param KittyService $kittyService
      * @param AuthService  $authService
      */
-    public function __construct(KittyService $kittyService, AuthService $authService)
+    public function __construct(KittyService $kittyService, AuthService $authService, KittySearch $kittySearch)
     {
         $this->kittyService = $kittyService;
         $this->authService = $authService;
+        $this->kittySearch = $kittySearch;
     }
 
     public function __invoke(Request $request, Response $response)
@@ -115,5 +121,10 @@ class SearchDnaController
         }
 
         return $response->withJson($result, 200, JSON_PRETTY_PRINT);
+    }
+
+    public function getSearchArray(Request $request, Response $response)
+    {
+        return $response->withJson($this->kittySearch->getMegaArray());
     }
 }

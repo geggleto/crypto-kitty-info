@@ -610,7 +610,10 @@ x';
                 array_keys($this->getHighlightColorKai()),
                 array_keys($this->getAccentColorKai()),
                 array_keys($this->getWildKai()),
-                array_keys($this->getMouthKai())
+                array_keys($this->getMouthKai()),
+                array_keys($this->getMysteryKai()),
+                array_keys($this->getSecretKai()),
+                array_keys($this->getUnknownKai())
             )
         ;
 
@@ -624,6 +627,9 @@ x';
             'accentColor' => $this->getAccentColorKai(),
             'wild' => $this->getWildKai(),
             'mouth' => $this->getMouthKai(),
+            'unknown' => $this->getUnknownKai(),
+            'secret' => $this->getSecretKai(),
+            'mystery' => $this->getMysteryKai(),
             'cattributes' => $cattributes
         ];
     }
@@ -846,4 +852,30 @@ x';
     public function getRMysteryKai() {
         return $this->RmysteryKai;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUnknownKai()
+    {
+        return $this->unknownKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMysteryKai()
+    {
+        return $this->mysteryKai;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSecretKai()
+    {
+        return $this->secretKai;
+    }
+
+
 }
