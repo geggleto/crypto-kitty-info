@@ -27,6 +27,9 @@ class KittySearch
     private $accentColorKai;
     private $wildKai;
     private $mouthKai;
+    private $unknownKai;
+    private $mysteryKai;
+    private $secretKai;
 
     private $kaiTranslation;
 
@@ -39,6 +42,11 @@ class KittySearch
     private $accentColor;
     private $wild;
     private $mouth;
+    private $secret;
+    private $unknown;
+    private $mystery;
+    
+    
     private $RfurKai;
     private $RpatternKai;
     private $ReyeColorKai;
@@ -49,6 +57,10 @@ class KittySearch
     private $RwildKai;
     private $RmouthKai;
 
+    private $RsecretKai;
+    private $RunknownKai;
+    private $RmysteryKai;
+    
     public function __construct()
     {
         $this->fur = explode("\n", 'savannah
@@ -339,6 +351,103 @@ neckbeard
 
 ');
 
+        $this->secret = explode("\n", 'secret_1
+secret_2
+secret_3
+secret_4
+secret_5
+secret_6
+secret_7
+secret_8
+secret_9
+secret_a
+secret_b
+secret_c
+secret_d
+secret_e
+secret_f
+secret_g
+secret_h
+secret_i
+secret_j
+secret_k
+secret_m
+secret_n
+secret_o
+secret_p
+secret_q
+secret_r
+secret_s
+secret_t
+secret_u
+secret_v
+secret_x');
+
+        $this->mystery = explode("\n", 'mystery_1
+mystery_2
+mystery_3
+mystery_4
+mystery_5
+mystery_6
+mystery_7
+mystery_8
+mystery_9
+mystery_a
+mystery_b
+mystery_c
+mystery_d
+mystery_e
+mystery_f
+mystery_g
+salty
+mystery_i
+mystery_j
+mystery_k
+mystery_m
+mystery_n
+mystery_o
+mystery_p
+mystery_q
+mystery_r
+mystery_s
+mystery_t
+mystery_u
+mystery_v
+mystery_x');
+
+        $this->unknown = explode("\n", 'unknown_1
+unknown_2
+unknown_3
+unknown_4
+unknown_5
+unknown_6
+unknown_7
+unknown_8
+unknown_9
+unknown_a
+unknown_b
+unknown_c
+unknown_d
+unknown_e
+unknown_f
+unknown_g
+unknown_h
+unknown_i
+unknown_j
+unknown_k
+unknown_m
+unknown_n
+unknown_o
+unknown_p
+unknown_q
+unknown_r
+unknown_s
+unknown_t
+unknown_u
+unknown_v
+unknown_x');
+
+
         $this->process();
 
     }
@@ -413,7 +522,9 @@ x';
             $this->wildKai[$this->wild[$x]] = $kai;
             $this->mouthKai[$this->mouth[$x]] = $kai;
 
-
+            $this->secretKai[$this->secret[$x]] = $kai;
+            $this->unknownKai[$this->unknown[$x]] = $kai;
+            $this->mysteryKai[$this->mystery[$x]] = $kai;
 
             $this->RfurKai[$kai] = $this->fur[$x];
             $this->RpatternKai[$kai] = $this->pattern[$x];
@@ -425,8 +536,9 @@ x';
             $this->RwildKai[$kai] = $this->wild[$x];
             $this->RmouthKai[$kai] = $this->mouth[$x];
 
-
-
+            $this->RsecretKai[$kai] = $this->secret[$x];
+            $this->RunknownKai[$kai] = $this->unknown[$x];
+            $this->RmysteryKai[$kai] = $this->mystery[$x];
         }
     }
 
@@ -519,6 +631,18 @@ x';
     public function getFormatedMegaArray()
     {
         return [
+            1 => [
+                'label' => 'Unknown',
+                'codes' => $this->getRUnknownKai()
+            ],
+            2 => [
+                'label' => 'Secret',
+                'codes' => $this->getRSecretKai()
+            ],
+            3 => [
+                'label' => 'Mystery',
+                'codes' => $this->getRMysteryKai()
+            ],
             4 => [
                 'ui_label' => 'mouth',
                 'label' => 'Mouth',
@@ -711,6 +835,15 @@ x';
         return $this->mouth;
     }
 
+    public function getRUnknownKai() {
+        return $this->RunknownKai;
+    }
 
+    public function getRSecretKai() {
+        return $this->RsecretKai;
+    }
 
+    public function getRMysteryKai() {
+        return $this->RmysteryKai;
+    }
 }
