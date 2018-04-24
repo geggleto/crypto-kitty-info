@@ -230,88 +230,6 @@ class KittyService
         return $result['max'];
     }
 
-    public function findBody($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 45) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findPattern($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 41,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findEyeColor($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 37,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findEyeType($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 33,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findBodyColor($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 29,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findPatternColour($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 25,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findSecondaryColour($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 21,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findWild($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 17,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
-    public function findMouth($kai = '')
-    {
-        $statement = $this->PDO->prepare('select `id`, `gen` from kitties where substr(genes_kai, 13,4) = ?');
-
-        $statement->execute([$kai]);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function findKitten($kitten)
     {
         $statement = $this->PDO->prepare('select `genes_kai` as `dna`, gen from kitties where `id` = ?');
@@ -323,6 +241,7 @@ class KittyService
         return [
             'dna' => $kitten['dna'],
             'gen' => $kitten['gen'],
+
             'body' => substr($kitten['dna'], 44, 4),
             'pattern' => substr($kitten['dna'], 40, 4),
             'eyecolor' => substr($kitten['dna'], 36, 4),
@@ -331,7 +250,10 @@ class KittyService
             'patterncolor' => substr($kitten['dna'], 24, 4),
             'secondarycolor' => substr($kitten['dna'], 20, 4),
             'wild' => substr($kitten['dna'], 16, 4),
-            'mouth' => substr($kitten['dna'], 12, 4)
+            'mouth' => substr($kitten['dna'], 12, 4),
+            'mystery' => substr($kitten['dna'], 8, 4),
+            'secret' => substr($kitten['dna'], 4, 4),
+            'unknown' => substr($kitten['dna'], 0, 4)
         ];
 
     }
@@ -460,6 +382,9 @@ class KittyService
         $result = $this->findKitten($kittenId);
 
         $categories = [
+            'unknown' => 1,
+            'secret' => 2,
+            'mystery' => 3,
             'mouth' => 4,
             'wild' => 5,
             'secondarycolor' => 6,
@@ -529,7 +454,7 @@ class KittyService
         $out = [];
         foreach ($kittens as $kitten) {
             $out[] = self::getSaleInfo($kitten);
-            usleep(200000);
+            usleep(50000);
         }
 
         return $out;
@@ -604,7 +529,7 @@ class KittyService
 
     public function findKittiesFromArray(array $params) {
         //Query Builder
-        $queryString = "select id, gen, json_extract(kitty, '$.is_fancy') as `fancy` from kitties where ";
+        $queryString = "select id, gen from kitties where ";
 
         $filters = [];
         $values = [];
@@ -643,8 +568,6 @@ class KittyService
                 $filters[] = $this->getSecretFilter();
             } else if ($param=='mystery') {
                 $filters[] = $this->getMysteryFilter();
-            } else if ($param=='no_fancy') {
-                $filters[] = $this->getNoFancyFilter();
             } else if ($param=='offset') {
                 $limiting = 'LIMIT 500 OFFSET ' . $value;
             } else if ($param === 'orderingDown') {
@@ -764,37 +687,37 @@ class KittyService
 
     }
 
-    public function getKittyTable(array $ids, $onsale = false, $price = false) {
-        $result = [];
-
-        foreach ($ids as $idResult) {
-
-            $id = $idResult['id'];
-            $gen = $idResult['gen'];
-            $fancy = $idResult['fancy'];
-
-            $forSale = self::getSaleInfo($id);
-
-            $isItForSale = $forSale ? 'Yes' : 'No';
-
-            //If we want on-sale and it is for sale... or we don't want sale
-            if ( ($onsale && $forSale) || !$onsale) {
-
-                $result[$id] = $this->getPrettyDnaKitten($id);
-                $result[$id]['id'] = $id;
-                $result[$id]['gen'] = $gen;
-                $result[$id]['forSale'] = $isItForSale;
-                $result[$id]['fancy'] = $fancy;
-                $result[$id]['price'] = $forSale;
-            }
-
-            if (count($result) === 200) {
-                break;
-            }
-        }
-
-        return $result;
-    }
+//    public function getKittyTable(array $ids, $onsale = false, $price = false) {
+//        $result = [];
+//
+//        foreach ($ids as $idResult) {
+//
+//            $id = $idResult['id'];
+//            $gen = $idResult['gen'];
+//            $fancy = $idResult['fancy'];
+//
+//            $forSale = self::getSaleInfo($id);
+//
+//            $isItForSale = $forSale ? 'Yes' : 'No';
+//
+//            //If we want on-sale and it is for sale... or we don't want sale
+//            if ( ($onsale && $forSale) || !$onsale) {
+//
+//                $result[$id] = $this->getPrettyDnaKitten($id);
+//                $result[$id]['id'] = $id;
+//                $result[$id]['gen'] = $gen;
+//                $result[$id]['forSale'] = $isItForSale;
+//                $result[$id]['fancy'] = $fancy;
+//                $result[$id]['price'] = $forSale;
+//            }
+//
+//            if (count($result) === 200) {
+//                break;
+//            }
+//        }
+//
+//        return $result;
+//    }
 
     public function processKitty($id)
     {
@@ -805,11 +728,11 @@ class KittyService
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function calcIv($kaiCode) {
-        $base = 35;
-
-        return 5 + ( ($base + bindec($this->kaiToBin($kaiCode[3])) + bindec($this->kaiToBin($kaiCode[2])/2)) / 100);
-    }
+//    public function calcIv($kaiCode) {
+//        $base = 35;
+//
+//        return 5 + ( ($base + bindec($this->kaiToBin($kaiCode[3])) + bindec($this->kaiToBin($kaiCode[2])/2)) / 100);
+//    }
 
     public function kaiToBin($kaiCode)
     {
