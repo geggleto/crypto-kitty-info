@@ -34,7 +34,7 @@ class CattributeMarketResearch
 
     public function findCattributePrices($cattribute, Request $request, Response $response)
     {
-        $statement = $this->pdo->prepare('select generation, price from `kitty_attribute_prices` where cattribute = ?');
+        $statement = $this->pdo->prepare('select `date`, generation, price from `kitty_attribute_prices` where cattribute = ?');
         $statement->execute([$cattribute]);
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
