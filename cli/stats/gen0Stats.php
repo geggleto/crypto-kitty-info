@@ -20,7 +20,7 @@ from kitties
 where gen=0 and substr(genes_kai, ?,1) IS NOT NULL and substr(genes_kai, ?,1) != \'\' and JSON_TYPE(JSON_E$
 group by letter;');
 
-$pdo->exec('truncate table `dna_stats`');
+$pdo->query('truncate table `dna_stats`');
 
 $insertStatement = $pdo->prepare('insert into `dna_stats` VALUES(?,?,?,?,?)');
 for ($x = 1; $x <= 48; $x++) {
@@ -56,8 +56,6 @@ foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $result) {
     $queryStatement->execute([$position, $letter]);
 
     $queryResult = $queryStatement->fetch(PDO::FETCH_ASSOC);
-
-//	var_dump($queryResult);
 
     $updateStatement->execute([$queryResult['min'], $queryResult['max'], $position, $letter]);
 }
