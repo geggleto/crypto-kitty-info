@@ -448,6 +448,22 @@ class KittyService
         return ($json['result'] !== '0x')? number_format(hexdec(substr($json['result'],1+16*3)) / 10**18, 4) :false;
     }
 
+    public static function getSireInfo($kittenId)
+    {
+        $hexId = dechex($kittenId);
+
+        while (strlen($hexId) < 8) {
+            $hexId = '0'.$hexId;
+        }
+
+        $client = new Client();
+
+        $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xc7af99fe5513eb6710e6d5f44f9989da40f27f26", "data"=>"0xc55d0f5600000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
+        $json = json_decode($response->getBody()->__toString(), true);
+
+        return ($json['result'] !== '0x')? number_format(hexdec(substr($json['result'],1+16*3)) / 10**18, 4) :false;
+    }
+
     //Get Sale Info
     public static function getMultipleSaleInfo(array $kittens)
     {

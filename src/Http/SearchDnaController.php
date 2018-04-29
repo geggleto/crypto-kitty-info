@@ -100,23 +100,31 @@ class SearchDnaController
         ];
 
         $onsale = false;
+        $sireSale = false;
 
         if (isset($body['onsale']) && $body['onsale'] === 'true')
         {
             $onsale = true;
         }
 
+        if (isset($body['sireSale']) && $body['sireSale'] === 'true')
+        {
+            $sireSale = true;
+        }
+
         foreach ($kitties as $kitty) {
+            $forSale = 0;
 
-            $forSale = KittyService::getSaleInfo($kitty['id']);
-
-            if (($onsale && $forSale) || !$onsale) {
-
-                $cat         = $this->kittyService->getPrettyDnaKitten($kitty['id']);
-                $cat['sale'] = $forSale;
-
-                $result['results'][$kitty['id']] = $cat;
+            if ($onsale) {
+                $forSale = KittyService::getSaleInfo($kitty['id']);
+            } else if ($sireSale) {
+                $forSale = KittyService::getSireInfo($kitty['id']);
             }
+
+            $cat         = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+            $cat['sale'] = $forSale;
+
+            $result['results'][$kitty['id']] = $cat;
 
         }
 
