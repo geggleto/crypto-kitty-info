@@ -113,7 +113,7 @@ class SearchDnaController
         }
 
         foreach ($kitties as $kitty) {
-            $forSale = 0;
+            $forSale = -1;
 
             if ($onsale) {
                 $forSale = KittyService::getSaleInfo($kitty['id']);
@@ -121,11 +121,13 @@ class SearchDnaController
                 $forSale = KittyService::getSireInfo($kitty['id']);
             }
 
-            $cat         = $this->kittyService->getPrettyDnaKitten($kitty['id']);
-            $cat['sale'] = $forSale;
+           if ($forSale !== false) {
 
-            $result['results'][$kitty['id']] = $cat;
+                $cat         = $this->kittyService->getPrettyDnaKitten($kitty['id']);
+                $cat['sale'] = $forSale;
 
+                $result['results'][$kitty['id']] = $cat;
+            }
         }
 
         return $response->withJson($result, 200, JSON_PRETTY_PRINT);
