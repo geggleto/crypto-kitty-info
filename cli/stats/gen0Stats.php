@@ -17,7 +17,7 @@ $statement = $pdo->prepare('select
 substr(genes_kai, ?,1) as letter,
 count(*) as `count`
 from kitties
-where gen=0 and substr(genes_kai, ?,1) IS NOT NULL and substr(genes_kai, ?,1) != \'\' and JSON_TYPE(JSON_E$
+where gen=0 and substr(genes_kai, ?,1) IS NOT NULL and substr(genes_kai, ?,1) != \'\'  and kitty->"$.created_at" IS NOT NULL
 group by letter;');
 
 $pdo->query('truncate table `dna_stats`');
