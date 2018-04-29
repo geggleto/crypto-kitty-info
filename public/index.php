@@ -33,6 +33,8 @@ $app->post('/search/mewtation', MewtationSearch::class);
 
 $app->get('/cattribute/prices', CattributeMarketResearch::class);
 
+$app->get('/cattribute/prices/{cattribute}', [CattributeMarketResearch::class, 'findCattributePrices']);
+
 $app->get('/dna/search', [SearchDnaController::class, 'getSearchArray']);
 
 $app->add(function (Request $req, Response $res, $next) {
