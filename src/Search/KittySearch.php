@@ -67,7 +67,7 @@ class KittySearch
 selkirk
 
 birman
-
+koladiviya
 bobtail
 
 pixiebob
@@ -81,7 +81,7 @@ ragamuffin
 ragdoll
 norwegianforest
 
-
+highlander
 
 
 mainecoon
@@ -159,7 +159,7 @@ babypuke
 
 ');
 
-        $this->eyeShape = explode("\n", '
+        $this->eyeShape = explode("\n", 'swarley
 wonky
 serpent
 googly
@@ -175,7 +175,7 @@ chronic
 slyboots
 wiley
 stunned
-
+chameleon
 alien
 fabulous
 raisedbrow
@@ -183,11 +183,11 @@ raisedbrow
 
 sass
 sweetmeloncakes
-
+oceanid
 wingtips
 
 buzzed
-
+bornwithit
 
 ');
 
