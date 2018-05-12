@@ -239,7 +239,7 @@ barkbrown
 coffee
 lemonade
 chocolate
-15
+butterscotch
 16
 safetyvest
 turtleback
@@ -247,13 +247,13 @@ turtleback
 wolfgrey
 cerulian
 skyblue
-23
+garnet
 24
 25
 royalblue
-27
+mertail
 28
-29
+pearl
 30');
 
         $this->accentColor = explode("\n", 'belleblue
@@ -311,7 +311,7 @@ trioculus
 daemonwings
 wild_n
 wild_o
-wild_p
+daemonhorns
 wild_q
 wild_r
 wild_s
