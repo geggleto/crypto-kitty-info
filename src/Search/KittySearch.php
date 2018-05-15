@@ -327,7 +327,7 @@ gerbil
 04
 05
 belch
-07
+rollercoaster
 beard
 pouty
 saycheese
@@ -339,7 +339,7 @@ soserious
 cheeky
 starstruck
 18
-19
+ruhroh
 dali
 grimace
 22
