@@ -399,6 +399,8 @@ class KittyService
         foreach ($categories as $category => $index) {
             $dna = $result[$category];
 
+            var_dump($dna);
+
             $d0 = $this->kai[$index]['codes'][$dna[3]];
             $r1 = $this->kai[$index]['codes'][$dna[2]];
             $r2 = $this->kai[$index]['codes'][$dna[1]];
