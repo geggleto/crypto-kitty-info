@@ -90,12 +90,12 @@ class SearchDnaController
 
         $body = $request->getParsedBody();
 
-        $count = $this->kittyService->getCountKittiesFromArray($body);
+        //$count = $this->kittyService->getCountKittiesFromArray($body);
 
         $kitties = $this->kittyService->findKittiesFromArray($body);
 
         $result = [
-            'count' => $count['count'],
+            'count' => 0,
             'results' => []
         ];
 

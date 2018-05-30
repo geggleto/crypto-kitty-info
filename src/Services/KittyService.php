@@ -448,6 +448,11 @@ class KittyService
         $client = new Client();
 
         $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0xb1690c08e213a35ed9bab7b318de14420fb57d8c", "data"=>"0xc55d0f5600000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
+
+        if ($response->getStatusCode() !== 200) {
+            throw new Exception($response->getBody()->__toString());
+        }
+
         $json = json_decode($response->getBody()->__toString(), true);
 
         return ($json['result'] !== '0x')? number_format(hexdec(substr($json['result'],1+16*3)) / 10**18, 4) :false;
