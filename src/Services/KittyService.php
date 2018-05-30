@@ -5,6 +5,7 @@ namespace Kitty\Services;
 
 use function array_map;
 use function bindec;
+use Exception;
 use GuzzleHttp\Client;
 use Kitty\Search\KittySearch;
 use Monolog\Logger;
@@ -270,6 +271,10 @@ class KittyService
 
         $response = $client->get('https://api.infura.io/v1/jsonrpc/mainnet/eth_call?params='. json_encode([["to"=>"0x06012c8cf97BEaD5deAe237070F9587f8E7A266d", "data"=>"0xe98b7f4d00000000000000000000000000000000000000000000000000000000".$hexId],"latest"]));
 
+        if ($response->getStatusCode() !== 200) {
+            throw new Exception($response->getBody()->__toString());
+        }
+
         $json = json_decode($response->getBody()->__toString(), true);
 
         $hexDna = substr($json['result'], - 64);
@@ -398,8 +403,6 @@ class KittyService
 
         foreach ($categories as $category => $index) {
             $dna = $result[$category];
-
-            var_dump($dna);
 
             $d0 = $this->kai[$index]['codes'][$dna[3]];
             $r1 = $this->kai[$index]['codes'][$dna[2]];
