@@ -19,6 +19,8 @@ $cattributes = json_decode($cattributesJson, true);
 
 $pdo = $container->get(PDO::class);
 
+$pdo->query('truncate table `kitty_mewtation_sales`;');
+
 $insert = $pdo->prepare('insert into `kitty_mewtation_sales` (kitty_id, cattribute, `position`, price) VALUES(?,?,?,?);');
 
 foreach ($cattributes as $cattribute) {
