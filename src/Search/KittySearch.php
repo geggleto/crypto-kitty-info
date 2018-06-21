@@ -69,7 +69,7 @@ FU02
 birman
 koladiviya
 bobtail
-FU06
+manul
 pixiebob
 FU08
 cymric
@@ -82,13 +82,13 @@ ragdoll
 norwegianforest
 FU17
 highlander
-FU19
+balinese
 FU20
 mainecoon
 laperm
 persian
 FU24
-FU25
+kurilian
 FU26
 manx
 FU28
@@ -169,7 +169,7 @@ simple
 crazy
 thicccbrowz
 caffeine
-ES09
+wowza
 baddate
 ES11
 chronic
@@ -180,7 +180,7 @@ chameleon
 alien
 fabulous
 raisedbrow
-ES20
+tendertears
 ES21
 sass
 sweetmeloncakes
@@ -261,7 +261,7 @@ sandalwood
 peach
 icy
 granitegrey
-AC05
+cashewmilk
 kittencream
 emeraldgreen
 AC08
@@ -274,17 +274,17 @@ morningglory
 frosting
 daffodil
 flamingo
-AC18
+buttercup
 bloodred
 AC20
 AC21
 periwinkle
 patrickstarfish
 seafoam
-AC25
+cobalt
 AC26
 mintmacaron
-AC28
+sully
 AC29
 AC30');
 
@@ -310,12 +310,12 @@ WE18
 trioculus
 daemonwings
 WE21
-WE22
+flapflap
 daemonhorns
 WE24
 WE25
 WE26
-WE27
+unicorn
 WE28
 WE29
 WE30');
@@ -325,7 +325,7 @@ wasntme
 wuvme
 gerbil
 MO04
-MO05
+impish
 belch
 rollercoaster
 beard
@@ -405,7 +405,7 @@ EN17
 EN18
 tinybox
 EN20
-EN21
+finalfrontier
 EN22
 EN23
 EN24
