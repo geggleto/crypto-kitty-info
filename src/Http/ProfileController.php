@@ -4,14 +4,11 @@
 namespace Kitty\Http;
 
 
-use function array_map;
-use function implode;
 use const JSON_PRETTY_PRINT;
 use Kitty\Services\KittyService;
 use function set_time_limit;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use function var_dump;
 
 class ProfileController
 {
