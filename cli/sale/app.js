@@ -1,4 +1,17 @@
 const Web3 = require('web3');
+
+require('axios-debug-log')({
+    request: function (debug, config) {
+        console.log(config);
+    },
+    response: function (debug, response) {
+    },
+    error: function (debug, error) {
+        // Read https://www.npmjs.com/package/axios#handling-errors for more info
+        debug('Boom', error)
+    }
+});
+
 const axios = require('axios');
 
 const promisify = foo => new Promise((resolve, reject) => {
@@ -28,20 +41,20 @@ const salesContract = getContract(salesContractABI, salesContractAddress);
 const getPastEvents = (event, filter) => promisify( callback => salesContract.getPastEvents(event, filter, callback));
 
 
-getBlockNumber().then( number => {
-   return axios.post('https://dna.cryptokittydata.info/insert/blockNumber')
-       .then(response => {
-           let blockNumber = response.data.blockNumber;
-           let ceilingBlockNumber = number - 240;
-           let incrementor = 50;
-
-           if (blockNumber == null) {
-               //Origin Block Number
-               blockNumber = 4605167;
-           }
-
-       })
-}).catch(err => console.log(err));
+// getBlockNumber().then( number => {
+//    return axios.post('https://dna.cryptokittydata.info/insert/blockNumber')
+//        .then(response => {
+//            let blockNumber = response.data.blockNumber;
+//            let ceilingBlockNumber = number - 240;
+//            let incrementor = 50;
+//
+//            if (blockNumber == null) {
+//                //Origin Block Number
+//                blockNumber = 4605167;
+//            }
+//
+//        })
+// }).catch(err => console.log(err));
 
 function pastAuctionSuccessfulEvents(from, to) {
     return getPastEvents('AuctionSuccessful', {
@@ -69,7 +82,7 @@ function thing(blockNumber, incrementor) {
     let from = blockNumber;
     let to = blockNumber + incrementor;
 
-    let axiosPromises = [];
+    let objects = [];
 
 
     return Promise.all([
@@ -92,12 +105,7 @@ function thing(blockNumber, incrementor) {
                     address : tx.returnValues.winner
                 };
 
-                axiosPromises.push(axios({
-                    method: 'post',
-                    url: 'https://dna.cryptokittydata.info/insert/sale',
-                    data: object,
-                    headers: {'Content-Type': 'application/json'},
-                }).catch(err => console.log(err)));
+                objects.push(object);
             }
         }
 
@@ -116,12 +124,8 @@ function thing(blockNumber, incrementor) {
                     address : " "
                 };
 
-                axiosPromises.push(axios({
-                    method: 'post',
-                    url: 'https://dna.cryptokittydata.info/insert/sale',
-                    data: object,
-                    headers: {'Content-Type': 'application/json'},
-                }));
+                objects.push(object);
+
             }
         }
 
@@ -140,16 +144,11 @@ function thing(blockNumber, incrementor) {
                     address : ""
                 };
 
-                axiosPromises.push(axios({
-                    method: 'post',
-                    url: 'https://dna.cryptokittydata.info/insert/sale',
-                    data: object,
-                    headers: {'Content-Type': 'application/json'},
-                }));
+                objects.push(object);
             }
         }
 
-        return axios.all(axiosPromises);
+        return objects;
     });
 
 }
@@ -165,13 +164,28 @@ function thing(blockNumber, incrementor) {
 //     address : "8"
 // };
 //
-// axios({
-//     method: 'post',
-//     url: 'https://dna.cryptokittydata.info/insert/sale',
-//     data: object,
-//     headers: {'Content-Type': 'application/json'},
-// }).then(response => {
-//     console.log(response.data)
-// });
+// sendRequest(object);
 
-thing(5605167, 500).then(results => {console.log(results.length)});
+thing(5605167, 500)
+    .then(objects => {
+        for (let i in objects) {
+            console.log(objects[i]);
+
+            sendRequest(objects[i]).then(response => {
+                console.log(response);
+            });
+
+            return ;
+        }
+    });
+
+async function sendRequest(object) {
+    let result = await axios({
+        method: 'post',
+        url: "https://dna.cryptokittydata.info/insert/sale",
+        data: object,
+        headers: {'Content-Type': 'application/json'},
+    });
+
+    return result;
+}

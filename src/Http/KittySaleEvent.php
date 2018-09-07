@@ -45,7 +45,7 @@ class KittySaleEvent
             $body['address'] ?? "",
         ]);
 
-        return $response;
+        return $response->withJson($body);
     }
 
     public function getLastBlock(Request $request, Response $response)
