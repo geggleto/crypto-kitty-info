@@ -2,6 +2,7 @@
 
 use Kitty\Http\Authorization;
 use Kitty\Http\CorsBullshit;
+use Kitty\Http\KittySaleEvent;
 use Kitty\Http\ProfileController;
 use Kitty\Http\SearchDnaController;
 use Kitty\KittyApp;
@@ -13,6 +14,8 @@ use Slim\Http\Response;
 include_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new KittyApp();
+
+$app->post('/insert/sale', KittySaleEvent::class);
 
 //Fucking CORS
 $app->options('{name:.+}', CorsBullshit::class);
