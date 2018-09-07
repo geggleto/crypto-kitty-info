@@ -38,7 +38,7 @@ class KittySaleEvent
             $body['startingPrice'],
             $body['endingPrice'],
             $body['duration'],
-            $body['address'],
+            $body['address'] ?? "",
         ]);
 
         return $response;
