@@ -30,6 +30,10 @@ class KittySaleEvent
 
         $body = $request->getParsedBody();
 
+        if (count($body) !== 8) {
+            return $response->withStatus(400);
+        }
+
         $query->execute([
             $body['tx'],
             $body['blockNumber'],
