@@ -35,6 +35,7 @@ class KittySaleEvent
             $body['blockNumber'],
             $body['event'],
             $body['tokenId'],
+            $body['startingPrice'],
             $body['endingPrice'],
             $body['duration'],
             $body['address'],
