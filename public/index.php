@@ -16,6 +16,7 @@ include_once __DIR__ . '/../vendor/autoload.php';
 $app = new KittyApp();
 
 $app->post('/insert/sale', KittySaleEvent::class);
+$app->post('/insert/blockNumber', [ KittySaleEvent::class, 'getLastBlock' ]);
 
 //Fucking CORS
 $app->options('{name:.+}', CorsBullshit::class);

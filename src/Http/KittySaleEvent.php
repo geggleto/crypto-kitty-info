@@ -43,4 +43,12 @@ class KittySaleEvent
 
         return $response;
     }
+
+    public function getLastBlock(Request $request, Response $response)
+    {
+        $statement = $this->PDO->query('select max(blockNumber) as `blockNumber` from `kitty_sales`');
+        $statement->execute();
+        $result = $statement->fetch();
+        return $response->withJson($result);
+    }
 }
