@@ -24,6 +24,33 @@ class KittySaleEvent
         $this->PDO = $PDO;
     }
 
+    public function bulkImport(Request $request, Response $response)
+    {
+        $query = $this->PDO->prepare('insert into `kitty_sales` VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+
+        $item = $request->getParsedBody();
+
+        foreach ($item as $body) {
+
+            if (count($body) !== 8) {
+                return $response->withStatus(400);
+            }
+
+            $query->execute([
+                $body['tx'],
+                $body['blockNumber'],
+                $body['event'],
+                $body['tokenId'],
+                $body['startingPrice'],
+                $body['endingPrice'],
+                $body['duration'],
+                $body['address'] ?? "",
+            ]);
+        }
+
+        return $response->withJson($body);
+    }
+
     public function __invoke(Request $request, Response $response)
     {
         $query = $this->PDO->prepare('insert into `kitty_sales` VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
