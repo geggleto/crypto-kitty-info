@@ -228,181 +228,64 @@ const salesContract = getContract(salesContractABI, salesContractAddress);
 
 const getPastEvents = (event, filter) => promisify(callback => salesContract.getPastEvents(event, filter, callback));
 
-let StartBlock = 4605169;
+let currentBlock = 4605169;
 let Incrementer = 10000;
 
-getBlockNumber().then(blockNumber => {
-  console.log(StartBlock);
+getBlockNumber().then(async blockNumber => {
+  console.log(currentBlock);
   console.log(Incrementer);
   console.log(blockNumber);
 
-  return getPastEvents('AuctionCreated', {
-    fromBlock : StartBlock,
-    toBlock : StartBlock + Incrementer
-  }).then(events => {
-      console.log("grab events");
-      console.log(events.length);
-  }).catch(err => {
+
+
+
+  do {
+    console.log(currentBlock);
+
+    let events = await getPastEvents('AuctionCreated', {
+      fromBlock: currentBlock,
+      toBlock: currentBlock + Incrementer
+    }).then(results => {
+
+      let objects = [];
+
+      for (let i in results) {
+        let tx = results[i];
+
+        let object = {
+          tx: tx.transactionHash,
+          blockNumber: tx.blockNumber,
+          event: tx.event,
+          tokenId: tx.returnValues.tokenId,
+          startingPrice: " ",
+          endingPrice: tx.returnValues.totalPrice,
+          duration: " ",
+          address: tx.returnValues.winner
+        };
+
+        objects.push(object);
+      }
+
+      return { items : objects };
+    }).catch(err => {
       console.log("error");
       console.error(err);
-  })
 
+      return { items : [] };
+    }).then(async objects => {
+      return await sendRequest(objects).catch(err => { console.error(err); return { items : [] }; });
+    });
+
+    currentBlock += Incrementer + 1;
+
+  } while (currentBlock <= blockNumber);
 });
 
-
-//
-// getBlockNumber().then(number => {
-//     return axios.post('https://dna.cryptokittydata.info/insert/blockNumber')
-//         .then(response => {
-//             // let blockNumber = response.data.blockNumber;
-//             // let ceilingBlockNumber = parseInt(number) - 240;
-//             // let incrementor = 1;
-//
-//             let blockNumber = number - 240;
-//             let round = 4;
-//             let window = 24000;
-//             let to = blockNumber - window * ( round - 1);
-//             let from = to - window*round;
-//
-//
-//             console.log(from + "|" + to);
-//
-//             getEventsForSaleContract(from, to).then(async results => {
-//
-//                 if (results[0].length > 0) {
-//                     for (let i in results[0]) {
-//                         let objects = results[0][i];
-//                         await sendRequest(objects);
-//                     }
-//                 }
-//
-//                 if (results[1].length > 0) {
-//                     for (let i in results[1]) {
-//                         let objects = results[1][i];
-//                         await sendRequest(objects);
-//                     }
-//                 }
-//
-//                 if (results[2].length > 0) {
-//                     for (let i in results[2]) {
-//                         let objects = results[2][i];
-//                         await sendRequest(objects);
-//                     }
-//                 }
-//             });
-//         })
-// }).catch(err => console.log(err));
-//
-// function pastAuctionSuccessfulEvents(from, to) {
-//     console.log("Attempting to ping Contract for Success");
-//
-//     return getPastEvents('AuctionSuccessful', {
-//         fromBlock: from,
-//         toBlock: to
-//     });
-// }
-//
-// function pastAuctionCreatedEvents(from, to) {
-//     console.log("Attempting to ping Contract for Created");
-//
-//     return getPastEvents('AuctionCreated', {
-//         fromBlock: from,
-//         toBlock: to
-//     });
-// }
-//
-// function pastAuctionCancelledEvents(from, to) {
-//     console.log("Attempting to ping Contract for Cancelled");
-//
-//     return getPastEvents('AuctionCancelled', {
-//         fromBlock: from,
-//         toBlock: to
-//     });
-// }
-//
-// function getEventsForSaleContract(blockNumber, incrementor) {
-//
-//     let from = blockNumber;
-//     let to = blockNumber + incrementor;
-//
-//     return Promise.all([
-//         pastAuctionSuccessfulEvents(from, to).then(results => {
-//             let objects = [];
-//             console.log('Getting Success Events');
-//
-//             for (let i in results) {
-//                 let tx = results[i];
-//
-//                 let object = {
-//                     tx: tx.transactionHash,
-//                     blockNumber: tx.blockNumber,
-//                     event: tx.event,
-//                     tokenId: tx.returnValues.tokenId,
-//                     startingPrice: " ",
-//                     endingPrice: tx.returnValues.totalPrice,
-//                     duration: " ",
-//                     address: tx.returnValues.winner
-//                 };
-//
-//                 objects.push(object);
-//             }
-//
-//             return objects;
-//         }),
-//         pastAuctionCreatedEvents(from, to)
-//             .then(results => {
-//                 let objects = [];
-//                 console.log('Getting Created Events');
-//                 for (let i in results) {
-//                     let tx = results[i];
-//
-//                     let object = {
-//                         tx: tx.transactionHash,
-//                         blockNumber: tx.blockNumber,
-//                         event: tx.event,
-//                         tokenId: tx.returnValues.tokenId,
-//                         startingPrice: tx.returnValues.startingPrice,
-//                         endingPrice: tx.returnValues.endingPrice,
-//                         duration: tx.returnValues.duration,
-//                         address: " "
-//                     };
-//                     objects.push(object);
-//                 }
-//
-//
-//                 return objects;
-//             }),
-//         pastAuctionCancelledEvents(from, to)
-//             .then(results => {
-//                 let objects = [];
-//                 console.log('Getting Cancel Events');
-//
-//                 for (let i in results) {
-//                     let tx = results[i];
-//
-//                     let object = {
-//                         tx: tx.transactionHash,
-//                         blockNumber: tx.blockNumber,
-//                         event: tx.event,
-//                         tokenId: tx.returnValues.tokenId,
-//                         startingPrice: "",
-//                         endingPrice: "",
-//                         duration: "",
-//                         address: ""
-//                     };
-//
-//                     objects.push(object);
-//                 }
-//                 return objects;
-//             })
-//     ]);
-// }
-//
-// async function sendRequest(object) {
-//     return await axios({
-//         method: 'post',
-//         url: "https://dna.cryptokittydata.info/insert/sale",
-//         data: object,
-//         headers: {'Content-Type': 'application/json'},
-//     });
-// }
+async function sendRequest(objects) {
+  return await axios({
+    method: 'post',
+    url: "https://dna.cryptokittydata.info/insert/sales",
+    data: objects,
+    headers: {'Content-Type': 'application/json'},
+  });
+}

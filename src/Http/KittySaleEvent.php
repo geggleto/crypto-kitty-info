@@ -28,9 +28,9 @@ class KittySaleEvent
     {
         $query = $this->PDO->prepare('insert into `kitty_sales` VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 
-        $item = $request->getParsedBody();
+        $items['items'] = $request->getParsedBody();
 
-        foreach ($item as $body) {
+        foreach ($items['items'] as $body) {
 
             if (count($body) !== 8) {
                 return $response->withStatus(400);
