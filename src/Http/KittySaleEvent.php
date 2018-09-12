@@ -51,7 +51,7 @@ class KittySaleEvent
             ]);
         }
 
-        return $response->withJson($body);
+        return $response->withJson($items);
     }
 
     public function __invoke(Request $request, Response $response)
