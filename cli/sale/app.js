@@ -229,7 +229,7 @@ const salesContract = getContract(salesContractABI, salesContractAddress);
 const getPastEvents = (event, filter) => promisify(callback => salesContract.getPastEvents(event, filter, callback));
 
 let currentBlock = 4605169;
-let Incrementer = 10000;
+let Incrementer = 1000;
 
 getBlockNumber().then(async blockNumber => {
   console.log(currentBlock);

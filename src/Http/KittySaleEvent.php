@@ -6,6 +6,7 @@ namespace Kitty\Http;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use function var_dump;
 
 class KittySaleEvent
 {
@@ -30,7 +31,12 @@ class KittySaleEvent
 
         $items['items'] = $request->getParsedBody();
 
+
+
         foreach ($items['items'] as $body) {
+
+            var_dump($body);
+            die();
 
             if (count($body) !== 8) {
                 return $response->withStatus(400);
