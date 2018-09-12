@@ -229,7 +229,7 @@ const salesContract = getContract(salesContractABI, salesContractAddress);
 const getPastEvents = (event, filter) => promisify(callback => salesContract.getPastEvents(event, filter, callback));
 
 let currentBlock = 4605169;
-let Incrementer = 1000;
+let Incrementer = 10000;
 
 getBlockNumber().then(async blockNumber => {
   console.log(currentBlock);
@@ -257,12 +257,11 @@ getBlockNumber().then(async blockNumber => {
           blockNumber: tx.blockNumber,
           event: tx.event,
           tokenId: tx.returnValues.tokenId,
-          startingPrice: " ",
-          endingPrice: tx.returnValues.totalPrice,
-          duration: " ",
-          address: tx.returnValues.winner
+          startingPrice: tx.returnValues.startingPrice,
+          endingPrice: tx.returnValues.endingPrice,
+          duration: tx.returnValues.duration,
+          address: ""
         };
-
         objects.push(object);
       }
 
@@ -278,6 +277,8 @@ getBlockNumber().then(async blockNumber => {
 
     currentBlock += Incrementer + 1;
 
+    await sleep(10000);
+
   } while (currentBlock <= blockNumber);
 });
 
@@ -288,4 +289,10 @@ async function sendRequest(objects) {
     data: objects,
     headers: {'Content-Type': 'application/json'},
   });
+}
+
+function sleep(ms){
+  return new Promise(resolve=>{
+    setTimeout(resolve,ms)
+  })
 }
