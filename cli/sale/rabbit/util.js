@@ -5,6 +5,7 @@ const Web3 = require('web3');
 
 const axios = require('axios');
 
+
 const promisify = foo => new Promise((resolve, reject) => {
     foo((error, result) => {
         if (error) {
@@ -21,7 +22,9 @@ const timeout = ms => new Promise(res => setTimeout(res, ms))
 // set the provider you want from Web3.providers
 let web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/metamask'));
 
-
+/**
+ * @return Promise<*>
+ */
 let getBlockNumber = () => { return promisify(callback => web3.eth.getBlockNumber(callback)); };
 
 let getContract = (abi, address) => {
@@ -226,73 +229,97 @@ const salesContractABI = [{
 
 const salesContract = getContract(salesContractABI, salesContractAddress);
 
-const getPastEvents = (event, filter) => promisify(callback => salesContract.getPastEvents(event, filter, callback));
+/**
+ *
+ * @param event
+ * @param from
+ * @param to
+ * @return Promise<*>
+ */
+const getPastEvents = (event, from, to) => promisify(callback => salesContract.getPastEvents(event, {
+  fromBlock : from,
+  toBlock : to
+}, callback));
 
-let currentBlock = 4605169;
-let Incrementer = 10000;
+// getBlockNumber().then(async blockNumber => {
+//   console.log(currentBlock);
+//   console.log(Incrementer);
+//   console.log(blockNumber);
+//
+//   do {
+//     console.log(currentBlock);
+//
+//     let events = await getPastEvents('AuctionCreated', {
+//       fromBlock: currentBlock,
+//       toBlock: currentBlock + Incrementer
+//     }).then(results => {
+//
+//       let objects = [];
+//
+//       for (let i in results) {
+//         let tx = results[i];
+//
+//         let object = {
+//           tx: tx.transactionHash,
+//           blockNumber: tx.blockNumber,
+//           event: tx.event,
+//           tokenId: tx.returnValues.tokenId,
+//           startingPrice: tx.returnValues.startingPrice,
+//           endingPrice: tx.returnValues.endingPrice,
+//           duration: tx.returnValues.duration,
+//           address: ""
+//         };
+//         objects.push(object);
+//       }
+//
+//       return { items : objects };
+//     }).catch(err => {
+//       console.log("error");
+//       console.error(err);
+//
+//       return { items : [] };
+//     }).then(async objects => {
+//       return await sendRequest(objects).catch(err => { console.error(err); return { items : [] }; });
+//     });
+//
+//     currentBlock += Incrementer + 1;
+//
+//     await sleep(10000);
+//
+//   } while (currentBlock <= blockNumber);
+// });
 
-getBlockNumber().then(async blockNumber => {
-  console.log(currentBlock);
-  console.log(Incrementer);
-  console.log(blockNumber);
-
-
-
-
-  do {
-    console.log(currentBlock);
-
-    let events = await getPastEvents('AuctionCreated', {
-      fromBlock: currentBlock,
-      toBlock: currentBlock + Incrementer
-    }).then(results => {
-
-      let objects = [];
-
-      for (let i in results) {
-        let tx = results[i];
-
-        let object = {
-          tx: tx.transactionHash,
-          blockNumber: tx.blockNumber,
-          event: tx.event,
-          tokenId: tx.returnValues.tokenId,
-          startingPrice: tx.returnValues.startingPrice,
-          endingPrice: tx.returnValues.endingPrice,
-          duration: tx.returnValues.duration,
-          address: ""
-        };
-        objects.push(object);
-      }
-
-      return { items : objects };
-    }).catch(err => {
-      console.log("error");
-      console.error(err);
-
-      return { items : [] };
-    }).then(async objects => {
-      return await sendRequest(objects).catch(err => { console.error(err); return { items : [] }; });
-    });
-
-    currentBlock += Incrementer + 1;
-
-    await sleep(10000);
-
-  } while (currentBlock <= blockNumber);
-});
-
-async function sendRequest(objects) {
+/**
+ *
+ * @param objects
+ * @returns {Promise<*>}
+ */
+async function insertEvents(objects) {
   return await axios({
     method: 'post',
     url: "https://dna.cryptokittydata.info/insert/sales",
     data: objects,
     headers: {'Content-Type': 'application/json'},
-  });
+  }).then( () => { return true; }  )
 }
 
-function sleep(ms){
-  return new Promise(resolve=>{
-    setTimeout(resolve,ms)
+/**
+ *
+ * @returns {Promise<*>}
+ */
+async function getLastBlock() {
+  return await axios({
+    method: 'post',
+    url: "https://dna.cryptokittydata.info/insert/blockNumber",
+    headers: {'Content-Type': 'application/json'},
+  }).then((response) => {
+    return response.data.blockNumber || 0;
   })
 }
+
+
+module.exports.getBlockNumber = getBlockNumber;
+module.exports.getLastInsertedBlock = getLastBlock;
+module.exports.insertEvents = insertEvents;
+module.exports.getPastEvents = getPastEvents;
+module.exports.promisify = promisify;

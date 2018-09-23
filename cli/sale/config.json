@@ -1,0 +1,6 @@
+{
+  "connection": {
+    "url": "amqp://ck_sales:ck_sales@198.211.101.215"
+  },
+  "logLevel": "warn"
+}

@@ -2,16 +2,15 @@
   "name": "sale",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "rabbit/util.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.5.2",
     "axios": "^0.18.0",
-    "axios-debug-log": "^0.4.0",
-    "bluebird": "^3.5.2",
     "web3": "^1.0.0-beta.36"
   }
 }
