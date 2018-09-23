@@ -32,7 +32,7 @@ count(*) as `api_issue`
 from kitties
 where gen = -1 AND id > ( (select max(id) from kitties) - 1000 )');
 
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $results = $statement->fetch(PDO::FETCH_ASSOC);
 
         return $response->withJson($results);
     }
